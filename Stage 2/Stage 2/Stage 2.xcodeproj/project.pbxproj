@@ -6,24 +6,43 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		1A1325C21A8422E1002C8AE4 /* font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = font.c; sourceTree = "<group>"; };
+		1A1325C31A8422E1002C8AE4 /* font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = font.h; sourceTree = "<group>"; };
+		1A1325C41A8422E1002C8AE4 /* MAKEFILE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MAKEFILE; sourceTree = "<group>"; };
+		1A1325C51A8422E1002C8AE4 /* RAST_ASM.S */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = RAST_ASM.S; sourceTree = "<group>"; };
+		1A1325C61A8422E1002C8AE4 /* RASTER.C */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RASTER.C; sourceTree = "<group>"; };
+		1A1325C71A8422E1002C8AE4 /* RASTER.H */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RASTER.H; sourceTree = "<group>"; };
+		1A1325C81A8422E1002C8AE4 /* TST_RAST.C */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TST_RAST.C; sourceTree = "<group>"; };
+		1A1325C91A8422E1002C8AE4 /* TYPES.H */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TYPES.H; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
-		1A1325721A84183E002C8AE4 = {
+		1A1325B71A842265002C8AE4 = {
 			isa = PBXGroup;
 			children = (
+				1A1325C21A8422E1002C8AE4 /* font.c */,
+				1A1325C31A8422E1002C8AE4 /* font.h */,
+				1A1325C41A8422E1002C8AE4 /* MAKEFILE */,
+				1A1325C51A8422E1002C8AE4 /* RAST_ASM.S */,
+				1A1325C61A8422E1002C8AE4 /* RASTER.C */,
+				1A1325C71A8422E1002C8AE4 /* RASTER.H */,
+				1A1325C81A8422E1002C8AE4 /* TST_RAST.C */,
+				1A1325C91A8422E1002C8AE4 /* TYPES.H */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		1A1325771A84183E002C8AE4 /* Stage 2 */ = {
+		1A1325BC1A842265002C8AE4 /* Stage 2 */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = 1A13257A1A84183E002C8AE4 /* Build configuration list for PBXLegacyTarget "Stage 2" */;
+			buildConfigurationList = 1A1325BF1A842265002C8AE4 /* Build configuration list for PBXLegacyTarget "Stage 2" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "/Users/James/Documents/COMP-2659/Stage 2/Stage 2";
+			buildWorkingDirectory = "/Users/James/Documents/COMP-2659/Stage 2";
 			dependencies = (
 			);
 			name = "Stage 2";
@@ -33,35 +52,35 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		1A1325731A84183E002C8AE4 /* Project object */ = {
+		1A1325B81A842265002C8AE4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "James MacIsaac";
 				TargetAttributes = {
-					1A1325771A84183E002C8AE4 = {
+					1A1325BC1A842265002C8AE4 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
 			};
-			buildConfigurationList = 1A1325761A84183E002C8AE4 /* Build configuration list for PBXProject "Stage 2" */;
+			buildConfigurationList = 1A1325BB1A842265002C8AE4 /* Build configuration list for PBXProject "Stage 2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 1A1325721A84183E002C8AE4;
+			mainGroup = 1A1325B71A842265002C8AE4;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1A1325771A84183E002C8AE4 /* Stage 2 */,
+				1A1325BC1A842265002C8AE4 /* Stage 2 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		1A1325781A84183E002C8AE4 /* Debug */ = {
+		1A1325BD1A842265002C8AE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -101,7 +120,7 @@
 			};
 			name = Debug;
 		};
-		1A1325791A84183E002C8AE4 /* Release */ = {
+		1A1325BE1A842265002C8AE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -135,7 +154,7 @@
 			};
 			name = Release;
 		};
-		1A13257B1A84183E002C8AE4 /* Debug */ = {
+		1A1325C01A842265002C8AE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUGGING_SYMBOLS = YES;
@@ -147,7 +166,7 @@
 			};
 			name = Debug;
 		};
-		1A13257C1A84183E002C8AE4 /* Release */ = {
+		1A1325C11A842265002C8AE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				OTHER_CFLAGS = "";
@@ -159,24 +178,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1A1325761A84183E002C8AE4 /* Build configuration list for PBXProject "Stage 2" */ = {
+		1A1325BB1A842265002C8AE4 /* Build configuration list for PBXProject "Stage 2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1A1325781A84183E002C8AE4 /* Debug */,
-				1A1325791A84183E002C8AE4 /* Release */,
+				1A1325BD1A842265002C8AE4 /* Debug */,
+				1A1325BE1A842265002C8AE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1A13257A1A84183E002C8AE4 /* Build configuration list for PBXLegacyTarget "Stage 2" */ = {
+		1A1325BF1A842265002C8AE4 /* Build configuration list for PBXLegacyTarget "Stage 2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1A13257B1A84183E002C8AE4 /* Debug */,
-				1A13257C1A84183E002C8AE4 /* Release */,
+				1A1325C01A842265002C8AE4 /* Debug */,
+				1A1325C11A842265002C8AE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1A1325731A84183E002C8AE4 /* Project object */;
+	rootObject = 1A1325B81A842265002C8AE4 /* Project object */;
 }
