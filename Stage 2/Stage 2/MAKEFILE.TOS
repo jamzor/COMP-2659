@@ -1,0 +1,99 @@
+PATH := ${PATH}:/opt/vbcc/bin
+VBCC := /opt/vbcc
+CC = /opt/vbcc/bin/vc
+ASM = /opt/vbcc/bin/vasm
+ASMFLAGS = -m68000 -Felf -D -L2
+
+LD = /opt/vbcc/bin/vlink
+
+CFLAGS = +tos -g -vv
+CDFLAGS = +tos -c -vv
+
+RM = rm
+LFLAGS =
+#The above directory name depends where your header file is residing
+
+TARGET = tst_rast.tos
+
+OBJS = tst_rast.o raster.o rast_asm.o
+
+all:$(TARGET)
+
+$(TARGET): $(OBJS)
+$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+
+
+raster.o: raster.c raster.h
+$(CC) $(CDFLAGS) $(LFLAGS) raster.c
+
+tst_rast.o: tst_rast.c raster.h
+$(CC) $(CDFLAGS) $(LFLAGS) tst_rast.c
+
+rast_asm.o: rast_asm.s
+$(ASM) $(ASMFLAGS) $< -o rast_asm.s
+
+
+clean:
+$(RM) *.o *.tos
+
+
+
+#************************
+#stuff the compiler wants added
+#PATH := ${PATH}:/opt/vbcc/bin
+#VBCC := /opt/vbc
+
+
+#************************
+#original skeleton makefile
+
+#tst_rast: tst_rast.o raster.o rast_asm.o
+#cc68x -g tst_rast.o raster.o rast_asm.o -o tst_rast
+
+#tst_rast.o: tst_rast.c raster.h
+#cc68x -g -c tst_rast.c
+
+#raster.o: raster.c raster.h
+#cc68x -g -c raster.c
+
+#rast_asm.o: rast_asm.s
+#gen -D -L2 rast_asm.s
+
+
+#************************
+#original test proj makefile
+
+#CC = /opt/vbcc/bin/vc
+#ASM = /opt/vbcc/bin/vasm
+#LD = /opt/vbcc/bin/vlink
+#CFLAGS	= -cpu=-cpu=68030 -fpu=68882 -O1
+#ASMFLAGS = -m68060 -Felf -noesc -nosym -quiet -no-opt
+#LDFLAGS = -bataritos -tos-flags 7
+#LOADLIBES =
+#LDLIBS =
+
+#PRG = prog.tos
+#OBJ = prog.o
+
+#.PHONY:	main.s	# always rebuild target
+
+#all : $(PRG)
+
+#install : $(all)
+#mcopy -o fullmain.tos e:fullmain.tos
+#sync
+
+
+
+#$(PRG):	$(OBJ)
+#$(LD) $< $(LDFLAGS) -o $@
+#.c.o:
+#$(CC) -c $(CFLAGS) $<
+#.s.o:
+#$(ASM) $(ASMFLAGS) $< -o $@
+
+#fullmain.o:	$(SRC)
+
+#clean:
+#rm -f $(PRG) $(OBJ)
+

@@ -42,7 +42,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "/Users/James/Documents/COMP-2659/Stage 2";
+			buildWorkingDirectory = "/Users/James/Documents/COMP-2659/Stage 2/Stage 2";
 			dependencies = (
 			);
 			name = "Stage 2";
@@ -194,6 +194,7 @@
 				1A1325C11A842265002C8AE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
