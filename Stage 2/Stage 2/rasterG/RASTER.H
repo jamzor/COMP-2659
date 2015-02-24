@@ -2,16 +2,24 @@
 #define RASTER_H
 
 #include "types.h"
+#include "font.h"
 
 void plot_pixel(char *base, int x, int y);
-void plot_vert_line(char *base, int x, int yFirst, int ySecond);
-/*void plot_horizontal_line();
-//void plot_line(); // generic
-//void plot_shape(UINT16 *base, int x, int y, const UINT16 *shape, unsigned int height); // triangle, rectangle, circle...
-//void plot_bitmap(UINT16 *base, int x, int y, const UINT16 *bitmap, unsigned int height);
-//				 width of FB,  FB x,  FB y,  data to be displayed, height of FB*/
+void plot_vertical_line(char *base, int x, int yFirst, int ySecond);
+void plot_horizontal_line(char *base, int xFirst, int xSecond, int y);
+
+void plot_tetris_display(char *base);
+
+/* play area grid */
+void plot_cell_grid(char *base); 
+
+/* block plotting method */
+void plot_block_shape(char *base, int uLX, int uLY, int shape); /*  shape = 1-19 - encompasses all possible shapes and orientations*/
+void fill_cell(char *base, int cellX, int cellY);
+
+void plot_bitmap(char *base, int x, int y, const UINT8 *bitmap);
+
 void fill_screen(char *base);
-void clear_screen(char *base);
-/*void clear_region(); */
+void clear_screen(char *base); 
 
 #endif
