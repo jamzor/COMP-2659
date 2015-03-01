@@ -333,19 +333,4 @@ void fill_screen(char *base)
 	}
 }
 
-void clear_screen(char *base)
-{
-	int hei = 0;
-	int wid = 0;
-
-	while (hei < SCREEN_HEIGHT){
-		while (wid < SCREEN_WIDTH){
-			*(base + hei * 80 + (wid >> 3)) = 0;
-			wid++;
-		}
-		wid = 0;
-		hei++;
-	}
-}
-
 /* stubbed method bodies go here */
