@@ -167,7 +167,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		x++;
 		fill_cell(base, x, y);
 		break;
-	case 4: 
+	case 4: /*left zigzag block wide */
 		fill_cell(base, x, y);
 		x++;
 		fill_cell(base, x, y);
@@ -176,7 +176,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		x++;
 		fill_cell(base, x, y);
 		break;
-	case 5:
+	case 5: /*left zigzag block tall*/
 		fill_cell(base, x, y);
 		y++;
 		fill_cell(base, x, y);
@@ -185,7 +185,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		y++;
 		fill_cell(base, x, y);
 		break;
-	case 6:
+	case 6: /*right zigzag block wide*/
 		fill_cell(base, x, y);
 		y++;
 		fill_cell(base, x, y);
@@ -194,7 +194,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		y++;
 		fill_cell(base, x, y);
 		break;
-	case 7:
+	case 7: /* right zigzag block tall*/
 		fill_cell(base, x, y);
 		x++;
 		fill_cell(base, x, y);
@@ -203,16 +203,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		x++;
 		fill_cell(base, x, y);
 		break;
-	case 8:
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		break;
-	case 9:
+	case 8: /* right corner block bottom*/
 		fill_cell(base, x, y);
 		y++;
 		fill_cell(base, x, y);
@@ -221,7 +212,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		x++;
 		fill_cell(base, x, y);
 		break;
-	case 10:
+	case 9: /* right corner block left*/
 		fill_cell(base, x, y);
 		x--;
 		fill_cell(base, x, y);
@@ -230,7 +221,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		y++;
 		fill_cell(base, x, y);
 		break;
-	case 11:
+	case 10: /* right corner block top*/
 		fill_cell(base, x, y);
 		y--;
 		fill_cell(base, x, y);
@@ -239,7 +230,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		x--;
 		fill_cell(base, x, y);
 		break;
-	case 12:
+	case 11: /* right corner block right*/
 		fill_cell(base, x, y);
 		x++;
 		fill_cell(base, x, y);
@@ -249,7 +240,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		y--;
 		fill_cell(base, x, y);
 		break;
-	case 13:
+	case 12: /* left corner block bottom*/
 		fill_cell(base, x, y);
 		y--;
 		fill_cell(base, x, y);
@@ -259,7 +250,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		x--;
 		fill_cell(base, x, y);
 		break;
-	case 14:
+	case 13: /* left corner block left*/
 		fill_cell(base, x, y);
 		x--;
 		fill_cell(base, x, y);
@@ -269,7 +260,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		y++;
 		fill_cell(base, x, y);
 		break;
-	case 15:
+	case 14: /* left corner block top*/
 		fill_cell(base, x, y);
 		y++;
 		fill_cell(base, x, y);
@@ -277,19 +268,19 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		fill_cell(base, x, y);
 		y--;
 		x++;
+		fill_cell(base, x, y);
+		break;
+	case 15: /* left corner block right*/
+		fill_cell(base, x, y);
+		y++;
+		fill_cell(base, x, y);
+		y++;
+		fill_cell(base, x, y);
+		x--;
 		fill_cell(base, x, y);
 		break;
 	case 16:
 		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		break;
-	case 17:
-		fill_cell(base, x, y);
 		x--;
 		fill_cell(base, x, y);
 		x--;
@@ -297,7 +288,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		y--;
 		fill_cell(base, x, y);
 		break;
-	case 18:
+	case 17:
 		fill_cell(base, x, y);
 		y--;
 		fill_cell(base, x, y);
@@ -306,7 +297,7 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 		x++;
 		fill_cell(base, x, y);
 		break;
-	case 19:
+	case 18:
 		fill_cell(base, x, y);
 		x++;
 		fill_cell(base, x, y);
