@@ -318,19 +318,5 @@ void plot_block_shape(char *base, int uLX, int uLY, int shape)
 
 }
 
-void fill_screen(char *base)
-{
-	int hei = 0;
-	int wid = 0;
 
-	while (hei < SCREEN_HEIGHT){
-		while (wid < SCREEN_WIDTH){
-			*(base + hei * 80 + (wid >> 3)) |= 1 << 7 - (wid & 7);
-			wid++;
-		}
-		wid = 0;
-		hei++;
-	}
-}
 
-/* stubbed method bodies go here */
