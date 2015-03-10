@@ -14,10 +14,10 @@ void plot_tetris_display(char *base);
 void plot_cell_grid(char *base); 
 
 /* block plotting method */
-void plot_block_shape(char *base, int uLX, int uLY, int shape); /*  shape = 1-19 - encompasses all possible shapes and orientations*/
-void fill_cell(char *base, int cellX, int cellY);
+void fill_cell(int *base, int cellX, int cellY);
+void clear_cell(int *base, int cellX, int cellY);
 
-void plot_bitmap(char *base, int x, int y, const UINT8 *bitmap);
+void plotChar(UINT8 *base, int x, int y, char c);
 
 void fill_screen(char *base);
 void clear_screen(char *base); 

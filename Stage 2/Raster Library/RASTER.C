@@ -1,7 +1,11 @@
 #include "raster.h"
+#include "font.h"
+#include "types.h"
 
 #define SCREEN_WIDTH	640
 #define SCREEN_HEIGHT	400
+#define GRID_START_X	48
+#define GRID_START_Y    40
 
 void plot_pixel(char *base, int x, int y)
 {
@@ -38,27 +42,20 @@ void plot_vertical_line(char *base, int x, int yFirst, int ySecond)
 
 void plot_horizontal_line(char *base, int xFirst, int xSecond, int y)
 {
-	int xVal1 = xFirst;
-	int xVal2 = xSecond;
-	int yVal = y;
-
-	if (xVal1 > xVal2){
-		while (!(xVal1 == xVal2)){
-			plot_pixel(base, xVal1, yVal);
-			xVal1 = xVal1 - 1;
-		}
-		plot_pixel(base, xVal1, yVal);
+	int counter;
+	char* tempBase = base;
+	
+	tempBase += (80*y);									/* 80 bytes per line */
+	tempBase += (xFirst >> 3);  						/* divide by 8 */
+	*tempBase = ((0xFF >> (xFirst & 7)));  				/* mod by 8 */
+	tempBase += 1; 										/* Does left side of horizontal line */
+	for (counter = 0; counter < (((xSecond - xFirst)/8)); counter ++)
+	{
+		*tempBase = 0xFF;
+		tempBase += 1;
 	}
-	else if (xVal1 < xVal2){
-		while (!(xVal1 == xVal2)){
-			plot_pixel(base, xVal1, yVal);
-			xVal1 = xVal1 + 1;
-		}
-		plot_pixel(base, xVal1, yVal);
-	}
-	else{	/* yFirst == ySecond */
-		plot_pixel(base, xVal1, yVal);
-	}
+	*tempBase = ((0xFF << (7 - (xSecond & 7))));  			/* mod by 8 */
+															/* Does right side of horizontal line */
 }
 
 void plot_tetris_display(char *base)
@@ -67,247 +64,95 @@ void plot_tetris_display(char *base)
 	plot_vertical_line(base, 402, 40, 54);
 	plot_vertical_line(base, 456, 40, 54);
 	plot_horizontal_line(base, 402, 456, 54);
-
 }
 
-void plot_cell_grid(char *base)
+void plot_cell_grid(char *base) /* 10w x 18h */
 {
-	/* grid x size offset values*/
-	int xStart = 39;
-	int xEnd = 221;
+	int startX = GRID_START_X;
+	int startY = GRID_START_Y;
+	int endX = startX + (10 * 16); /* grid width  * num grids */
+	int endY = startY + (18 * 16); /* grid height * num grids */
+	
+	plot_horizontal_line(base, startX-2, endX+1, startY-3);
+	plot_horizontal_line(base, startX-2, endX+1, startY-2);
+	
+	plot_horizontal_line(base, startX-2, endX+1, endY);
+	plot_horizontal_line(base, startX-2, endX+1, endY+1);
+	
+	plot_vertical_line(base, startX-2, startY-3, endY);
+	plot_vertical_line(base, startX-1, startY-3, endY);
+	
+	plot_vertical_line(base, endX+2, startY-3, endY+1);
+	plot_vertical_line(base, endX+1, startY-3, endY+1);
+}
 
-	int workY = 38;
-	int workYTemp;
-	int workX = 39;
-
-	int j;
+void fill_cell(int *base, int cellX, int cellY)
+{
+	int* tempBase = base;
+	int startX = GRID_START_X + (cellX * 16);
+	int startY = GRID_START_Y + (cellY * 16);
 	int i;
-
-	/* grid y size offset values*/
-	int yStart = 36;
-	int yEnd = 363;
-
-	/* plot first two grid lines*/
-	plot_horizontal_line(base, 39, 220, 36);
-	plot_horizontal_line(base, 39, 220, 37);
-
-	for (j = 0; j < 18; j++){
-		workYTemp = workY + 16;
-		plot_vertical_line(base, workX, workY, workYTemp);
-		workX++;
-		plot_vertical_line(base, workX, workY, workYTemp);
-		workX++;
-		for (i = 0; i < 10; i++){
-			workX = workX + 16;
-			plot_vertical_line(base, workX, workY, workYTemp);
-			workX++;
-			plot_vertical_line(base, workX, workY, workYTemp);
-			workX++;
-		}
-		workX = 39;
-		workY = workY + 16;
-		plot_horizontal_line(base, workX, 220, workY);
-		workY++;
-		plot_horizontal_line(base, workX, 220, workY);
-		workY++;
+	
+	tempBase += (40*startY);
+	tempBase += (startX >> 4); 
+	
+	for (i = 0; i < 15; i++)
+	{
+		*tempBase = 0x7FFF;
+		tempBase += 40;
 	}
 }
 
-void fill_cell(char *base, int cellX, int cellY)
+void clear_cell(int *base, int cellX, int cellY)
 {
-	/*	x values -> 0-9
-		y values -> 0-17*/
-	int basicX = 41;
-	int basicY = 38;
-
-	int resultingX = basicX + 18 * cellX;
-	int resultingY = basicY + 18 * cellY;
-
-	int rightSide = resultingX + 15;
+	int* tempBase = base;
+	int startX = GRID_START_X + (cellX * 16);
+	int startY = GRID_START_Y + (cellY * 16);
 	int i;
-
-	for (i = 0; i < 18; i++)
+	
+	tempBase += (40*startY);
+	tempBase += (startX >> 4); 
+	
+	for (i = 0; i < 15; i++)
 	{
-		plot_horizontal_line(base, resultingX, rightSide, resultingY);
-		resultingY++;
+		*tempBase = 0x0000;
+		tempBase += 40;
 	}
 }
 
-void plot_block_shape(char *base, int uLX, int uLY, int shape)
+
+/* void plotChar(UINT8 *base, int x, int y, char c)
 {
-	int x = uLX;
-	int y = uLY;
-	switch (shape)
+	int counter;
+	int index;
+	UINT8* tempBase = base;
+    UINT8* ptr;
+	tempBase += (80*y);		 
+	tempBase += (x >> 3); 	
+	index = GLYPH_START(c);
+	*ptr = font + (index);
+	for(counter = 0; counter < FONT_HEIGHT; counter++)
 	{
-	case 1: /*square block*/
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		y++;
-		x--;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		break;
-	case 2: /*tall straight block*/
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		break;
-	case 3: /*wide straight block*/
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		break;
-	case 4: /*left zigzag block wide */
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		break;
-	case 5: /*left zigzag block tall*/
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		break;
-	case 6: /*right zigzag block wide*/
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		break;
-	case 7: /* right zigzag block tall*/
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		break;
-	case 8: /* right corner block bottom*/
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		break;
-	case 9: /* right corner block left*/
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		break;
-	case 10: /* right corner block top*/
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		break;
-	case 11: /* right corner block right*/
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		x--;
-		y--;
-		fill_cell(base, x, y);
-		break;
-	case 12: /* left corner block bottom*/
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		y++;
-		x--;
-		fill_cell(base, x, y);
-		break;
-	case 13: /* left corner block left*/
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		x++;
-		y++;
-		fill_cell(base, x, y);
-		break;
-	case 14: /* left corner block top*/
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		y--;
-		x++;
-		fill_cell(base, x, y);
-		break;
-	case 15: /* left corner block right*/
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		break;
-	case 16:
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		x--;
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		break;
-	case 17:
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		y--;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		break;
-	case 18:
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		x++;
-		fill_cell(base, x, y);
-		y++;
-		fill_cell(base, x, y);
+		*tempBase = (*(ptr+counter) << (7 - (x+7 & 7)));	
+		tempBase += 80;
 	}
+} 
+ */
+/*  void plotChar(UINT8 *base, int x, int y)
+{
+	int counter;
+	UINT8* tempBase = base;
+    UINT8* ptr = shipMap[2];
+	tempBase += (80*y);		
+	tempBase += (x >> 3); 
 
-}
-
-
-
+	
+	for(counter = 0; counter < mapHeight; counter++)
+	{
+		*tempBase = (*(ptr+counter) >> (x & 7));  			
+		tempBase += 1;					 				
+		*tempBase = (*(ptr+counter) << (7 - (x+7 & 7)));	
+		tempBase += 79;
+	}
+}  */
+/* stubbed method bodies go here */
