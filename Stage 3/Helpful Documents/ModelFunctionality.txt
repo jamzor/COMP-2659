@@ -1,0 +1,44 @@
+				Model Functionality
+				
+	-	This is a simple file to make a running list of the model's functionality.
+	-	This list can be added to and removed from based on changes to the design.
+	- 	This will keep an ongoing list of what is done, and what needs to be done.
+	
+Functional Components:												
+	
+	Component:													Status:
+	
+		Cell:
+		-	a Single cell in the Grid							->
+		-	works as a boolean value:							->
+			-	0 means the Cell is empty						
+			-	1 means the Cell is full
+			
+		Grid:
+		-	2D array of cells. 									->
+		- 	Is the source or boundary and proximity checking 	->
+			for shape movement.		
+		-	Is queried in order to determine if points should	-> 
+			be awarded and cells should be removed.
+		
+		Shape:
+		-	current shape being controlled/moved				->
+		-	represented as a simple 4x4 2d array of 0s and 1s	->
+		-	holds a top right x and y value to tell where the 	->
+			2d array of bits has been drawn on the grid. 
+			(values can be negative and can exceed the grid 
+			constraints).
+	
+		Time:	
+		-	a double value (may change to a time specific		->
+			type) to hold the elapsed game time	
+		-	gets synchronously updated every second				->
+		
+		Score:
+		-	keeps track of the player's score					->
+		-	updates after checking the grid for complete rows.	->
+		-	an addition / multiplier method to compound the 	->
+			points and add to the running total
+			
+	
+		

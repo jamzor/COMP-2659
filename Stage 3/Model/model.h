@@ -8,6 +8,8 @@ struct Cell  		/* holds information about a single position in the tetris grid *
 
 struct Shape		/* 2d representation of a shape piece */
 { 
+	int topRightX;		/* Remember that these values can be negative*/
+	int topRightY;
 	int shapeArray[4][4];
 };
 
@@ -51,4 +53,5 @@ struct Model
 
 int lowerShape(struct Shape s);
 void makeBlock (int blockNum);
+int canLowerShape(struct shapeToLower);
 int canLowerCell(int y);
