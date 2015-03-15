@@ -19,4 +19,4 @@ model.o: model.c model.h
 	cc68x -g -c model.c
 
 clean: 
-	$(RM) *.o tst_rast
+	$(RM) *.o *.i tst_rast

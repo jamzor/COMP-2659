@@ -10,7 +10,7 @@
 */
 struct Shape shape;
 
-const char blockR1[4][4] =
+const char BlockR1[4][4] =
 {
 	1, 1, 0, 0,
 	1, 1, 0, 0,
@@ -130,7 +130,7 @@ const char CornerLeftR4[4][4] =
 	0, 0, 0, 0
 };
 
-const char TblockR1[4][4] =
+const char TBlockR1[4][4] =
 {
 	0, 1, 0, 0,
 	1, 1, 1, 0,
@@ -138,7 +138,7 @@ const char TblockR1[4][4] =
 	0, 0, 0, 0
 };
 
-const char TblockR2[4][4] =
+const char TBlockR2[4][4] =
 {
 	0, 1, 0, 0,
 	0, 1, 1, 0,
@@ -146,7 +146,7 @@ const char TblockR2[4][4] =
 	0, 0, 0, 0
 };
 
-const char TblockR3[4][4] =
+const char TBlockR3[4][4] =
 {
 	0, 0, 0, 0,
 	1, 1, 1, 0,
@@ -154,7 +154,7 @@ const char TblockR3[4][4] =
 	0, 0, 0, 0
 };
 
-const char TblockR4[4][4] =
+const char TBlockR4[4][4] =
 {
 	0, 1, 0, 0,
 	1, 1, 0, 0,
@@ -177,6 +177,26 @@ ball->y += ball->delta_y;
 	return collision;
 } */
 
+
+int canLowerShape()/*need to figure out how to pass the struct*/
+{
+	/*run following loop for all 16 indices*/ /*dont forget to travers the map from bottom to top!!!!!!*/
+	/*if index in shapeMap is 1*/
+		/*if cell below is already full*/
+			/*cell cannot move*/
+		/*else*/
+			/*cell can move*/
+	
+	/*if any cells cant move*/
+		/*cant lower shape*/
+	/*else*/
+		/*can lower shape*/
+
+	return 0;
+		
+	/* implement the individual cell checking and  then move the shape if it can be done*/
+}
+
 int canLowerCell(int y) /* method is a helper for lowerShape - tells us if a specific cell can move down one cell and still be in bounds */
 {
 	int yTemp = y;
@@ -195,23 +215,300 @@ int canLowerCell(int y) /* method is a helper for lowerShape - tells us if a spe
 6 = T-Block
 */
 
-void makeBlock (int blockNum)
+
+/*might want to move this method to the renderer*/
+void makeBlock (int blockNum, int startX, int startY)
 {
+	int x = startX;
+	int y = startY;
+	int i = 0;
+	int j = 0;
 	switch (blockNum)
 	{
-		case 0:
+		case 0:	/*BlockR1*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (BlockR1[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;		
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
 			break;
-		case 1:
+		case 1: /*ZigZagRightR1*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (ZigZagRightR1[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
 			break;	
-		case 2:
+		case 2: /*ZigZagRightR2*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (ZigZagRightR2[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
 			break;	
-		case 3:
+		case 3: /*ZigZagLeftR1*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (ZigZagLeftR1[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
 			break;
-		case 4:
+		case 4: /*ZigZagLeftR2*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (ZigZagLeftR2[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
 			break;
-		case 5:
+		case 5: /*StraightR1*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (StraightR1[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
 			break;
-		case 6:
+		case 6: /*StraightR2*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (StraightR2[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 7: /*CornerRightR1*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (CornerRightR1[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 8: /*CornerRightR2*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (CornerRightR2[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 9: /*CornerRightR3*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (CornerRightR3[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 10: /*CornerRightR4*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (CornerRightR4[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 11: /*CornerLeftR1*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (CornerLeftR1[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 12: /*CornerLeftR2*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (CornerLeftR2[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 13: /*CornerLeftR3*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (CornerLeftR3[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 14: /*CornerLeftR4*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (CornerLeftR4[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 15: /*TBlockR1*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (TBlockR1[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 16: /*TBlockR2*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (TBlockR2[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 17: /*TBlockR3*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (TBlockR3[j][i] == 1)
+					{
+						Grid.cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
+			break;
+		case 18: /*TBlockR4*/
+			for (i = 0; i < 4, i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					if (TBlockR4[j][i] == 1)
+					{
+						cells[x + j][y + i].isFull = 1;
+					}
+					x++;
+				}
+				y++;
+				x = startX;
+			}
 			break;
 	}
 }

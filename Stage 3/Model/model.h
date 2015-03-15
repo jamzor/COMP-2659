@@ -52,6 +52,6 @@ struct Model
 } */
 
 int lowerShape(struct Shape s);
-void makeBlock (int blockNum);
-int canLowerShape(struct shapeToLower);
+void makeBlock(int blockNum, int startX, int startY);
+int canLowerShape(); /*needs to pass a struct*/
 int canLowerCell(int y);
