@@ -44,9 +44,9 @@ const char ZigZagLeftR1[4][4] =
  
 const char ZigZagLeftR2[4][4] =
 {
+	0, 1, 0, 0,
 	1, 1, 0, 0,
-	0, 1, 1, 0,
-	0, 0, 0, 0,
+	1, 0, 0, 0,
 	0, 0, 0, 0
 };
  
