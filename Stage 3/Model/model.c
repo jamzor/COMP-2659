@@ -9,15 +9,22 @@
 6 = T-Block
 */
 struct Shape shape;
+struct Block block;
+struct Block zigZagLeft;
+struct Block zigZagRight;
+struct Block straight;
+struct Block cornerRight;
+struct Block cornerLeft;
+struct Block tBlock;
 
 const char BlockR1[4][4] =
 {
 	1, 1, 0, 0,
 	1, 1, 0, 0,
 	0, 0, 0, 0,
-	0, 0, 0, 0
+	0, 0, 0, 0  
 };
- 
+
 const char ZigZagRightR1[4][4] =
 {
 	0, 1, 1, 0,
@@ -44,9 +51,9 @@ const char ZigZagLeftR1[4][4] =
  
 const char ZigZagLeftR2[4][4] =
 {
-	0, 1, 0, 0,
 	1, 1, 0, 0,
-	1, 0, 0, 0,
+	0, 1, 1, 0,
+	0, 0, 0, 0,
 	0, 0, 0, 0
 };
  
@@ -130,7 +137,7 @@ const char CornerLeftR4[4][4] =
 	0, 0, 0, 0
 };
 
-const char TBlockR1[4][4] =
+const char TblockR1[4][4] =
 {
 	0, 1, 0, 0,
 	1, 1, 1, 0,
@@ -138,7 +145,7 @@ const char TBlockR1[4][4] =
 	0, 0, 0, 0
 };
 
-const char TBlockR2[4][4] =
+const char TblockR2[4][4] =
 {
 	0, 1, 0, 0,
 	0, 1, 1, 0,
@@ -146,7 +153,7 @@ const char TBlockR2[4][4] =
 	0, 0, 0, 0
 };
 
-const char TBlockR3[4][4] =
+const char TblockR3[4][4] =
 {
 	0, 0, 0, 0,
 	1, 1, 1, 0,
@@ -154,19 +161,18 @@ const char TBlockR3[4][4] =
 	0, 0, 0, 0
 };
 
-const char TBlockR4[4][4] =
+const char TblockR4[4][4] =
 {
 	0, 1, 0, 0,
 	1, 1, 0, 0,
 	0, 1, 0, 0,
 	0, 0, 0, 0
-};
-
+}; 
+ 
 /* void move_ball(struct Ball *ball)
 {
 ball->x += ball->delta_x;
 ball->y += ball->delta_y;
-
 }
 */
 
@@ -176,34 +182,16 @@ ball->y += ball->delta_y;
 
 	return collision;
 } */
+/* method is a helper for lowerShape - tells us if a specific cell can move down one cell and still be in bounds */
 
 
-int canLowerShape()/*need to figure out how to pass the struct*/
-{
-	/*run following loop for all 16 indices*/ /*dont forget to travers the map from bottom to top!!!!!!*/
-	/*if index in shapeMap is 1*/
-		/*if cell below is already full*/
-			/*cell cannot move*/
-		/*else*/
-			/*cell can move*/
-	
-	/*if any cells cant move*/
-		/*cant lower shape*/
-	/*else*/
-		/*can lower shape*/
-
-	return 0;
-		
-	/* implement the individual cell checking and  then move the shape if it can be done*/
-}
-
-int canLowerCell(int y) /* method is a helper for lowerShape - tells us if a specific cell can move down one cell and still be in bounds */
+/* int canLowerCell(int y) 
 {
 	int yTemp = y;
 	if (++yTemp == GRID_HEIGHT)
 		return 0;
 	return 1;
-}
+}  */
 
 /*
 0 = block
@@ -214,301 +202,73 @@ int canLowerCell(int y) /* method is a helper for lowerShape - tells us if a spe
 5 = Corner Left
 6 = T-Block
 */
-
-
-/*might want to move this method to the renderer*/
-void makeBlock (int blockNum, int startX, int startY)
+void makeBlock (int blockNum)
 {
-	int x = startX;
-	int y = startY;
-	int i = 0;
-	int j = 0;
 	switch (blockNum)
 	{
-		case 0:	/*BlockR1*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (BlockR1[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;		
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
+		case 0:
+			shape.currentShape = &zigZagLeft;
 			break;
-		case 1: /*ZigZagRightR1*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (ZigZagRightR1[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
+		case 1:
+			shape.currentShape = &zigZagLeft;
 			break;	
-		case 2: /*ZigZagRightR2*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (ZigZagRightR2[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
+		case 2:
+			shape.currentShape = &zigZagRight;
 			break;	
-		case 3: /*ZigZagLeftR1*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (ZigZagLeftR1[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
+		case 3:
+			shape.currentShape = &straight;
 			break;
-		case 4: /*ZigZagLeftR2*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (ZigZagLeftR2[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
+		case 4:
+			shape.currentShape = &cornerRight;
 			break;
-		case 5: /*StraightR1*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (StraightR1[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
+		case 5:
+			shape.currentShape = &cornerLeft;
 			break;
-		case 6: /*StraightR2*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (StraightR2[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 7: /*CornerRightR1*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (CornerRightR1[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 8: /*CornerRightR2*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (CornerRightR2[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 9: /*CornerRightR3*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (CornerRightR3[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 10: /*CornerRightR4*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (CornerRightR4[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 11: /*CornerLeftR1*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (CornerLeftR1[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 12: /*CornerLeftR2*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (CornerLeftR2[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 13: /*CornerLeftR3*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (CornerLeftR3[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 14: /*CornerLeftR4*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (CornerLeftR4[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 15: /*TBlockR1*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (TBlockR1[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 16: /*TBlockR2*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (TBlockR2[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 17: /*TBlockR3*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (TBlockR3[j][i] == 1)
-					{
-						Grid.cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
-			break;
-		case 18: /*TBlockR4*/
-			for (i = 0; i < 4, i++)
-			{
-				for (j = 0; j < 4; j++)
-				{
-					if (TBlockR4[j][i] == 1)
-					{
-						cells[x + j][y + i].isFull = 1;
-					}
-					x++;
-				}
-				y++;
-				x = startX;
-			}
+		case 6:
+			shape.currentShape = &tBlock;
 			break;
 	}
+}
+
+void initShapes ()
+{
+
+	
+	block.total_Patterns = 1;
+	zigZagLeft.total_Patterns = 2;
+	zigZagRight.total_Patterns = 2;
+	straight.total_Patterns = 2;
+	cornerRight.total_Patterns = 4;
+	cornerLeft.total_Patterns = 4;
+	tBlock.total_Patterns = 4;
+	
+	
+	block.all_Block[0] = (char *)(&BlockR1);
+    
+	zigZagLeft.all_Block[0] = (char *)(&ZigZagLeftR1);
+    zigZagLeft.all_Block[1] = (char *)(&ZigZagLeftR2);
+    
+    zigZagRight.all_Block[0] = (char *)(&ZigZagRightR1);
+    zigZagRight.all_Block[1] = (char *)(&ZigZagRightR2);
+    
+    straight.all_Block[0] = (char *)(&StraightR1);
+    straight.all_Block[1] = (char *)(&StraightR2);
+    
+    cornerRight.all_Block[0] = (char *)(&CornerRightR1);
+    cornerRight.all_Block[1] = (char *)(&CornerRightR2);
+    cornerRight.all_Block[2] = (char *)(&CornerRightR3);
+    cornerRight.all_Block[3] = (char *)(&CornerRightR4);
+    
+    cornerLeft.all_Block[0] = (char *)(&CornerLeftR1);
+    cornerLeft.all_Block[1] = (char *)(&CornerLeftR2);
+    cornerLeft.all_Block[2] = (char *)(&CornerLeftR3);
+    cornerLeft.all_Block[3] = (char *)(&CornerLeftR4);
+	
+	block.rotation = 0;
+	zigZagLeft.rotation = 0;
+	zigZagRight.rotation = 0;
+	straight.rotation = 0;
+	cornerRight.rotation = 0;
+	cornerLeft.rotation = 0;
+	tBlock.rotation = 0;
 }
