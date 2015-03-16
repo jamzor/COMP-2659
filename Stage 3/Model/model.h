@@ -1,14 +1,25 @@
 #define GRID_WIDTH 10
 #define GRID_HEIGHT 18
+#include "types.h"
+
+
+struct Block
+{
+	char *all_Block[4];
+	int total_Patterns;
+	int rotation;
+};
+
+
+struct Shape
+{
+	*long shape_ptr;
+	struct* Block currentShape;
+};
 
 struct Cell  		/* holds information about a single position in the tetris grid */
 {
 	int isFull; 	/* has the cell been filled by the placement of a block or the presence of the current block */
-};
-
-struct Shape		/* 2d representation of a shape piece */
-{ 
-	int shapeArray[4][4];
 };
 
 struct Score
@@ -30,10 +41,9 @@ struct Model
 {
 	struct Grid grid;
 	struct Score score;
-	struct Shape shape;
 	struct Time time;
+	struct Shape shape;
 };
-
 /*
 0 = block
 1 = Zig Zag Right
@@ -43,12 +53,6 @@ struct Model
 5 = Corner Right
 6 = T-Block
 */
-
-/* struct Block
-{
- int *all_Block= {
-} */
-
-int lowerShape(struct Shape s);
 void makeBlock (int blockNum);
 int canLowerCell(int y);
+void initShapes ();
