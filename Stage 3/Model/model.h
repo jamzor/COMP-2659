@@ -9,11 +9,11 @@ struct Block
 	int rotation;
 };
 
-struct Shape
+struct Shape /* x and y can be negatives */
 {
 	struct Block *currentShape;
-    int x;
-    int y;
+    signed int x; 
+    signed int y;
 }; 
 
 struct Cell  		/* holds information about a single position in the tetris grid */

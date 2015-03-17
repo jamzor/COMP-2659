@@ -59,153 +59,273 @@ _TblockR4:
 	dc.b	0,0,0,0
 	text
 	even
-_makeBlock:
+_dropShape:
 	link	a6,#0
-	move.l	a3,-(a7)
-	lea	_shape,a3
-	;line	207
-	move.w	8(a6),d0
-	sub.w	#0,d0
-	beq	L2
-	subq.w	#1,d0
-	beq	L3
-	subq.w	#1,d0
-	beq	L4
-	subq.w	#1,d0
-	beq	L5
-	subq.w	#1,d0
-	beq	L6
-	subq.w	#1,d0
-	beq	L7
-	subq.w	#1,d0
-	beq	L8
-	bra	L1
-L2:
-	;line	210
-	move.l	#_zigZagLeft,(a3)
-	;line	211
-	bra	L1
-L3:
-	;line	213
-	move.l	#_zigZagLeft,(a3)
-	;line	214
-	bra	L1
-L4:
-	;line	216
-	move.l	#_zigZagRight,(a3)
-	;line	217
-	bra	L1
-L5:
-	;line	219
-	move.l	#_straight,(a3)
-	;line	220
-	bra	L1
-L6:
-	;line	222
-	move.l	#_cornerRight,(a3)
-	;line	223
-	bra	L1
-L7:
-	;line	225
-	move.l	#_cornerLeft,(a3)
-	;line	226
-	bra	L1
-L8:
-	;line	228
-	move.l	#_tBlock,(a3)
-L1:
-	;line	229
-	move.l	(a7)+,a3
+	;line	175
+	addq.w	#1,370+_model
 	unlk	a6
 	rts
-_initShapes:
+_moveShapeRight:
 	link	a6,#0
-	movem.l	d3/d4/d5/d6/a3/a4/a5,-(a7)
+	;line	180
+	addq.w	#1,368+_model
+	unlk	a6
+	rts
+_moveShapeLeft:
+	link	a6,#0
+	;line	185
+	subq.w	#1,368+_model
+	unlk	a6
+	rts
+_rotateShape:
+	link	a6,#-4
+	move.l	d3,-(a7)
+	;line	193
+	move.l	364+_model,a0
+	move.w	18(a0),d3
+	;line	194
+	move.l	364+_model,a0
+	move.w	16(a0),-4(a6)
+	;line	196
+	addq.w	#1,d3
+	;line	197
+	move.w	d3,d0
+	ext.l	d0
+	divs	-4(a6),d0
+	swap	d0
+	move.w	d0,d3
+	;line	199
+	move.l	364+_model,a0
+	move.w	d3,18(a0)
+	move.l	(a7)+,d3
+	unlk	a6
+	rts
+_canLowerShape:
+	link	a6,#-14
+	movem.l	d3/d4/a3,-(a7)
+	lea	_model,a3
+	;line	212
+	move.w	368(a3),d4
+	move.w	370(a3),d0
+	addq.w	#3,d0
+	move.w	d0,d3
+	moveq	#3,d0
+	add.w	d4,d0
+	move.w	d0,-6(a6)
+	move.w	d3,d0
+	subq.w	#3,d0
+	move.w	d0,-8(a6)
+	move.l	364(a3),a0
+	move.w	18(a0),-10(a6)
+	move.w	-10(a6),d0
+	ext.l	d0
+	asl.l	#2,d0
+	move.l	d0,a0
+	move.l	364(a3),d0
+	add.l	d0,a0
+	move.l	(a0),-14(a6)
+	;line	212
+	bra	L2
+L1:
+	;line	214
+	bra	L6
+L5:
+L8:
+	;line	216
+	subq.w	#1,d3
+L6:
+	cmp.w	-8(a6),d3
+	bgt	L5
+L7:
+	;line	218
+	move.w	370(a3),d0
+	addq.w	#3,d0
+	move.w	d0,d3
+L4:
+	addq.w	#1,d4
+L2:
+	cmp.w	-6(a6),d4
+	blt	L1
+L3:
+	;line	234
+	moveq	#0,d0
+L9:
+	movem.l	(a7)+,d3/d4/a3
+	unlk	a6
+	rts
+_makeBlock:
+	link	a6,#0
+	movem.l	d3/a3,-(a7)
+	move.l	#364,d3
+	lea	_model,a3
+	;line	251
+	move.w	8(a6),d0
+	sub.w	#0,d0
+	beq	L11
+	subq.w	#1,d0
+	beq	L12
+	subq.w	#1,d0
+	beq	L13
+	subq.w	#1,d0
+	beq	L14
+	subq.w	#1,d0
+	beq	L15
+	subq.w	#1,d0
+	beq	L16
+	subq.w	#1,d0
+	beq	L17
+	bra	L10
+L11:
+	;line	254
+	move.l	#_zigZagLeft,0(a3,d3.l)
+	;line	255
+	bra	L10
+L12:
+	;line	257
+	move.l	#_zigZagLeft,0(a3,d3.l)
+	;line	258
+	bra	L10
+L13:
+	;line	260
+	move.l	#_zigZagRight,0(a3,d3.l)
+	;line	261
+	bra	L10
+L14:
+	;line	263
+	move.l	#_straight,0(a3,d3.l)
+	;line	264
+	bra	L10
+L15:
+	;line	266
+	move.l	#_cornerRight,0(a3,d3.l)
+	;line	267
+	bra	L10
+L16:
+	;line	269
+	move.l	#_cornerLeft,0(a3,d3.l)
+	;line	270
+	bra	L10
+L17:
+	;line	272
+	move.l	#_tBlock,0(a3,d3.l)
+L10:
+	;line	273
+	movem.l	(a7)+,d3/a3
+	unlk	a6
+	rts
+_inbounds:
+	link	a6,#0
+	;line	279
+	tst.w	8(a6)
+	blt	L18
+	cmp.w	#10,8(a6)
+	bge	L18
+	tst.w	10(a6)
+	blt	L18
+	cmp.w	#18,10(a6)
+	bgt	L18
+	;line	281
+	moveq	#1,d0
+	bra	L19
+L18:
+	;line	283
+	moveq	#0,d0
+L19:
+	unlk	a6
+	rts
+_init:
+	link	a6,#0
+	movem.l	d3/d4/d5/d6/d7/a3/a4/a5,-(a7)
 	moveq	#18,d3
 	moveq	#16,d4
-	lea	_cornerLeft,a3
-	lea	_cornerRight,a4
-	lea	_straight,a5
-	move.l	#_zigZagRight,d5
-	move.l	#_zigZagLeft,d6
-	;line	237
+	lea	_tBlock,a3
+	lea	_cornerLeft,a4
+	lea	_cornerRight,a5
+	move.l	#_straight,d5
+	move.l	#_zigZagRight,d6
+	move.l	#_zigZagLeft,d7
+	;line	288
 	move.l	d4,a0
 	add.l	#_block,a0
 	move.w	#1,(a0)
-	;line	238
+	;line	289
 	move.l	d4,a0
+	move.w	#2,0(a0,d7.l)
+	;line	290
 	move.w	#2,0(a0,d6.l)
-	;line	239
+	;line	291
 	move.w	#2,0(a0,d5.l)
-	;line	240
-	move.w	#2,0(a5,d4.l)
-	;line	241
+	;line	292
+	move.w	#4,0(a5,d4.l)
+	;line	293
 	move.w	#4,0(a4,d4.l)
-	;line	242
+	;line	294
 	move.w	#4,0(a3,d4.l)
-	;line	243
-	add.l	#_tBlock,a0
-	move.w	#4,(a0)
-	;line	246
+	;line	296
 	move.l	#_BlockR1,_block
-	;line	248
-	move.l	d6,a0
+	;line	298
+	move.l	d7,a0
 	move.l	#_ZigZagLeftR1,(a0)
-	;line	249
+	;line	299
 	move.l	#_ZigZagLeftR2,4(a0)
-	;line	251
-	move.l	d5,a0
+	;line	301
+	move.l	d6,a0
 	move.l	#_ZigZagRightR1,(a0)
-	;line	252
+	;line	302
 	move.l	#_ZigZagRightR2,4(a0)
-	;line	254
-	move.l	#_StraightR1,(a5)
-	;line	255
-	move.l	#_StraightR2,4(a5)
-	;line	257
-	move.l	#_CornerRightR1,(a4)
-	;line	258
-	move.l	#_CornerRightR2,4(a4)
-	;line	259
-	move.l	#_CornerRightR3,8(a4)
-	;line	260
-	move.l	#_CornerRightR4,12(a4)
-	;line	262
-	move.l	#_CornerLeftR1,(a3)
-	;line	263
-	move.l	#_CornerLeftR2,4(a3)
-	;line	264
-	move.l	#_CornerLeftR3,8(a3)
-	;line	265
-	move.l	#_CornerLeftR4,12(a3)
-	;line	267
+	;line	304
+	move.l	d5,a0
+	move.l	#_StraightR1,(a0)
+	;line	305
+	move.l	#_StraightR2,4(a0)
+	;line	307
+	move.l	#_CornerRightR1,(a5)
+	;line	308
+	move.l	#_CornerRightR2,4(a5)
+	;line	309
+	move.l	#_CornerRightR3,8(a5)
+	;line	310
+	move.l	#_CornerRightR4,12(a5)
+	;line	312
+	move.l	#_CornerLeftR1,(a4)
+	;line	313
+	move.l	#_CornerLeftR2,4(a4)
+	;line	314
+	move.l	#_CornerLeftR3,8(a4)
+	;line	315
+	move.l	#_CornerLeftR4,12(a4)
+	;line	317
+	move.l	#_TblockR1,(a3)
+	;line	318
+	move.l	#_TblockR2,4(a3)
+	;line	319
+	move.l	#_TblockR3,8(a3)
+	;line	320
+	move.l	#_TblockR4,12(a3)
+	;line	323
 	move.l	d3,a0
 	add.l	#_block,a0
 	clr.w	(a0)
-	;line	268
+	;line	324
 	move.l	d3,a0
+	clr.w	0(a0,d7.l)
+	;line	325
 	clr.w	0(a0,d6.l)
-	;line	269
+	;line	326
 	clr.w	0(a0,d5.l)
-	;line	270
+	;line	327
 	clr.w	0(a5,d3.l)
-	;line	271
+	;line	328
 	clr.w	0(a4,d3.l)
-	;line	272
+	;line	329
 	clr.w	0(a3,d3.l)
-	;line	273
-	add.l	#_tBlock,a0
-	clr.w	(a0)
-	movem.l	(a7)+,d3/d4/d5/d6/a3/a4/a5
+	movem.l	(a7)+,d3/d4/d5/d6/d7/a3/a4/a5
 	unlk	a6
 	rts
 	globl	_makeBlock
-	globl	_initShapes
+	globl	_canLowerShape
 	bss
 	even
-_shape:
-	ds.b	8
-	globl	_shape
 _block:
 	ds.b	20
 	globl	_block
@@ -227,6 +347,9 @@ _cornerLeft:
 _tBlock:
 	ds.b	20
 	globl	_tBlock
+_model:
+	ds.b	372
+	globl	_model
 	globl	_BlockR1
 	globl	_ZigZagRightR1
 	globl	_ZigZagRightR2
@@ -246,3 +369,9 @@ _tBlock:
 	globl	_TblockR2
 	globl	_TblockR3
 	globl	_TblockR4
+	globl	_dropShape
+	globl	_moveShapeRight
+	globl	_moveShapeLeft
+	globl	_rotateShape
+	globl	_inbounds
+	globl	_init

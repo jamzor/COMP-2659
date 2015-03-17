@@ -8,7 +8,6 @@
 5 = Corner Right
 6 = T-Block
 */
-struct Shape shape;
 struct Block block;
 struct Block zigZagLeft;
 struct Block zigZagRight;
@@ -16,6 +15,8 @@ struct Block straight;
 struct Block cornerRight;
 struct Block cornerLeft;
 struct Block tBlock;
+struct Model model;
+
 
 const char BlockR1[4][4] =
 {
@@ -169,29 +170,72 @@ const char TblockR4[4][4] =
 	0, 0, 0, 0
 }; 
  
-/* void move_ball(struct Ball *ball)
+void dropShape()
 {
-ball->x += ball->delta_x;
-ball->y += ball->delta_y;
+	model.shape.y += 1;
 }
-*/
 
-/* int lowerShape(struct Shape s)
-{ 
-	int collision = 0;
-
-	return collision;
-} */
-/* method is a helper for lowerShape - tells us if a specific cell can move down one cell and still be in bounds */
-
-
-/* int canLowerCell(int y) 
+void moveShapeRight()
 {
-	int yTemp = y;
-	if (++yTemp == GRID_HEIGHT)
-		return 0;
-	return 1;
-}  */
+	model.shape.x += 1;
+}
+
+void moveShapeLeft()
+{
+	model.shape.x -= 1;
+}
+
+void rotateShape()
+{
+	int tempRotation;
+	int tempTotalPatterns;
+	
+	tempRotation = model.shape.currentShape -> rotation;
+	tempTotalPatterns = model.shape.currentShape -> total_Patterns;
+	
+	tempRotation++;
+	tempRotation = tempRotation % tempTotalPatterns;
+	
+	model.shape.currentShape -> rotation = tempRotation;
+}
+
+
+int canLowerShape()  /* need to figure out how to pass the struct */
+{
+	signed int x = model.shape.x;
+	signed int y = model.shape.y + 3;
+	signed int xLimit = x + 3;
+	signed int yLimit = y - 3;
+	int curRotation = model.shape.currentShape -> rotation; 
+	char *currentShapeGrid = model.shape.currentShape -> all_Block[curRotation];
+	
+	for (; x < xLimit; x++)
+	{
+		for (; y > yLimit; y--)
+		{
+			y =y;
+		}
+		y = model.shape.y + 3;
+	}
+
+
+	/*run following loop for all 16 indices*/ /*dont forget to travers the map from bottom to top!!!!!!*/
+	/*if index in shapeMap is 1*/
+		/*if cell below is already full*/
+			/*cell cannot move*/
+		/*else*/
+			/*cell can move*/
+	
+	/*if any cells cant move*/
+		/*cant lower shape*/
+	/*else*/
+		/*can lower shape*/
+
+	return 0;
+		
+	/* implement the individual cell checking and  then move the shape if it can be done*/
+}
+
 
 /*
 0 = block
@@ -207,33 +251,40 @@ void makeBlock (int blockNum)
 	switch (blockNum)
 	{
 		case 0:
-			shape.currentShape = &zigZagLeft;
+			model.shape.currentShape = &zigZagLeft;
 			break;
 		case 1:
-			shape.currentShape = &zigZagLeft;
+			model.shape.currentShape = &zigZagLeft;
 			break;	
 		case 2:
-			shape.currentShape = &zigZagRight;
+			model.shape.currentShape = &zigZagRight;
 			break;	
 		case 3:
-			shape.currentShape = &straight;
+			model.shape.currentShape = &straight;
 			break;
 		case 4:
-			shape.currentShape = &cornerRight;
+			model.shape.currentShape = &cornerRight;
 			break;
 		case 5:
-			shape.currentShape = &cornerLeft;
+			model.shape.currentShape = &cornerLeft;
 			break;
 		case 6:
-			shape.currentShape = &tBlock;
+			model.shape.currentShape = &tBlock;
 			break;
 	}
 }
 
-void initShapes ()
+int inbounds(int x, int y)
 {
+	if ((x >= 0) && (x < GRID_WIDTH) && (y >= 0) && (y <= GRID_HEIGHT))
+	{
+		return 1;
+	}
+	return 0;
+}
 
-	
+void init ()
+{
 	block.total_Patterns = 1;
 	zigZagLeft.total_Patterns = 2;
 	zigZagRight.total_Patterns = 2;
@@ -241,7 +292,6 @@ void initShapes ()
 	cornerRight.total_Patterns = 4;
 	cornerLeft.total_Patterns = 4;
 	tBlock.total_Patterns = 4;
-	
 	
 	block.all_Block[0] = (char *)(&BlockR1);
     
@@ -263,6 +313,12 @@ void initShapes ()
     cornerLeft.all_Block[1] = (char *)(&CornerLeftR2);
     cornerLeft.all_Block[2] = (char *)(&CornerLeftR3);
     cornerLeft.all_Block[3] = (char *)(&CornerLeftR4);
+	
+	tBlock.all_Block[0] = (char *)(&TblockR1);
+	tBlock.all_Block[1] = (char *)(&TblockR2);
+	tBlock.all_Block[2] = (char *)(&TblockR3);
+	tBlock.all_Block[3] = (char *)(&TblockR4);
+	
 	
 	block.rotation = 0;
 	zigZagLeft.rotation = 0;
