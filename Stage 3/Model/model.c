@@ -263,6 +263,75 @@ int canLowerShape()  /* need to figure out how to pass the struct */
 											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
+int canMoveShapeRight()
+{
+	signed int gridX = model.shape.x + 3;
+	signed int gridY = model.shape.y + 3;
+	int shapeX = 3;	/*set to 3 so we start on the right side and move left*/
+	int shapeY = 3; /* set to 3 so we start at the bottom and move up*/
+	signed int xLimit = gridX - 3;
+	signed int yLimit = gridY - 3;
+	int curRotation = model.shape.currentShape->rotation;
+	char *currentShapeGrid = model.shape.currentShape->all_Block[curRotation];
+	int *tetrisGrid;
+	int row0, row1, row2, row3 = 1;
+	tetrisGrid = (int *)&(model.grid.cells);
+
+	printf("X = %d, ", gridX);
+	printf("\n");
+	printf("Y = %d, ", gridY);
+	printf("\n");
+
+	for (; shapeY >= yLimit; shapeY--)	/*updated the loop to go row by row, starting in the bottom right corner moving right to left*/
+	{
+		for (; shapeX >= xLimit; shapeX--)
+		{
+			
+			printf("%d,  GX%d - GY%d", *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);
+			printf("\n"); 
+
+			if (*(currentShapeGrid + (4 * shapeY) + shapeX) == 1) /* a 1 is in the grid at this position */
+			{
+				if ((gridX == GRID_WIDTH - 1) || *(tetrisGrid + (GRID_WIDTH * gridY) + (gridX + 1)) == 1) /* this needs to get changed to only allow the shape to remain on the grid
+																										   with respect to the right side border*/
+				{
+					switch (shapeY)
+					{
+					case 0:
+						row0 = 0;
+						break;
+					case 1:
+						row1 = 0;
+						break;
+					case 2:
+						row2 = 0;
+						break;
+					case 3:
+						row3 = 0;
+						break;
+					}
+				}
+				else
+				{
+					/* there was nothing right of the cell, no need to set the col value to 0 */
+				}
+				shapeX = xLimit; /* moves us to next col */
+			}
+			gridX--;
+		}
+		shapeX = gridX = model.shape.x + 3;
+		gridY--;
+	}
+
+	return (row0 + row1 + row2 + row3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0.
+										meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
+}
+
+int canMoveShapeLeft()
+{
+
+}
+
 
 /*
 0 = block

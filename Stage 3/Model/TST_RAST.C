@@ -6,7 +6,9 @@ int main()
 	void *base = Physbase(); /* frame buffer pointer */
 	int x;
 	int y;
-	
+	int result = 0;
+
+
 	clear_screen(base);
 	Cnecin();  
 	fill_screen(base);
@@ -22,6 +24,13 @@ int main()
 	init ();
 	makeBlock (0);
 	canLowerShape();
+
+	result = canMoveShapeRight();
+	printf("Result = %d", result); /* this is spitting something odd out, not sure why*/
+	printf("\n");
+
+	clear_screen(base);
+
 	Cnecin();  
 	plot_cell_grid(base);
 	Cnecin();  

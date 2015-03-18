@@ -52,6 +52,8 @@ struct Model
 
 int lowerShape(struct Shape s);
 void makeBlock(int blockNum);
-int canLowerShape(); /*needs to pass a struct*/
+int canLowerShape();
+int canMoveShapeRight();
+int canMoveShapeLeft();
 int canLowerCell(int y);
 void initShapes ();
