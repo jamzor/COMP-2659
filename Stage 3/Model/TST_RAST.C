@@ -1,6 +1,6 @@
 #include <osbind.h>
 #include "raster.h"
-
+#include "model.h"
 int main()
 {
 	void *base = Physbase(); /* frame buffer pointer */
@@ -19,7 +19,10 @@ int main()
 	Cnecin();  
 	clear_screen(base);
 	Cnecin();  
-
+	init ();
+	makeBlock (0);
+	canLowerShape();
+	Cnecin();  
 	plot_cell_grid(base);
 	Cnecin();  
 

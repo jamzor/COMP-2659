@@ -16,11 +16,6 @@ struct Shape /* x and y can be negatives */
     signed int y;
 }; 
 
-struct Cell  		/* holds information about a single position in the tetris grid */
-{
-	int isFull; 	/* has the cell been filled by the placement of a block or the presence of the current block */
-};
-
 struct Score
 {
 	int value;
@@ -28,7 +23,7 @@ struct Score
 
 struct Grid 	/* holds the array of grid cells containing the current state of the grid */
 {
-	struct Cell cells[GRID_WIDTH][GRID_HEIGHT];
+	int cells[GRID_WIDTH][GRID_HEIGHT];
 };
 
 struct Time

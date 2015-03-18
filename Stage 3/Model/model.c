@@ -202,38 +202,65 @@ void rotateShape()
 
 int canLowerShape()  /* need to figure out how to pass the struct */
 {
-	signed int x = model.shape.x;
-	signed int y = model.shape.y + 3;
-	signed int xLimit = x + 3;
-	signed int yLimit = y - 3;
-	int curRotation = model.shape.currentShape -> rotation; 
-	char *currentShapeGrid = model.shape.currentShape -> all_Block[curRotation];
+	signed int gridX = model.shape.x;
+	signed int gridY = model.shape.y + 3;
+	int shapeX = 0;
+	int shapeY = 3;
+	signed int xLimit = gridX + 3;
+	signed int yLimit = gridY - 3;
+ 	int curRotation = model.shape.currentShape -> rotation;
+	char *currentShapeGrid = model.shape.currentShape -> all_Block[curRotation]; 
+	int *tetrisGrid;
+	int col0,col1,col2,col3 = 1;
+	tetrisGrid = (int *) &(model.grid.cells);
+
+	printf("X = %d, ", gridX); 
+	printf("\n");
+	printf("Y = %d, ", gridY);
+	printf("\n");
 	
-	for (; x < xLimit; x++)
+	for (; shapeX <= xLimit; shapeX++)
 	{
-		for (; y > yLimit; y--)
+		for (; shapeY >= yLimit; shapeY--)
 		{
-			y =y;
+/* 		
+			printf("%d,  GX%d - GY%d", *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);
+			printf("\n"); */
+			
+			if (*(currentShapeGrid + (4*shapeX) + shapeY) == 1) /* will need bounds checking */
+			{
+				if ((gridY == GRID_HEIGHT-1) || *(tetrisGrid + (GRID_HEIGHT * gridX) + (gridY + 1)) == 1) /* will need bounds checking */
+				{
+					switch (shapeX)
+					{
+					case 0:
+						col0 = 0;
+						break;
+					case 1:
+						col1 = 0;
+						break;
+					case 2:
+						col2 = 0;
+						break;
+					case 3:
+						col3 = 0;
+						break;
+					}
+				}
+				else
+				{
+					/* there was nothing below for that cell, no need to set the col value to 0 */
+				}
+				shapeY = yLimit; /* moves us to next col */
+			}
+			gridY--; 
 		}
-		y = model.shape.y + 3;
-	}
-
-
-	/*run following loop for all 16 indices*/ /*dont forget to travers the map from bottom to top!!!!!!*/
-	/*if index in shapeMap is 1*/
-		/*if cell below is already full*/
-			/*cell cannot move*/
-		/*else*/
-			/*cell can move*/
+		shapeY = gridY = model.shape.y + 3;
+		gridX++;
+	} 
 	
-	/*if any cells cant move*/
-		/*cant lower shape*/
-	/*else*/
-		/*can lower shape*/
-
-	return 0;
-		
-	/* implement the individual cell checking and  then move the shape if it can be done*/
+	return (col0 + col1 + col2 + col3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
+											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
 
@@ -251,7 +278,7 @@ void makeBlock (int blockNum)
 	switch (blockNum)
 	{
 		case 0:
-			model.shape.currentShape = &zigZagLeft;
+			model.shape.currentShape = &block;
 			break;
 		case 1:
 			model.shape.currentShape = &zigZagLeft;
@@ -327,4 +354,7 @@ void init ()
 	cornerRight.rotation = 0;
 	cornerLeft.rotation = 0;
 	tBlock.rotation = 0;
+	
+	
+	/*model.grid.cells[0][0] = 1;*/
 }

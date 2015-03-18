@@ -100,57 +100,138 @@ _rotateShape:
 	move.l	(a7)+,d3
 	unlk	a6
 	rts
+L4:
+	dc.b	37,100,44,32,32,71,88,37,100,32,45,32
+	dc.b	71,89,37,100,0
+L3:
+	dc.b	89,32,61,32,37,100,44,32,0
+L2:
+	dc.b	10,0
+L1:
+	dc.b	88,32,61,32,37,100,44,32,0
+	even
 _canLowerShape:
-	link	a6,#-14
-	movem.l	d3/d4/a3,-(a7)
-	lea	_model,a3
-	;line	212
-	move.w	368(a3),d4
-	move.w	370(a3),d0
+	link	a6,#-22
+	movem.l	d3/d4/d5/d6/a3/a4/a5,-(a7)
+	lea	_printf,a3
+	lea	_model,a4
+	;line	214
+	move.w	368(a4),d4
+	move.w	370(a4),d0
 	addq.w	#3,d0
 	move.w	d0,d3
+	moveq	#0,d6
+	moveq	#3,d5
 	moveq	#3,d0
 	add.w	d4,d0
-	move.w	d0,-6(a6)
+	move.w	d0,-10(a6)
 	move.w	d3,d0
 	subq.w	#3,d0
-	move.w	d0,-8(a6)
-	move.l	364(a3),a0
-	move.w	18(a0),-10(a6)
-	move.w	-10(a6),d0
+	move.w	d0,-12(a6)
+	move.l	364(a4),a0
+	move.w	18(a0),-14(a6)
+	move.w	-14(a6),d0
 	ext.l	d0
 	asl.l	#2,d0
 	move.l	d0,a0
-	move.l	364(a3),d0
+	move.l	364(a4),d0
 	add.l	d0,a0
-	move.l	(a0),-14(a6)
-	;line	212
-	bra	L2
-L1:
+	move.l	(a0),-18(a6)
 	;line	214
+	move.l	a4,a5
+	;line	216
+	move.w	d4,-(a7)
+	pea	L1
+	jsr	(a3)
+	addq.l	#6,a7
+	;line	217
+	pea	L2
+	jsr	(a3)
+	addq.l	#4,a7
+	;line	218
+	move.w	d3,-(a7)
+	pea	L3
+	jsr	(a3)
+	addq.l	#6,a7
+	;line	219
+	pea	L2
+	jsr	(a3)
+	addq.l	#4,a7
+	;line	221
 	bra	L6
 L5:
-L8:
-	;line	216
+	;line	223
+	bra	L10
+L9:
+	;line	226
+	move.w	d3,-(a7)
+	move.w	d4,-(a7)
+	move.w	d4,d0
+	muls	#18,d0
+	move.w	d0,a0
+	add.l	a0,a0
+	add.l	a5,a0
+	ext.l	d3
+	move.l	d3,d0
+	add.l	d0,d0
+	add.l	d0,a0
+	move.w	(a0),-(a7)
+	pea	L4
+	jsr	(a3)
+	lea	10(a7),a7
+	;line	227
+	pea	L2
+	jsr	(a3)
+	addq.l	#4,a7
+	;line	229
+	move.l	-18(a6),a0
+	move.w	d6,d0
+	add.w	d0,d0
+	add.w	d0,d0
+	ext.l	d0
+	add.l	d0,a0
+	ext.l	d5
+	cmp.b	#1,0(a0,d5.l)
+	bne	L13
+	;line	231
+	move.w	d4,d0
+	muls	#18,d0
+	move.w	d0,a0
+	add.l	a0,a0
+	add.l	a5,a0
+	ext.l	d3
+	move.l	d3,d0
+	add.l	d0,d0
+	add.l	d0,a0
+	cmp.w	#1,(a0)
+	bne	L14
+L14:
+L13:
+	;line	238
 	subq.w	#1,d3
-L6:
-	cmp.w	-8(a6),d3
-	bgt	L5
-L7:
-	;line	218
-	move.w	370(a3),d0
+L12:
+	subq.w	#1,d5
+L10:
+	cmp.w	-12(a6),d5
+	bge	L9
+L11:
+	;line	240
+	move.w	370(a4),d0
 	addq.w	#3,d0
 	move.w	d0,d3
-L4:
+	move.w	d3,d5
+	;line	241
 	addq.w	#1,d4
-L2:
-	cmp.w	-6(a6),d4
-	blt	L1
-L3:
-	;line	234
+L8:
+	addq.w	#1,d6
+L6:
+	cmp.w	-10(a6),d6
+	ble	L5
+L7:
+	;line	258
 	moveq	#0,d0
-L9:
-	movem.l	(a7)+,d3/d4/a3
+L15:
+	movem.l	-50(a6),d3/d4/d5/d6/a3/a4/a5
 	unlk	a6
 	rts
 _makeBlock:
@@ -158,79 +239,79 @@ _makeBlock:
 	movem.l	d3/a3,-(a7)
 	move.l	#364,d3
 	lea	_model,a3
-	;line	251
+	;line	275
 	move.w	8(a6),d0
 	sub.w	#0,d0
-	beq	L11
-	subq.w	#1,d0
-	beq	L12
-	subq.w	#1,d0
-	beq	L13
-	subq.w	#1,d0
-	beq	L14
-	subq.w	#1,d0
-	beq	L15
-	subq.w	#1,d0
-	beq	L16
-	subq.w	#1,d0
 	beq	L17
-	bra	L10
-L11:
-	;line	254
-	move.l	#_zigZagLeft,0(a3,d3.l)
-	;line	255
-	bra	L10
-L12:
-	;line	257
-	move.l	#_zigZagLeft,0(a3,d3.l)
-	;line	258
-	bra	L10
-L13:
-	;line	260
-	move.l	#_zigZagRight,0(a3,d3.l)
-	;line	261
-	bra	L10
-L14:
-	;line	263
-	move.l	#_straight,0(a3,d3.l)
-	;line	264
-	bra	L10
-L15:
-	;line	266
-	move.l	#_cornerRight,0(a3,d3.l)
-	;line	267
-	bra	L10
-L16:
-	;line	269
-	move.l	#_cornerLeft,0(a3,d3.l)
-	;line	270
-	bra	L10
+	subq.w	#1,d0
+	beq	L18
+	subq.w	#1,d0
+	beq	L19
+	subq.w	#1,d0
+	beq	L20
+	subq.w	#1,d0
+	beq	L21
+	subq.w	#1,d0
+	beq	L22
+	subq.w	#1,d0
+	beq	L23
+	bra	L16
 L17:
-	;line	272
+	;line	278
+	move.l	#_block,0(a3,d3.l)
+	;line	279
+	bra	L16
+L18:
+	;line	281
+	move.l	#_zigZagLeft,0(a3,d3.l)
+	;line	282
+	bra	L16
+L19:
+	;line	284
+	move.l	#_zigZagRight,0(a3,d3.l)
+	;line	285
+	bra	L16
+L20:
+	;line	287
+	move.l	#_straight,0(a3,d3.l)
+	;line	288
+	bra	L16
+L21:
+	;line	290
+	move.l	#_cornerRight,0(a3,d3.l)
+	;line	291
+	bra	L16
+L22:
+	;line	293
+	move.l	#_cornerLeft,0(a3,d3.l)
+	;line	294
+	bra	L16
+L23:
+	;line	296
 	move.l	#_tBlock,0(a3,d3.l)
-L10:
-	;line	273
+L16:
+	;line	297
 	movem.l	(a7)+,d3/a3
 	unlk	a6
 	rts
 _inbounds:
 	link	a6,#0
-	;line	279
+	;line	303
 	tst.w	8(a6)
-	blt	L18
+	blt	L24
 	cmp.w	#10,8(a6)
-	bge	L18
+	bge	L24
 	tst.w	10(a6)
-	blt	L18
+	blt	L24
 	cmp.w	#18,10(a6)
-	bgt	L18
-	;line	281
+	bgt	L24
+	;line	305
 	moveq	#1,d0
-	bra	L19
-L18:
-	;line	283
+	bra	L25
+L24:
+	;line	307
 	moveq	#0,d0
-L19:
+L25:
 	unlk	a6
 	rts
 _init:
@@ -244,81 +325,83 @@ _init:
 	move.l	#_straight,d5
 	move.l	#_zigZagRight,d6
 	move.l	#_zigZagLeft,d7
-	;line	288
+	;line	312
 	move.l	d4,a0
 	add.l	#_block,a0
 	move.w	#1,(a0)
-	;line	289
+	;line	313
 	move.l	d4,a0
 	move.w	#2,0(a0,d7.l)
-	;line	290
+	;line	314
 	move.w	#2,0(a0,d6.l)
-	;line	291
+	;line	315
 	move.w	#2,0(a0,d5.l)
-	;line	292
+	;line	316
 	move.w	#4,0(a5,d4.l)
-	;line	293
+	;line	317
 	move.w	#4,0(a4,d4.l)
-	;line	294
+	;line	318
 	move.w	#4,0(a3,d4.l)
-	;line	296
+	;line	320
 	move.l	#_BlockR1,_block
-	;line	298
+	;line	322
 	move.l	d7,a0
 	move.l	#_ZigZagLeftR1,(a0)
-	;line	299
+	;line	323
 	move.l	#_ZigZagLeftR2,4(a0)
-	;line	301
+	;line	325
 	move.l	d6,a0
 	move.l	#_ZigZagRightR1,(a0)
-	;line	302
+	;line	326
 	move.l	#_ZigZagRightR2,4(a0)
-	;line	304
+	;line	328
 	move.l	d5,a0
 	move.l	#_StraightR1,(a0)
-	;line	305
+	;line	329
 	move.l	#_StraightR2,4(a0)
-	;line	307
+	;line	331
 	move.l	#_CornerRightR1,(a5)
-	;line	308
+	;line	332
 	move.l	#_CornerRightR2,4(a5)
-	;line	309
+	;line	333
 	move.l	#_CornerRightR3,8(a5)
-	;line	310
+	;line	334
 	move.l	#_CornerRightR4,12(a5)
-	;line	312
+	;line	336
 	move.l	#_CornerLeftR1,(a4)
-	;line	313
+	;line	337
 	move.l	#_CornerLeftR2,4(a4)
-	;line	314
+	;line	338
 	move.l	#_CornerLeftR3,8(a4)
-	;line	315
+	;line	339
 	move.l	#_CornerLeftR4,12(a4)
-	;line	317
+	;line	341
 	move.l	#_TblockR1,(a3)
-	;line	318
+	;line	342
 	move.l	#_TblockR2,4(a3)
-	;line	319
+	;line	343
 	move.l	#_TblockR3,8(a3)
-	;line	320
+	;line	344
 	move.l	#_TblockR4,12(a3)
-	;line	323
+	;line	347
 	move.l	d3,a0
 	add.l	#_block,a0
 	clr.w	(a0)
-	;line	324
+	;line	348
 	move.l	d3,a0
 	clr.w	0(a0,d7.l)
-	;line	325
+	;line	349
 	clr.w	0(a0,d6.l)
-	;line	326
+	;line	350
 	clr.w	0(a0,d5.l)
-	;line	327
+	;line	351
 	clr.w	0(a5,d3.l)
-	;line	328
+	;line	352
 	clr.w	0(a4,d3.l)
-	;line	329
+	;line	353
 	clr.w	0(a3,d3.l)
+	;line	356
+	move.w	#1,_model
 	movem.l	(a7)+,d3/d4/d5/d6/d7/a3/a4/a5
 	unlk	a6
 	rts
