@@ -1,3 +1,5 @@
+#ifndef MODEL_H
+#define MODEL_H
 #define GRID_WIDTH 10
 #define GRID_HEIGHT 18
 
@@ -51,9 +53,11 @@ struct Model
 */
 
 int lowerShape(struct Shape s);
-void makeBlock(int blockNum);
+void makeBlock (int blockNum, struct Model *model);
 int canLowerShape();
 int canMoveShapeRight();
 int canMoveShapeLeft();
 int canLowerCell(int y);
-void initShapes ();
+void init ();
+
+#endif

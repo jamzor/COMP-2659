@@ -7,7 +7,7 @@ int main()
 	int x;
 	int y;
 	int result = 0;
-
+    struct Model model;
 
 	clear_screen(base);
 	Cnecin();  
@@ -22,13 +22,10 @@ int main()
 	clear_screen(base);
 	Cnecin();  
 	init ();
-	makeBlock (0);
-	canLowerShape();
+	makeBlock (0, &model);
+	canLowerShape(&model);
 
-	result = canMoveShapeRight();
-	printf("Result = %d", result); /* this is spitting something odd out, not sure why*/
-	printf("\n");
-
+	Cnecin();  
 	clear_screen(base);
 
 	Cnecin();  
