@@ -11,7 +11,7 @@ struct Block
 	int rotation;
 };
 
-struct Shape /* x and y can be negatives */
+struct Shape 	/* x and y can be negatives */
 {
 	struct Block *currentShape;
     signed int x; 
@@ -23,11 +23,6 @@ struct Score
 	int value;
 };
 
-struct Grid 	/* holds the array of grid cells containing the current state of the grid */
-{
-	int cells[GRID_WIDTH][GRID_HEIGHT];
-};
-
 struct Time
 {
 	int value;
@@ -35,7 +30,7 @@ struct Time
 
 struct Model
 {
-	struct Grid grid;
+	int grid[GRID_WIDTH][GRID_HEIGHT];
 	struct Score score;
 	struct Time time;
 	struct Shape shape;
@@ -59,5 +54,7 @@ int canMoveShapeRight();
 int canMoveShapeLeft();
 int canLowerCell(int y);
 void init ();
-
+void clearRows(struct Model *model);
+void printBoard(struct Model *model);
+void dropRow(struct Model *model, int dropY);
 #endif

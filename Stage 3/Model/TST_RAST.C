@@ -1,6 +1,8 @@
 #include <osbind.h>
 #include "raster.h"
 #include "model.h"
+#include <stdlib.h>
+
 int main()
 {
 	void *base = Physbase(); /* frame buffer pointer */
@@ -8,8 +10,21 @@ int main()
 	int y;
 	int result = 0;
     struct Model model;
-
-	clear_screen(base);
+	srand(5);
+	
+	init (&model);
+	/* clear_screen(base); */
+	Cnecin();
+	printBoard(&model);
+	Cnecin();
+	printf("\n");
+	clearRows(&model);
+	printBoard(&model);
+	Cnecin();
+	
+	/*
+	Cnecin();  
+	clearRows(&model);
 	Cnecin();  
 	fill_screen(base);
 	Cnecin();  
@@ -21,7 +36,6 @@ int main()
 	Cnecin();  
 	clear_screen(base);
 	Cnecin();  
-	init ();
 	makeBlock (0, &model);
 	canLowerShape(&model);
 
@@ -48,6 +62,6 @@ int main()
 		{
 			clear_cell(base, x, y);
 		}
-	} 
+	}  */
 	return 0;
 }
