@@ -10,14 +10,14 @@
 5 = Corner Right
 6 = T-Block
 */
-struct Block block;
+/*struct Block block;
 struct Block zigZagLeft;
 struct Block zigZagRight;
 struct Block straight;
 struct Block cornerRight;
 struct Block cornerLeft;
 struct Block tBlock;
-/* struct Model model; */
+struct Model model; */
 
 
 const char BlockR1[4][4] =
@@ -54,9 +54,9 @@ const char ZigZagLeftR1[4][4] =
  
 const char ZigZagLeftR2[4][4] =
 {
+	0, 1, 0, 0,
 	1, 1, 0, 0,
-	0, 1, 1, 0,
-	0, 0, 0, 0,
+	1, 0, 0, 0,
 	0, 0, 0, 0
 };
  
@@ -172,19 +172,25 @@ const char TblockR4[4][4] =
 	0, 0, 0, 0
 }; 
  
-void dropShape(struct Model model)
+void dropShape(struct Model *model)
 {
-	model.shape.y += 1;
+	clearShape(model);
+	model -> shape.y += 1;
+	placeShape(model);
 }
 
-void moveShapeRight(struct Model model)
+void moveShapeRight(struct Model *model)
 {
-	model.shape.x += 1;
+	clearShape(model);
+	model -> shape.x += 1;
+	placeShape(model);
 }
 
-void moveShapeLeft(struct Model model)
+void moveShapeLeft(struct Model *model)
 {
-	model.shape.x -= 1;
+	clearShape(model);
+	model -> shape.x -= 1;
+	placeShape(model);
 }
 
 void printBoard(struct Model *model)
@@ -196,31 +202,31 @@ void printBoard(struct Model *model)
 	{
 		while (x < GRID_WIDTH)
 		{
-			printf("%d,", model -> grid[x][y]);
-			
+			printf("%hd,", model -> grid[x][y]);
 			x++;
 		}
 		y++;
 		x = 0;
 		printf("\n");
 	}
-
 } 
 
-void rotateShape(struct Model model)
+void rotateShape(struct Model *model)
 {
-	int tempRotation;
-	int tempTotalPatterns;
+	int tempRotation = model -> shape.currentShape.rotation;
+	int tempTotalPatterns = model -> shape.currentShape.total_Patterns;
 	
-	tempRotation = model.shape.currentShape -> rotation;
-	tempTotalPatterns = model.shape.currentShape -> total_Patterns;
+	clearShape(model);
 	
 	tempRotation++;
 	tempRotation = tempRotation % tempTotalPatterns;
 	
-	model.shape.currentShape -> rotation = tempRotation;
+	model -> shape.currentShape.rotation = tempRotation;
+
+	placeShape(model);
 }
 
+#ifdef DUH
 int canLowerShape(struct Model *model)  /* need to figure out how to pass the struct */
 {
 	signed int gridX = model -> shape.x;
@@ -229,8 +235,8 @@ int canLowerShape(struct Model *model)  /* need to figure out how to pass the st
 	int shapeY = 3;
 	signed int xLimit = shapeX + 3;
 	signed int yLimit = shapeY - 3;
- 	int curRotation = model -> shape.currentShape -> rotation;
-	char *currentShapeGrid = model -> shape.currentShape -> all_Block[curRotation];  
+ 	int curRotation = model -> shape.currentShape.rotation;
+	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  
 	int *tetrisGrid; 
 	int col0,col1,col2,col3 = 1;
  	tetrisGrid = (int *) &(model -> grid);
@@ -293,7 +299,7 @@ int canMoveShapeRight(struct Model model)
 	int shapeY = 3; /* set to 3 so we start at the bottom and move up*/
 	signed int xLimit = shapeX - 3;
 	signed int yLimit = shapeY - 3;
-	int curRotation = model.shape.currentShape->rotation;
+	int curRotation = model.shape.currentShape.rotation;
 	char *currentShapeGrid = model.shape.currentShape->all_Block[curRotation];
 	int *tetrisGrid;
 	int row0, row1, row2, row3 = 1;
@@ -404,6 +410,7 @@ int canMoveShapeLeft(struct Model model)
 										meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
+#endif
 
 void clearRows(struct Model *model)
 {
@@ -444,6 +451,7 @@ void dropRow(struct Model *model, int dropY)
 {
 	int dropX = 0;
 	int curDrop = dropY;
+
 	while (dropX < GRID_WIDTH)
 	{
 		while (curDrop >= 0)
@@ -468,34 +476,66 @@ void dropRow(struct Model *model, int dropY)
 5 = Corner Left
 6 = T-Block
 */
-void makeBlock (int blockNum, struct Model *model)
+void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[])
 {
-	switch (blockNum)
+	model->shape.currentShape = blocks[blockNum];
+	model->shape.x = 4;
+	model->shape.y = 0;
+}
+
+void placeShape(struct Model *model)
+{
+	int shapeX = 0;
+	int shapeY = 0;
+	int gridX = model -> shape.x;
+	int gridY = model -> shape.y;
+	int curRotation = model -> shape.currentShape.rotation;
+/*	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  */
+	char (*currentShapeGrid)[4] = (model -> shape.currentShape).all_Block[curRotation];
+	while (shapeY < 4)
 	{
-		case 0:
-			model->shape.currentShape = &block;
-			break;
-		case 1:
-			model->shape.currentShape = &zigZagLeft;
-			break;	
-		case 2:
-			model->shape.currentShape = &zigZagRight;
-			break;	
-		case 3:
-			model->shape.currentShape = &straight;
-			break;
-		case 4:
-			model->shape.currentShape = &cornerRight;
-			break;
-		case 5:
-			model->shape.currentShape = &cornerLeft;
-			break;
-		case 6:
-			model->shape.currentShape = &tBlock;
-			break;
+		while (shapeX < 4)
+		{
+/*			if (*(currentShapeGrid + shapeX + (4*shapeY)) == 1)*/
+			if (currentShapeGrid[shapeX][shapeY] == 1)
+			{
+				model -> grid[gridX][gridY] = 1;                                                                                        
+			}
+			shapeX++;
+			gridX++;
+		}
+		shapeX = 0;
+		gridX = model -> shape.x;
+		gridY++;
+		shapeY++;
 	}
-	model->shape.x = 0;
-	model->shape.y = GRID_HEIGHT-4;
+}
+
+void clearShape(struct Model *model)
+{
+	int shapeX = 0;
+	int shapeY = 0;
+	int gridX = model -> shape.x;
+	int gridY = model -> shape.y;
+	int curRotation = model -> shape.currentShape.rotation;
+	char (*currentShapeGrid)[4] = model -> shape.currentShape.all_Block[curRotation];  
+	
+	while (shapeY < 4)
+	{
+		while (shapeX < 4)
+		{
+			if (currentShapeGrid[shapeX][shapeY] == 1)
+			{
+				model -> grid[gridX][gridY] = 0;                                                                                        
+			}
+			shapeX++;
+			gridX++;
+		}
+		shapeX = 0;
+		gridX = model -> shape.x;
+		gridY++;
+		shapeY++;
+	}
 }
 
 int inbounds(int x, int y)
@@ -507,11 +547,12 @@ int inbounds(int x, int y)
 	return 0;
 }
 
-void init (struct Model *model)
+void init (struct Model *model, struct Block blocks[])
 {
 	int x;
 	int y;
-	int *tetrisGrid = (int *) &(model -> grid);
+	blockType index;
+	int *tetrisGrid = (int *) model -> grid;
 	
 	for (y = 0; y < GRID_HEIGHT; y++)
 	{
@@ -525,51 +566,48 @@ void init (struct Model *model)
 			if (y == GRID_HEIGHT-3 || y == GRID_HEIGHT-1) 
 			{
 				model -> grid[x][y] = 1;
-			} */
+			} 
+			*/
 		}
-		x = 0;
+/*		x = 0;
+*/
 	}
 
-	block.total_Patterns = 1;
-	zigZagLeft.total_Patterns = 2;
-	zigZagRight.total_Patterns = 2;
-	straight.total_Patterns = 2;
-	cornerRight.total_Patterns = 4;
-	cornerLeft.total_Patterns = 4;
-	tBlock.total_Patterns = 4;
+	blocks[0].total_Patterns = 1;
+	blocks[1].total_Patterns = 2;
+	blocks[2].total_Patterns = 2;
+	blocks[3].total_Patterns = 2;
+	blocks[4].total_Patterns = 4;
+	blocks[5].total_Patterns = 4;
+	blocks[6].total_Patterns = 4;
 	
-	block.all_Block[0] = (char *)(&BlockR1);
+	blocks[block].all_Block[0] = (char *)(&BlockR1);
     
-	zigZagLeft.all_Block[0] = (char *)(&ZigZagLeftR1);
-    zigZagLeft.all_Block[1] = (char *)(&ZigZagLeftR2);
+	blocks[zigZagLeft].all_Block[0] = (char *)(&ZigZagLeftR1);
+    blocks[zigZagLeft].all_Block[1] = (char *)(&ZigZagLeftR2);
     
-    zigZagRight.all_Block[0] = (char *)(&ZigZagRightR1);
-    zigZagRight.all_Block[1] = (char *)(&ZigZagRightR2);
+    blocks[zigZagRight].all_Block[0] = (char *)(&ZigZagRightR1);
+    blocks[zigZagRight].all_Block[1] = (char *)(&ZigZagRightR2);
     
-    straight.all_Block[0] = (char *)(&StraightR1);
-    straight.all_Block[1] = (char *)(&StraightR2);
+    blocks[straight].all_Block[0] = (char *)(&StraightR1);
+    blocks[straight].all_Block[1] = (char *)(&StraightR2);
     
-    cornerRight.all_Block[0] = (char *)(&CornerRightR1);
-    cornerRight.all_Block[1] = (char *)(&CornerRightR2);
-    cornerRight.all_Block[2] = (char *)(&CornerRightR3);
-    cornerRight.all_Block[3] = (char *)(&CornerRightR4);
+    blocks[cornerRight].all_Block[0] = (char *)(&CornerRightR1);
+    blocks[cornerRight].all_Block[1] = (char *)(&CornerRightR2);
+    blocks[cornerRight].all_Block[2] = (char *)(&CornerRightR3);
+    blocks[cornerRight].all_Block[3] = (char *)(&CornerRightR4);
     
-    cornerLeft.all_Block[0] = (char *)(&CornerLeftR1);
-    cornerLeft.all_Block[1] = (char *)(&CornerLeftR2);
-    cornerLeft.all_Block[2] = (char *)(&CornerLeftR3);
-    cornerLeft.all_Block[3] = (char *)(&CornerLeftR4);
+    blocks[cornerLeft].all_Block[0] = (char *)(&CornerLeftR1);
+    blocks[cornerLeft].all_Block[1] = (char *)(&CornerLeftR2);
+    blocks[cornerLeft].all_Block[2] = (char *)(&CornerLeftR3);
+    blocks[cornerLeft].all_Block[3] = (char *)(&CornerLeftR4);
 	
-	tBlock.all_Block[0] = (char *)(&TblockR1);
-	tBlock.all_Block[1] = (char *)(&TblockR2);
-	tBlock.all_Block[2] = (char *)(&TblockR3);
-	tBlock.all_Block[3] = (char *)(&TblockR4);
+	blocks[tBlock].all_Block[0] = (char *)(&TblockR1);
+	blocks[tBlock].all_Block[1] = (char *)(&TblockR2);
+	blocks[tBlock].all_Block[2] = (char *)(&TblockR3);
+	blocks[tBlock].all_Block[3] = (char *)(&TblockR4);
 	
 	
-	block.rotation = 0;
-	zigZagLeft.rotation = 0;
-	zigZagRight.rotation = 0;
-	straight.rotation = 0;
-	cornerRight.rotation = 0;
-	cornerLeft.rotation = 0;
-	tBlock.rotation = 0;
+	for (index = block; index <= tBlock; index++)
+		blocks[index].rotation = 0;
 }

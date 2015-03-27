@@ -10,18 +10,49 @@ int main()
 	int y;
 	int result = 0;
     struct Model model;
+	struct Block blocks[7];
 	srand(5);
 	
-	init (&model);
+	init (&model, blocks); 
+	printBoard(&model); 
+	makeBlock (1, &model, blocks);
 	/* clear_screen(base); */
-	Cnecin();
+/* 	Cnecin();
 	printBoard(&model);
 	Cnecin();
 	printf("\n");
 	clearRows(&model);
 	printBoard(&model);
 	Cnecin();
-	
+	printf("\n");
+	placeShape(&model);
+	printBoard(&model);
+	Cnecin();
+	printf("\n");
+	dropShape(&model);
+	printBoard(&model);
+	Cnecin();
+	printf("\n");
+	dropShape(&model);
+	printBoard(&model);
+	Cnecin();
+	printf("\n");
+	dropShape(&model);
+	printBoard(&model);
+	Cnecin();
+	printf("\n");
+	dropShape(&model);
+	printBoard(&model);*/
+	Cnecin();
+	printf("\n");
+	dropShape(&model);
+	printBoard(&model); 
+	Cnecin();
+	printf("\n");
+	rotateShape(&model);
+	printBoard(&model);
+
+
 	/*
 	Cnecin();  
 	clearRows(&model);

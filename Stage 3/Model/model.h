@@ -3,8 +3,10 @@
 #define GRID_WIDTH 10
 #define GRID_HEIGHT 18
 
+typedef enum {block, zigZagLeft, zigZagRight, straight, cornerRight,
+			  cornerLeft, tBlock} blockType;
 
-struct Block
+struct Block			
 {
 	char *all_Block[4];
 	int total_Patterns;
@@ -13,7 +15,7 @@ struct Block
 
 struct Shape 	/* x and y can be negatives */
 {
-	struct Block *currentShape;
+	struct Block currentShape;
     signed int x; 
     signed int y;
 }; 
@@ -30,10 +32,10 @@ struct Time
 
 struct Model
 {
+	struct Shape shape;
 	int grid[GRID_WIDTH][GRID_HEIGHT];
 	struct Score score;
 	struct Time time;
-	struct Shape shape;
 };
 
 
@@ -48,13 +50,19 @@ struct Model
 */
 
 int lowerShape(struct Shape s);
-void makeBlock (int blockNum, struct Model *model);
+void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[]);
+/*
 int canLowerShape();
 int canMoveShapeRight();
 int canMoveShapeLeft();
 int canLowerCell(int y);
-void init ();
+*/
+void init (struct Model *model, struct Block blocks[]);
 void clearRows(struct Model *model);
 void printBoard(struct Model *model);
 void dropRow(struct Model *model, int dropY);
+void placeShape(struct Model *model);
+void clearShape(struct Model *model);
+void dropShape(struct Model *model);
+void rotateShape(struct Model *model);
 #endif
