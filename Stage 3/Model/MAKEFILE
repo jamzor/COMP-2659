@@ -1,7 +1,7 @@
 all: clean tst_rast
 
-tst_rast: tst_rast.o raster.o rast_asm.o font.o model.o
-	cc68x -g tst_rast.o raster.o rast_asm.o font.o model.o -o tst_rast
+tst_rast: tst_rast.o raster.o rast_asm.o font.o model.o render.o
+	cc68x -g tst_rast.o raster.o rast_asm.o font.o model.o render.o -o tst_rast
 
 tst_rast.o: tst_rast.c raster.h
 	cc68x -g -c tst_rast.c
@@ -17,6 +17,9 @@ font.o: font.c font.h
 	
 model.o: model.c model.h
 	cc68x -g -c model.c
+
+render.o: render.c render.h
+	cc68x -g -c render.c
 
 clean: 
 	$(RM) *.o *.i tst_rast

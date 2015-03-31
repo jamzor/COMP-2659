@@ -559,7 +559,7 @@ void init (struct Model *model, struct Block blocks[])
 		for (x = 0; x < GRID_WIDTH; x++)
 		{
 			model -> grid[x][y] = 0; 
-/* 			if (y > GRID_HEIGHT-6)
+			if (y > GRID_HEIGHT-6)
 			{
 				model -> grid[x][y] = (rand() % 2);
 			}
@@ -567,10 +567,10 @@ void init (struct Model *model, struct Block blocks[])
 			{
 				model -> grid[x][y] = 1;
 			} 
-			*/
+			
 		}
-/*		x = 0;
-*/
+		x = 0;
+
 	}
 
 	blocks[0].total_Patterns = 1;

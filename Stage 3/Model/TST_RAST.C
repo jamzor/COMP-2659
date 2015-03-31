@@ -1,6 +1,7 @@
 #include <osbind.h>
 #include "raster.h"
 #include "model.h"
+#include "render.h"
 #include <stdlib.h>
 
 int main()
@@ -14,7 +15,7 @@ int main()
 	srand(5);
 	
 	init (&model, blocks); 
-	printBoard(&model); 
+	/*printBoard(&model);*/ 
 	makeBlock (1, &model, blocks);
 	/* clear_screen(base); */
 /* 	Cnecin();
@@ -43,14 +44,20 @@ int main()
 	printf("\n");
 	dropShape(&model);
 	printBoard(&model);*/
-	Cnecin();
+	
+	/*Cnecin();
 	printf("\n");
 	dropShape(&model);
 	printBoard(&model); 
 	Cnecin();
 	printf("\n");
 	rotateShape(&model);
-	printBoard(&model);
+	printBoard(&model);*/
+
+	Cnecin();
+	clear_screen(base);
+	Cnecin();
+	print_frame(base,&model);
 
 
 	/*
