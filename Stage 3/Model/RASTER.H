@@ -8,7 +8,7 @@ void plot_pixel(char *base, int x, int y);
 void plot_vertical_line(char *base, int x, int yFirst, int ySecond); 
 void plot_horizontal_line(char *base, int xFirst, int xSecond, int y);
 
-void plot_tetris_display(char *base);
+void plot_tetris_display(int *base);
 
 /* play area grid */
 void plot_cell_grid(char *base); 

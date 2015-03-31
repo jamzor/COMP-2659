@@ -3,6 +3,7 @@
 #include "MODEL.H"
 
 #include <stdio.h>
+
 #include <stdlib.h>
 
 void print_frame(char *base,struct Model *model)
@@ -21,8 +22,7 @@ void print_frame(char *base,struct Model *model)
 		}
 	}
 
-	plot_tetris_display(base);
-
+	plot_tetris_display (base);
 }
 
 void prep_frame(char *base, struct Model *model)

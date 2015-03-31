@@ -53,11 +53,14 @@ int main()
 	printf("\n");
 	rotateShape(&model);
 	printBoard(&model);*/
+	placeShape(&model);
 
 	Cnecin();
 	clear_screen(base);
 	Cnecin();
 	print_frame(base,&model);
+
+	
 
 
 	/*

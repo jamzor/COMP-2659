@@ -58,12 +58,55 @@ void plot_horizontal_line(char *base, int xFirst, int xSecond, int y)
 															/* Does right side of horizontal line */
 }
 
-void plot_tetris_display(char *base)
+void plot_tetris_display(int *base)
 {
-	plot_horizontal_line(base, 402, 456, 40);
-	plot_vertical_line(base, 402, 40, 54);
-	plot_vertical_line(base, 456, 40, 54);
-	plot_horizontal_line(base, 402, 456, 54);
+	plot_horizontal_line(base, 268, 362, 8);
+	plot_vertical_line(base, 268, 8, 20);
+	plot_vertical_line(base, 362, 8, 20);
+	plot_horizontal_line(base, 268, 362, 20);
+	
+	plotChar(base, 272, 10,'T');
+	plotChar(base, 288, 10, 'E');
+	plotChar(base, 304, 10, 'T');
+	plotChar(base, 320, 10, 'R');
+	plotChar(base, 336, 10, 'I');
+	plotChar(base, 352, 10, 'S');
+
+	plotChar(base, 320, 100, 'S');
+	plotChar(base, 336, 100, 'C');
+	plotChar(base, 352, 100, 'O');
+	plotChar(base, 368, 100, 'R');
+	plotChar(base, 384, 100, 'E');
+
+	plot_horizontal_line(base, 300, 410,112);
+	plot_vertical_line(base, 300, 112, 140);
+	plot_vertical_line(base, 410, 112, 140);
+	plot_horizontal_line(base, 300, 410, 140);
+
+	plotChar(base, 304, 122, '1'); /* keep track of these locations for when */
+	plotChar(base, 320, 122, '2'); /* printing the number's digits*/
+	plotChar(base, 336, 122, '3');
+	plotChar(base, 352, 122, '4');
+	plotChar(base, 368, 122, '5');
+	plotChar(base, 384, 122, '6');
+	plotChar(base, 400, 122, '7');
+
+	plotChar(base, 328, 200, 'T');
+	plotChar(base, 344, 200, 'I');
+	plotChar(base, 360, 200, 'M');
+	plotChar(base, 376, 200, 'E');
+
+	plot_horizontal_line(base, 300, 410, 212);
+	plot_vertical_line(base, 300, 212, 240);
+	plot_vertical_line(base, 410, 212, 240);
+	plot_horizontal_line(base, 300, 410, 240);
+
+	plotChar(base, 320, 222, '0');
+	plotChar(base, 336, 222, '0');
+	plotChar(base, 352, 222, ':');
+	plotChar(base, 368, 222, '0');
+	plotChar(base, 384, 222, '0');
+
 }
 
 void plot_cell_grid(char *base) /* 10w x 18h */
