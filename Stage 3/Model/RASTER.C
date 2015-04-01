@@ -83,13 +83,13 @@ void plot_tetris_display(int *base)
 	plot_vertical_line(base, 410, 112, 140);
 	plot_horizontal_line(base, 300, 410, 140);
 
-	plotChar(base, 304, 122, '1'); /* keep track of these locations for when */
-	plotChar(base, 320, 122, '2'); /* printing the number's digits*/
-	plotChar(base, 336, 122, '3');
-	plotChar(base, 352, 122, '4');
-	plotChar(base, 368, 122, '5');
-	plotChar(base, 384, 122, '6');
-	plotChar(base, 400, 122, '7');
+	plotChar(base, 304, 122, '0'); /* keep track of these locations for when */
+	plotChar(base, 320, 122, '0'); /* printing the number's digits*/
+	plotChar(base, 336, 122, '0');
+	plotChar(base, 352, 122, '0');
+	plotChar(base, 368, 122, '0');
+	plotChar(base, 384, 122, '0');
+	plotChar(base, 400, 122, '0');
 
 	plotChar(base, 328, 200, 'T');
 	plotChar(base, 344, 200, 'I');

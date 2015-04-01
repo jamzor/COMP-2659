@@ -10,8 +10,17 @@ extern void plot_cell_grid(char *base);
 extern void clear_screen(char *base);
 extern void plot_tetris_display(char *base);
 
-void print_frame(char *base, struct Model *model);
+void render_frame(char *base, struct Model *model);
+void render_model_elements(char *base, struct Model *model);
 
-void prep_frame(char *base, struct Model *model);
+void render_interface(char *base);
+void render_model(char *base, struct Model *model);
+void render_score();
+void render_time();
+
+void clear_frame(char *base, struct Model *model);
+void clear_model_elements(char *base);
+
+void disable_cursor();
 
 #endif
