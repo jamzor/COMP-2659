@@ -183,6 +183,11 @@ void plotChar(UINT8 *base, int x, int y, char c)
 	}
 }
 
+void plotTime(char *base, char printables[])
+{
+
+}
+
 char charInBounds(int x, int y)
 {
 	if ((x >= 0) && (x <= 632) && (y >= 0) && ( y <= 400))

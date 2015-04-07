@@ -417,6 +417,7 @@ void clearRows(struct Model *model)
     int gridX = 0;
 	int gridY = GRID_HEIGHT-1;
     int isRowFull = 1;
+	int scoringRows = 0;
     
     while (gridY >= 0)
     {
@@ -439,11 +440,16 @@ void clearRows(struct Model *model)
 				gridX++;
 			}
 			dropRow(model, gridY);
-			/* score here */
+			
+			/*scoring*/
+			scoringRows += 1;
 		}
     gridY--;
     gridX = 0;
 	}
+
+	/*compound score goes here*/
+	incrScore(&model, scoringRows);
 }
 
 
@@ -547,6 +553,40 @@ int inbounds(int x, int y)
 	return 0;
 }
 
+void incrTime(struct Model *model)
+{
+	if (model->time.secs == 59)
+	{
+		model->time.secs = 0;
+		model->time.mins += 1;
+	}
+	else{
+		model->time.secs += 1;
+	}
+
+}
+void incrScore(struct Model *model, int numRows)
+{
+	switch (numRows)
+	{
+	case 1:
+		model->score.value += 40;
+		break;
+	case 2:
+		model->score.value += 100;
+		break;
+	case 3:
+		model->score.value += 300;
+		break;
+	case 4:
+		model->score.value += 1200;
+		break;
+	default:
+		model->score.value += 0;
+		break;
+	}
+}
+
 void init (struct Model *model, struct Block blocks[])
 {
 	int x;
@@ -610,4 +650,9 @@ void init (struct Model *model, struct Block blocks[])
 	
 	for (index = block; index <= tBlock; index++)
 		blocks[index].rotation = 0;
+
+	model->time.mins = 0;
+	model->time.secs = 0;
+
+	model->score.value = 0;
 }

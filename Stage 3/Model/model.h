@@ -27,7 +27,8 @@ struct Score
 
 struct Time
 {
-	int value;
+	int mins;
+	int secs;
 };
 
 struct Model
@@ -65,4 +66,7 @@ void placeShape(struct Model *model);
 void clearShape(struct Model *model);
 void dropShape(struct Model *model);
 void rotateShape(struct Model *model);
+
+void incrTime(struct Model *model);
+void incrScore(struct Model *model, int numRows);
 #endif

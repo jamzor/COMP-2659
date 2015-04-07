@@ -18,6 +18,7 @@ void fill_cell(int *base, int cellX, int cellY);
 void clear_cell(int *base, int cellX, int cellY);
 
 void plotChar(UINT8 *base, int x, int y, char c);
+void plotTime(char *base, char printables[]);
 
 void fill_screen(char *base);
 void clear_screen(char *base); 

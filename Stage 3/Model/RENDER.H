@@ -15,8 +15,8 @@ void render_model_elements(char *base, struct Model *model);
 
 void render_interface(char *base);
 void render_model(char *base, struct Model *model);
-void render_score();
-void render_time();
+void render_score(char *base, struct Model *model);
+void render_time(char *base, struct Model *model);
 
 void clear_frame(char *base, struct Model *model);
 void clear_model_elements(char *base);

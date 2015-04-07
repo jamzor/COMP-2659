@@ -10,15 +10,15 @@ void render_frame(char *base,struct Model *model)
 {
 	render_interface(base);
 	render_model(base,model);
-	render_score();
-	render_time();
+	render_score(base, model);
+	render_time(base, model);
 }
 
 void render_model_elements(char *base, struct Model *model)
 {
 	render_model(base, model);
-	render_score();
-	render_time();
+	render_score(base,model);
+	render_time(base,model);
 }
 
 void render_interface(char *base)
@@ -40,12 +40,29 @@ void render_model(char *base, struct Model *model)
 		}
 	}
 }
-void render_score()
+void render_score(char *base, struct Model *model)
 {
+	int currScore = model->score.value;
+	int modDenom = 10;
+	int lastResult;
+	int counter = 0;
+	char printables[7];
+
+	while (counter < 7)
+	{
+		lastResult = currScore % modDenom;
+		modDenom * 10;
+		printables[6-counter] = (char)(((int) '0') + lastResult);
+		counter++;
+	}
+
 	/* to be completed */
 }
-void render_time()
+void render_time(char *base, struct Model *model)
 {
+	int currMins = model->time.mins;
+	int currSecs = model->time.secs;
+
 	/* to be completed */
 }
 
