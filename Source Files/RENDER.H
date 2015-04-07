@@ -1,6 +1,12 @@
 #ifndef RASTER_H
 #define RASTER_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "model.h"
+#include "raster.h"
+
 /* these are for writing to the positions on the screen*/
 #define SCORE_X_0 400	/*least sig dig*/
 #define SCORE_X_1 384
@@ -24,10 +30,12 @@ extern struct Shape;
 extern struct Block;
 
 extern void fill_cell(int *base, int cellX, int cellY);
+extern void clear_cell(int *base, int cellX, int cellY);
+
 extern void plot_cell_grid(char *base);
 extern void clear_screen(char *base);
 extern void plot_tetris_display(char *base);
-extern void plotChar(char *base, int x, int y, char c);
+extern void plot_char(char *base, int x, int y, char c);
 
 void render_frame(char *base, struct Model *model);
 void render_model_elements(char *base, struct Model *model);

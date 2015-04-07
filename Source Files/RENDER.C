@@ -1,12 +1,4 @@
-#include "RENDER.H"
-#include "RASTER.H"
-#include "MODEL.H"
-
-
-
-#include <stdio.h>
-
-#include <stdlib.h>
+#include "render.h"
 
 void render_frame(char *base,struct Model *model)
 {
@@ -44,7 +36,7 @@ void render_model(char *base, struct Model *model)
 }
 void render_score(char *base, struct Model *model)
 {
-	int currScore = model->score.value;
+	int currScore = model -> score.value;
 	int modDenom = 10;
 	int lastResult;
 	int counter = 0;
@@ -58,13 +50,13 @@ void render_score(char *base, struct Model *model)
 		counter++;
 	}
 
-	plotChar(base,SCORE_X_0,SCORE_LEVEL,printables[6]);
-	plotChar(base, SCORE_X_1, SCORE_LEVEL, printables[5]);
-	plotChar(base, SCORE_X_2, SCORE_LEVEL, printables[4]);
-	plotChar(base, SCORE_X_3, SCORE_LEVEL, printables[3]);
-	plotChar(base, SCORE_X_4, SCORE_LEVEL, printables[2]);
-	plotChar(base, SCORE_X_5, SCORE_LEVEL, printables[1]);
-	plotChar(base, SCORE_X_6, SCORE_LEVEL, printables[0]);
+	plot_char(base,SCORE_X_0,SCORE_LEVEL,printables[6]);
+	plot_char(base, SCORE_X_1, SCORE_LEVEL, printables[5]);
+	plot_char(base, SCORE_X_2, SCORE_LEVEL, printables[4]);
+	plot_char(base, SCORE_X_3, SCORE_LEVEL, printables[3]);
+	plot_char(base, SCORE_X_4, SCORE_LEVEL, printables[2]);
+	plot_char(base, SCORE_X_5, SCORE_LEVEL, printables[1]);
+	plot_char(base, SCORE_X_6, SCORE_LEVEL, printables[0]);
 
 
 	/* to be completed */

@@ -3,6 +3,9 @@
 #define GRID_WIDTH 10
 #define GRID_HEIGHT 18
 
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef enum {block, zigZagLeft, zigZagRight, straight, cornerRight,
 			  cornerLeft, tBlock} blockType;
 

@@ -8,18 +8,20 @@ void plot_pixel(char *base, int x, int y);
 void plot_vertical_line(char *base, int x, int yFirst, int ySecond); 
 void plot_horizontal_line(char *base, int xFirst, int xSecond, int y);
 
-void plot_tetris_display(int *base);
+void plot_tetris_display(char *base);
 
 /* play area grid */
 void plot_cell_grid(char *base); 
 
-/* block plotting method */
+/* block plotting/clearing methods */
 void fill_cell(int *base, int cellX, int cellY);
 void clear_cell(int *base, int cellX, int cellY);
 
-void plotChar(char *base, int x, int y, char c); /*changed to char pointer*/
+void plot_char(char *base, int x, int y, char c); /*changed to char pointer*/
 
-void fill_screen(char *base);
-void clear_screen(char *base); 
+void fill_screen(char *base); /* we dont want to change these to char types since*/
+void clear_screen(char *base);  /* this will skew the calcs for drawing cells*/
+
+char charInBounds(int x, int y);
 
 #endif

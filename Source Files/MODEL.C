@@ -1,6 +1,5 @@
 #include "model.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 /*
 0 = block
 1 = Zig Zag Right
@@ -449,7 +448,7 @@ void clearRows(struct Model *model)
 	}
 
 	/*compound score goes here*/
-	incrScore(&model, scoringRows);
+	incrScore(model, scoringRows);
 }
 
 
@@ -566,24 +565,30 @@ void incrTime(struct Model *model)
 
 }
 
-void incrScore(struct Model *model, int numRows)
+void incrScore(struct Model *model, int numRows) /* need to remove printing*/
 {
+	
 	switch (numRows)
 	{
 	case 1:
 		model->score.value += 40;
+		
 		break;
 	case 2:
 		model->score.value += 100;
+		
 		break;
 	case 3:
 		model->score.value += 300;
+		
 		break;
 	case 4:
 		model->score.value += 1200;
+		
 		break;
 	default:
 		model->score.value += 0;
+		
 		break;
 	}
 }
