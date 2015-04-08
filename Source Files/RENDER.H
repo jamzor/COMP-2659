@@ -33,11 +33,10 @@ extern void fill_cell(int *base, int cellX, int cellY);
 extern void clear_cell(int *base, int cellX, int cellY);
 
 extern void plot_cell_grid(char *base);
-extern void clear_screen(char *base);
+extern void clr_scrn(char *base);
 extern void plot_tetris_display(char *base);
 extern void plot_char(char *base, int x, int y, char c);
 
-void render_frame(char *base, struct Model *model);
 void render_model_elements(char *base, struct Model *model);
 
 void render_interface(char *base);
@@ -45,8 +44,11 @@ void render_model(char *base, struct Model *model);
 void render_score(char *base, struct Model *model);
 void render_time(char *base, struct Model *model);
 
-void clear_frame(char *base, struct Model *model);
+void clear_frame(char *base);
 void clear_model_elements(char *base);
+
+void clear_score(char *base);
+void clear_time(char *base);
 
 void disable_cursor();
 

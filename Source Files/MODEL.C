@@ -171,28 +171,28 @@ const char TblockR4[4][4] =
 	0, 0, 0, 0
 }; 
  
-void dropShape(struct Model *model)
+void drop_shape(struct Model *model)
 {
-	clearShape(model);
+	clear_shape(model);
 	model -> shape.y += 1;
-	placeShape(model);
+	place_shape(model);
 }
 
 void moveShapeRight(struct Model *model)
 {
-	clearShape(model);
+	clear_shape(model);
 	model -> shape.x += 1;
-	placeShape(model);
+	place_shape(model);
 }
 
 void moveShapeLeft(struct Model *model)
 {
-	clearShape(model);
+	clear_shape(model);
 	model -> shape.x -= 1;
-	placeShape(model);
+	place_shape(model);
 }
 
-void printBoard(struct Model *model)
+void print_board(struct Model *model)
 {
 	int x = 0;
 	int y = 0;
@@ -210,23 +210,33 @@ void printBoard(struct Model *model)
 	}
 } 
 
-void rotateShape(struct Model *model)
+void rotate_shape(struct Model *model)
 {
 	int tempRotation = model -> shape.currentShape.rotation;
 	int tempTotalPatterns = model -> shape.currentShape.total_Patterns;
 	
-	clearShape(model);
+	clear_shape(model);
 	
 	tempRotation++;
 	tempRotation = tempRotation % tempTotalPatterns;
 	
 	model -> shape.currentShape.rotation = tempRotation;
 
-	placeShape(model);
+	place_shape(model);
+}
+
+int can_rotate_shape() /* to be completed */
+{
+
+}
+
+int can_place_shape() /* to be completed */
+{
+
 }
 
 #ifdef DUH
-int canLowerShape(struct Model *model)  /* need to figure out how to pass the struct */
+int can_lower_shape(struct Model *model) 
 {
 	signed int gridX = model -> shape.x;
  	signed int gridY = model -> shape.y + 3;
@@ -290,7 +300,7 @@ int canLowerShape(struct Model *model)  /* need to figure out how to pass the st
 											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
-int canMoveShapeRight(struct Model model)
+int can_move_shape_right(struct Model *model)
 {
 	signed int gridX = model.shape.x + 3;
 	signed int gridY = model.shape.y + 3;
@@ -354,7 +364,7 @@ int canMoveShapeRight(struct Model model)
 										meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
-int canMoveShapeLeft(struct Model model)
+int can_move_shape_left(struct Model *model)
 {
 	signed int gridX = model.shape.x;
 	signed int gridY = model.shape.y;
@@ -411,7 +421,7 @@ int canMoveShapeLeft(struct Model model)
 
 #endif
 
-void clearRows(struct Model *model)
+void clear_rows(struct Model *model)
 {
     int gridX = 0;
 	int gridY = GRID_HEIGHT-1;
@@ -438,7 +448,7 @@ void clearRows(struct Model *model)
 				model -> grid[gridX][gridY] = 0;
 				gridX++;
 			}
-			dropRow(model, gridY);
+			drop_row(model, gridY);
 			
 			/*scoring*/
 			scoringRows += 1;
@@ -448,11 +458,11 @@ void clearRows(struct Model *model)
 	}
 
 	/*compound score goes here*/
-	incrScore(model, scoringRows);
+	incr_score(model, scoringRows);
 }
 
 
-void dropRow(struct Model *model, int dropY)
+void drop_row(struct Model *model, int dropY)
 {
 	int dropX = 0;
 	int curDrop = dropY;
@@ -481,14 +491,14 @@ void dropRow(struct Model *model, int dropY)
 5 = Corner Left
 6 = T-Block
 */
-void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[])
+void make_block (blockType blockNum, struct Model *model, struct Block blocks[])
 {
 	model->shape.currentShape = blocks[blockNum];
 	model->shape.x = 4;
 	model->shape.y = 0;
 }
 
-void placeShape(struct Model *model)
+void place_shape(struct Model *model)
 {
 	int shapeX = 0;
 	int shapeY = 0;
@@ -516,7 +526,7 @@ void placeShape(struct Model *model)
 	}
 }
 
-void clearShape(struct Model *model)
+void clear_shape(struct Model *model)
 {
 	int shapeX = 0;
 	int shapeY = 0;
@@ -552,7 +562,7 @@ int inbounds(int x, int y)
 	return 0;
 }
 
-void incrTime(struct Model *model)
+void incr_time(struct Model *model)
 {
 	if (model->time.secs == 59)
 	{
@@ -565,7 +575,7 @@ void incrTime(struct Model *model)
 
 }
 
-void incrScore(struct Model *model, int numRows) /* need to remove printing*/
+void incr_score(struct Model *model, int numRows) /* need to remove printing*/
 {
 	
 	switch (numRows)

@@ -19,9 +19,9 @@ void clear_cell(int *base, int cellX, int cellY);
 
 void plot_char(char *base, int x, int y, char c); /*changed to char pointer*/
 
-void fill_screen(char *base); /* we dont want to change these to char types since*/
-void clear_screen(char *base);  /* this will skew the calcs for drawing cells*/
+void fill_scrn(char *base); /* we dont want to change these to char types since*/
+void clr_scrn(char *base);  /* this will skew the calcs for drawing cells*/
 
-char charInBounds(int x, int y);
+char char_in_bounds(int x, int y);
 
 #endif

@@ -8,81 +8,82 @@ int main()
 	int result = 0;
 	struct Model model;
 	struct Block blocks[7];
-	srand(5);
-	disable_cursor(); /* this call is from render,
-					  needs to be put in a specific file later*/
-	init(&model, blocks);
-	/*printBoard(&model);*/
-	makeBlock(1, &model, blocks);
-	placeShape(&model);
-	clear_screen(base);
+	
+	place_shape(&model);
+	clr_scrn(base);
 	Cnecin();
 	clear_model_elements(base);
-	render_frame(base, &model);
-	rotateShape(&model);
+	rotate_shape(&model);
 	Cnecin();
 	clear_model_elements(base);
 	render_model_elements(base, &model);
 	Cnecin();
 	clear_model_elements(base);
-	dropShape(&model);
+	drop_shape(&model);
 	render_model_elements(base, &model);
 	Cnecin();
-	dropShape(&model);
+	drop_shape(&model);
 	clear_model_elements(base);
 	render_model_elements(base, &model);
 	Cnecin();
-	dropShape(&model);
+	drop_shape(&model);
 	clear_model_elements(base);
 	render_model_elements(base, &model);
 	Cnecin();
-	dropShape(&model);
+	drop_shape(&model);
 	clear_model_elements(base);
 	render_model_elements(base, &model);
 	Cnecin();
 	clear_model_elements(base);
-	clearRows(&model);
+	clear_rows(&model);
 	render_model_elements(base, &model);
 
-
-	/*while (canLowerShape(&model) == 4)
-	{
-	dropShape(&model);
-	render_frame(base, &model);
-	Cnecin();
-	}
-	Cnecin();
-	fill_screen(base);
-	Cnecin();*/
 	return 0;
 }
 
-void main_sequence(char *base, struct Model *model)
+void main_sequence(char *base, struct Model *model, struct Block blocks[])
 {
-	init_frame(base);
 
-	/* need to make this part into a loop*/
+	init_frame(base);
+	
+	init_model(&model,blocks);
+	clear_rows(&model);
 	synchro_event();
-	update_model(model);
-	update_frame(base,model);
-	/*end loop here*/
+	while (can_lower_shape(&model) == 4) /* it says it cant find the def for can_lower_shape*/
+	{
+		prep_frame(base);
+		update_model(&model);
+		update_frame(base, model);
+		synchro_event();
+	}
+	/*retire shape*/
+	clear_rows(&model);
+	/*create new active shape*/
+	
 }
 
 void init_frame(char *base)
 {
-	clear_screen(base);
+	disable_cursor();
+	clr_scrn(base);
+	render_interface(base);
 }
 
-void init_model(struct Model *model)
+void init_model(struct Model *model, struct Block blocks[])
 {
-
+	int randNum = rand() % 5;
+	init(&model, blocks);
+	make_block(randNum, &model, blocks);
 }
 
 void update_model(struct Model *model)
 {
-	drop_shape(&model);
-	clearRows(&model);
+		clear_shape(&model);
+		drop_shape(&model);
+		place_shape(&model);
+		clear_rows(&model);
 }
+
 
 void prep_frame(char *base)
 {

@@ -53,23 +53,25 @@ struct Model
 6 = T-Block
 */
 
-int lowerShape(struct Shape s);
-void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[]);
-/*
-int canLowerShape();
-int canMoveShapeRight();
-int canMoveShapeLeft();
-int canLowerCell(int y);
-*/
-void init (struct Model *model, struct Block blocks[]);
-void clearRows(struct Model *model);
-void printBoard(struct Model *model);
-void dropRow(struct Model *model, int dropY);
-void placeShape(struct Model *model);
-void clearShape(struct Model *model);
-void dropShape(struct Model *model);
-void rotateShape(struct Model *model);
+int lower_shape(struct Shape s);
+void make_block(blockType blockNum, struct Model *model, struct Block blocks[]);
 
-void incrTime(struct Model *model);
-void incrScore(struct Model *model, int numRows);
+int can_rotate_shape(); /* to be completed */
+int can_place_shape(); /* to be completed */
+int can_lower_shape(struct Model *model);
+int can_move_shape_right(struct Model *model);
+int can_move_shape_left(struct Model *model);
+
+void init (struct Model *model, struct Block blocks[]);
+void clear_rows(struct Model *model);
+void print_board(struct Model *model);
+void drop_row(struct Model *model, int dropY);
+void place_shape(struct Model *model);
+void clear_shape(struct Model *model);
+void drop_shape(struct Model *model);
+void rotate_shape(struct Model *model);
+
+void incr_time(struct Model *model);
+void incr_score(struct Model *model, int numRows);
+
 #endif

@@ -162,7 +162,7 @@ void clear_cell(int *base, int cellX, int cellY)
 }
 
 
-void plot_char(char *base, int x, int y, char c) /* changed this to char pointer*/
+void plot_char(char *base, int x, int y, char c) 
 {
 	int counter;
 	int index;
@@ -171,7 +171,7 @@ void plot_char(char *base, int x, int y, char c) /* changed this to char pointer
 	tempBase += (80*y);		 
 	tempBase += (x >> 3); 	
 	ptr = GLYPH_START(c);
-	if (IS_PRINTABLE(c) && (charInBounds(x,y) == 1))
+	if (IS_PRINTABLE(c) && (char_in_bounds(x,y) == 1))
 	{
 		for(counter = 0; counter < FONT_HEIGHT; counter++)
 		{
@@ -181,7 +181,7 @@ void plot_char(char *base, int x, int y, char c) /* changed this to char pointer
 	}
 }
 
-char charInBounds(int x, int y)
+char char_in_bounds(int x, int y)
 {
 	if ((x >= 0) && (x <= 632) && (y >= 0) && ( y <= 400))
 	{

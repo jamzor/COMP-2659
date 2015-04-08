@@ -1,13 +1,5 @@
 #include "render.h"
 
-void render_frame(char *base,struct Model *model)
-{
-	render_interface(base);
-	render_model(base,model);
-	render_score(base, model);
-	render_time(base, model);
-}
-
 void render_model_elements(char *base, struct Model *model)
 {
 	render_model(base, model);
@@ -70,9 +62,9 @@ void render_time(char *base, struct Model *model)
 	/* to be completed */
 }
 
-void clear_frame(char *base, struct Model *model)
+void clear_frame(char *base)
 {
-	clear_screen(base);
+	clr_scrn(base);
 }
 
 void clear_model_elements(char *base)
@@ -88,8 +80,16 @@ void clear_model_elements(char *base)
 		}
 	}
 
-	/* don't have any need for clearing char spaces yet -- they just get overwritten*/
-	/* this applies for both time and score */
+}
+
+void clear_score(char *base)
+{
+	/*plot_char();*/
+}
+
+void clear_time(char *base)
+{
+
 }
 
 void disable_cursor()
