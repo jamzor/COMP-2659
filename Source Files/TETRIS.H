@@ -18,7 +18,7 @@ extern struct Model;
 extern struct Shape;
 extern struct Block;
 
-extern int can_lower_shape(struct Model *model);
+/*extern int can_lower_shape(struct Model *model);*/
 extern void init(struct Model *model, struct Block blocks[]);
 extern void clear_rows(struct Model *model);
 extern void drop_shape(struct Model *model);

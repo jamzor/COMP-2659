@@ -235,36 +235,47 @@ int can_place_shape() /* to be completed */
 
 }
 
-#ifdef DUH
+
 int can_lower_shape(struct Model *model) 
 {
-	signed int gridX = model -> shape.x;
- 	signed int gridY = model -> shape.y + 3;
-	int shapeX = 0;
-	int shapeY = 3;
-	signed int xLimit = shapeX + 3;
-	signed int yLimit = shapeY - 3;
- 	int curRotation = model -> shape.currentShape.rotation;
-	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  
-	int *tetrisGrid; 
-	int col0,col1,col2,col3 = 1;
- 	tetrisGrid = (int *) &(model -> grid);
- 
 	
-	printf("X = %d, ", gridX); 
-	printf("\n"); 
- 	printf("Y = %d, ", gridY);
-	printf("\n"); 
- 	
+	signed int gridX;
+ 	signed int gridY;
+	int shapeX;
+	int shapeY;
+	signed int xLimit;
+	signed int yLimit;
+ 	int curRotation;
+	char *currentShapeGrid;  
+	int *tetrisGrid; 
+	signed int col0, col1, col2, col3;
+	int returnVal;
+
+	/* had to change to this so it would not bomb right away*/
+	
+	gridX = model->shape.x;
+	gridY = model->shape.y + 3;
+	shapeX = 0;
+	shapeY = 3;
+	xLimit = shapeX + 3;
+	yLimit = shapeY - 3;
+	
+	curRotation = model->shape.currentShape.rotation;
+	
+	currentShapeGrid = &(model->shape.currentShape.all_Block[curRotation]);
+	col0 = 1;
+	col1 = 1;
+	col2 = 1; 
+	col3 = 1;
+ 	tetrisGrid = (int *) &(model -> grid);
+	
  	for (; shapeX <= xLimit; shapeX++)
 	{
 		for (; shapeY >= yLimit; shapeY--)
 		{
-	
-			printf("%d,   SX = %d - SY = %d ||| %d,  GX = %d - GY = %d", *(currentShapeGrid + (4*shapeX) + shapeY), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);
-			printf("\n"); 
-		
-			if (*(currentShapeGrid + (4*shapeX) + shapeY) == 1) /* will need bounds checking */
+			/*printf("%d,   ShapeX = %d - ShapeY = %d ||| %d,  GridX = %d - GridY = %d", *(currentShapeGrid + (4*shapeX) + shapeY), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);*/
+
+			if (*(currentShapeGrid + (4 * shapeX) + shapeY) == 1) /* will need bounds checking */
 			{
 				if ((gridY == GRID_HEIGHT-1) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
 				{
@@ -295,24 +306,27 @@ int can_lower_shape(struct Model *model)
 		gridY = model -> shape.y + 3;
 		shapeY = 3;
 		gridX++;
-	}   
-	return (col0 + col1 + col2 + col3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
+	}
+	returnVal = col0 + col1 + col2 + col3;
+	/*printf("%d", returnVal);
+	printf("\n");*/
+	return returnVal; /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
 											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
 int can_move_shape_right(struct Model *model)
 {
-	signed int gridX = model.shape.x + 3;
-	signed int gridY = model.shape.y + 3;
+	signed int gridX = model -> shape.x + 3;
+	signed int gridY = model -> shape.y + 3;
 	int shapeX = 3;	/*set to 3 so we start on the right side and move left*/
 	int shapeY = 3; /* set to 3 so we start at the bottom and move up*/
 	signed int xLimit = shapeX - 3;
 	signed int yLimit = shapeY - 3;
-	int curRotation = model.shape.currentShape.rotation;
-	char *currentShapeGrid = model.shape.currentShape->all_Block[curRotation];
+	int curRotation = model -> shape.currentShape.rotation;
+	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];
 	int *tetrisGrid;
 	int row0, row1, row2, row3 = 1;
-	tetrisGrid = (int *)&(model.grid);
+	tetrisGrid = (int *)&(model -> grid);
 
 	printf("X = %d, ", gridX);
 	printf("\n");
@@ -356,7 +370,7 @@ int can_move_shape_right(struct Model *model)
 			}
 			gridX--;
 		}
-		shapeX = gridX = model.shape.x + 3;
+		shapeX = gridX = model -> shape.x + 3;
 		gridY--;
 	}
 
@@ -366,18 +380,17 @@ int can_move_shape_right(struct Model *model)
 
 int can_move_shape_left(struct Model *model)
 {
-	signed int gridX = model.shape.x;
-	signed int gridY = model.shape.y;
+	signed int gridX = model -> shape.x;
+	signed int gridY = model -> shape.y;
 	int shapeX = 3;	/*set to 3 so we start on the right side and move left*/
 	int shapeY = 3; /* set to 3 so we start at the bottom and move up*/
 	signed int xLimit = shapeX + 3;
 	signed int yLimit = shapeY + 3;
-	int curRotation = model.shape.currentShape->rotation;
-	char *currentShapeGrid = model.shape.currentShape->all_Block[curRotation];
+	int curRotation = model -> shape.currentShape.rotation;
+	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];
 	int *tetrisGrid;
 	int row0, row1, row2, row3 = 1;
-	tetrisGrid = (int *)&(model.grid);
-
+	tetrisGrid = (int *)&(model -> grid);
 	for (; shapeY >= yLimit; shapeY++)	/*updated the loop to go row by row, starting in the bottom right corner moving right to left*/
 	{
 		for (; shapeX >= xLimit; shapeX++)
@@ -411,7 +424,7 @@ int can_move_shape_left(struct Model *model)
 			}
 			gridX++;
 		}
-		shapeX = gridX = model.shape.x + 3;
+		shapeX = gridX = model -> shape.x + 3;
 		gridY++;
 	}
 
@@ -419,7 +432,7 @@ int can_move_shape_left(struct Model *model)
 										meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
-#endif
+
 
 void clear_rows(struct Model *model)
 {

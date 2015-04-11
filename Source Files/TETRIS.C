@@ -9,35 +9,8 @@ int main()
 	struct Model model;
 	struct Block blocks[7];
 	
-	place_shape(&model);
-	clr_scrn(base);
-	Cnecin();
-	clear_model_elements(base);
-	rotate_shape(&model);
-	Cnecin();
-	clear_model_elements(base);
-	render_model_elements(base, &model);
-	Cnecin();
-	clear_model_elements(base);
-	drop_shape(&model);
-	render_model_elements(base, &model);
-	Cnecin();
-	drop_shape(&model);
-	clear_model_elements(base);
-	render_model_elements(base, &model);
-	Cnecin();
-	drop_shape(&model);
-	clear_model_elements(base);
-	render_model_elements(base, &model);
-	Cnecin();
-	drop_shape(&model);
-	clear_model_elements(base);
-	render_model_elements(base, &model);
-	Cnecin();
-	clear_model_elements(base);
-	clear_rows(&model);
-	render_model_elements(base, &model);
-
+	main_sequence(base, &model, blocks);
+	
 	return 0;
 }
 
@@ -78,10 +51,10 @@ void init_model(struct Model *model, struct Block blocks[])
 
 void update_model(struct Model *model)
 {
-		clear_shape(&model);
-		drop_shape(&model);
-		place_shape(&model);
-		clear_rows(&model);
+	clear_shape(&model);
+	drop_shape(&model);
+	place_shape(&model);
+	clear_rows(&model);
 }
 
 
