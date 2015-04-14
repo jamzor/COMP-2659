@@ -1,5 +1,6 @@
 #include "model.h"
-
+#include <stdio.h>
+#include <stdlib.h>
 /*
 0 = block
 1 = Zig Zag Right
@@ -171,28 +172,28 @@ const char TblockR4[4][4] =
 	0, 0, 0, 0
 }; 
  
-void drop_shape(struct Model *model)
+void dropShape(struct Model *model)
 {
-	clear_shape(model);
+	clearShape(model);
 	model -> shape.y += 1;
-	place_shape(model);
+	placeShape(model);
 }
 
 void moveShapeRight(struct Model *model)
 {
-	clear_shape(model);
+	clearShape(model);
 	model -> shape.x += 1;
-	place_shape(model);
+	placeShape(model);
 }
 
 void moveShapeLeft(struct Model *model)
 {
-	clear_shape(model);
+	clearShape(model);
 	model -> shape.x -= 1;
-	place_shape(model);
+	placeShape(model);
 }
 
-void print_board(struct Model *model)
+void printBoard(struct Model *model)
 {
 	int x = 0;
 	int y = 0;
@@ -210,74 +211,47 @@ void print_board(struct Model *model)
 	}
 } 
 
-void rotate_shape(struct Model *model)
+void rotateShape(struct Model *model)
 {
 	int tempRotation = model -> shape.currentShape.rotation;
 	int tempTotalPatterns = model -> shape.currentShape.total_Patterns;
 	
-	clear_shape(model);
+	clearShape(model);
 	
 	tempRotation++;
 	tempRotation = tempRotation % tempTotalPatterns;
 	
 	model -> shape.currentShape.rotation = tempRotation;
 
-	place_shape(model);
-}
-
-int can_rotate_shape() /* to be completed */
-{
-
-}
-
-int can_place_shape() /* to be completed */
-{
-
+	placeShape(model);
 }
 
 
-int can_lower_shape(struct Model *model) 
+int canLowerShape(struct Model *model)  /* need to figure out how to pass the struct */
 {
-	
-	signed int gridX;
- 	signed int gridY;
-	int shapeX;
-	int shapeY;
-	signed int xLimit;
-	signed int yLimit;
- 	int curRotation;
-	char *currentShapeGrid;  
+	signed int gridX = model -> shape.x;
+ 	signed int gridY = model -> shape.y + 4;
+	int shapeX = 0;
+	int shapeY = 3;
+	signed int xLimit = shapeX + 3;
+	signed int yLimit = shapeY - 3;
+ 	int curRotation = model -> shape.currentShape.rotation;
+	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  
 	int *tetrisGrid; 
-	signed int col0, col1, col2, col3;
-	int returnVal;
-
-	/* had to change to this so it would not bomb right away*/
-	
-	gridX = model->shape.x;
-	gridY = model->shape.y + 3;
-	shapeX = 0;
-	shapeY = 3;
-	xLimit = shapeX + 3;
-	yLimit = shapeY - 3;
-	
-	curRotation = model->shape.currentShape.rotation;
-	
-	currentShapeGrid = &(model->shape.currentShape.all_Block[curRotation]);
-	col0 = 1;
-	col1 = 1;
-	col2 = 1; 
-	col3 = 1;
+	int col0 = 1;
+	int col1 = 1;
+	int col2 = 1;
+	int col3 = 1;
+	int returnValue;
  	tetrisGrid = (int *) &(model -> grid);
-	
+
  	for (; shapeX <= xLimit; shapeX++)
 	{
 		for (; shapeY >= yLimit; shapeY--)
 		{
-			/*printf("%d,   ShapeX = %d - ShapeY = %d ||| %d,  GridX = %d - GridY = %d", *(currentShapeGrid + (4*shapeX) + shapeY), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);*/
-
-			if (*(currentShapeGrid + (4 * shapeX) + shapeY) == 1) /* will need bounds checking */
+			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) /* will need bounds checking */
 			{
-				if ((gridY == GRID_HEIGHT-1) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
+				if ((gridY == GRID_HEIGHT) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
 				{
 					switch (shapeX)
 					{
@@ -295,152 +269,146 @@ int can_lower_shape(struct Model *model)
 						break;
 					}
 				}
-				else
-				{
-					/* there was nothing below for that cell, no need to set the col value to 0 */
-				}
 				shapeY = yLimit; /* moves us to next col */
 			}
 			gridY--; 
 		}
-		gridY = model -> shape.y + 3;
+		gridY = model -> shape.y + 4;
 		shapeY = 3;
 		gridX++;
-	}
-	returnVal = col0 + col1 + col2 + col3;
-	/*printf("%d", returnVal);
-	printf("\n");*/
-	return returnVal; /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
+	}    	
+	
+	returnValue = col0 + col1 + col2 + col3;
+
+	return (col0 + col1 + col2 + col3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
 											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
-
-int can_move_shape_right(struct Model *model)
+/* printf("%d = SX %d, SY %d ||| %d = GX %d, GY %d\n", (*(currentShapeGrid + (4 * shapeY) + shapeX)), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);   */
+int canMoveShapeRight(struct Model *model)
 {
-	signed int gridX = model -> shape.x + 3;
-	signed int gridY = model -> shape.y + 3;
-	int shapeX = 3;	/*set to 3 so we start on the right side and move left*/
-	int shapeY = 3; /* set to 3 so we start at the bottom and move up*/
+	signed int gridX = model -> shape.x + 4;
+ 	signed int gridY = model -> shape.y + 3;
+	int shapeX = 3;
+	int shapeY = 3;
 	signed int xLimit = shapeX - 3;
 	signed int yLimit = shapeY - 3;
-	int curRotation = model -> shape.currentShape.rotation;
-	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];
-	int *tetrisGrid;
-	int row0, row1, row2, row3 = 1;
-	tetrisGrid = (int *)&(model -> grid);
-
-	printf("X = %d, ", gridX);
-	printf("\n");
-	printf("Y = %d, ", gridY);
-	printf("\n");
+ 	int curRotation = model -> shape.currentShape.rotation;
+	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  
+	int *tetrisGrid; 
+	int col0 = 1;
+	int col1 = 1;
+	int col2 = 1;
+	int col3 = 1;
+	int returnValue;
+ 	tetrisGrid = (int *) &(model -> grid);
 	
-	for (; shapeY >= yLimit; shapeY--)	/* updated the loop to go row by row, starting in the bottom right corner moving right to left */
+	
+	
+	for (; shapeY >= yLimit; shapeY--)
 	{
 		for (; shapeX >= xLimit; shapeX--)
 		{
-			
-			printf("%d,  GX%d - GY%d", *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);
-			printf("\n"); 
-
-			if (*(currentShapeGrid + (4 * shapeY) + shapeX) == 1) /* a 1 is in the grid at this position */
+			/* printf("%d = SX %d, SY %d ||| %d = GX %d, GY %d\n", (*(currentShapeGrid + (4 * shapeY) + shapeX)), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);  */
+			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) /* will need bounds checking */
 			{
-				if ((gridX == GRID_WIDTH - 1) || *(tetrisGrid + (GRID_WIDTH * gridY) + gridX) == 1) /* this needs to get changed to only allow the shape to remain on the grid
-																										   with respect to the right side border*/
+				if ((gridX >= GRID_WIDTH) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
 				{
-					switch (shapeY)
+					switch (shapeX)
 					{
 					case 0:
-						row0 = 0;
+						col0 = 0;
 						break;
 					case 1:
-						row1 = 0;
+						col1 = 0;
 						break;
 					case 2:
-						row2 = 0;
+						col2 = 0;
 						break;
 					case 3:
-						row3 = 0;
+						col3 = 0;
 						break;
 					}
 				}
-				else
-				{
-					/* there was nothing right of the cell, no need to set the col value to 0 */
-				}
 				shapeX = xLimit; /* moves us to next col */
 			}
-			gridX--;
+			gridX--; 
 		}
-		shapeX = gridX = model -> shape.x + 3;
+		gridX = model -> shape.x + 4;
+		shapeX = 3;
 		gridY--;
-	}
+	}    	
+	
+	returnValue = col0 + col1 + col2 + col3;
 
-	return (row0 + row1 + row2 + row3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0.
-										meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
+	return (col0 + col1 + col2 + col3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
+											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
-int can_move_shape_left(struct Model *model)
+
+int canMoveShapeLeft(struct Model *model)  
 {
-	signed int gridX = model -> shape.x;
-	signed int gridY = model -> shape.y;
-	int shapeX = 3;	/*set to 3 so we start on the right side and move left*/
-	int shapeY = 3; /* set to 3 so we start at the bottom and move up*/
+	signed int gridX = model -> shape.x - 1;
+ 	signed int gridY = model -> shape.y + 3;
+	int shapeX = 0;
+	int shapeY = 3;
 	signed int xLimit = shapeX + 3;
-	signed int yLimit = shapeY + 3;
-	int curRotation = model -> shape.currentShape.rotation;
-	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];
-	int *tetrisGrid;
-	int row0, row1, row2, row3 = 1;
-	tetrisGrid = (int *)&(model -> grid);
-	for (; shapeY >= yLimit; shapeY++)	/*updated the loop to go row by row, starting in the bottom right corner moving right to left*/
+	signed int yLimit = shapeY - 3;
+ 	int curRotation = model -> shape.currentShape.rotation;
+	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  
+	int *tetrisGrid; 
+	int col0 = 1;
+	int col1 = 1;
+	int col2 = 1;
+	int col3 = 1;
+	int returnValue;
+ 	tetrisGrid = (int *) &(model -> grid);
+
+	for (; shapeY >= yLimit; shapeY--)
 	{
-		for (; shapeX >= xLimit; shapeX++)
+		for (; shapeX <= xLimit; shapeX++)
 		{
-			if (*(currentShapeGrid + (4 * shapeY) + shapeX) == 1) /* a 1 is in the grid at this position */
+			/* printf("%d = SX %d, SY %d ||| %d = GX %d, GY %d\n", (*(currentShapeGrid + (4 * shapeY) + shapeX)), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);   */
+			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) /* will need bounds checking */
 			{
-				if ((gridX < 0) || *(tetrisGrid + (GRID_WIDTH * gridY) + gridX) == 1) /* this needs to get changed to only allow the shape to remain on the grid
-																										   with respect to the right side border*/
+				if ((gridX < 0) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
 				{
-					switch (shapeY)
+					switch (shapeX)
 					{
 					case 0:
-						row0 = 0;
+						col0 = 0;
 						break;
 					case 1:
-						row1 = 0;
+						col1 = 0;
 						break;
 					case 2:
-						row2 = 0;
+						col2 = 0;
 						break;
 					case 3:
-						row3 = 0;
+						col3 = 0;
 						break;
 					}
 				}
-				else
-				{
-					/* there was nothing right of the cell, no need to set the col value to 0 */
-				}
 				shapeX = xLimit; /* moves us to next col */
 			}
-			gridX++;
+			gridX++; 
 		}
-		shapeX = gridX = model -> shape.x + 3;
-		gridY++;
-	}
+		gridX = model -> shape.x - 1;
+		shapeX = 0;
+		gridY--;
+	}    	
+	
+	returnValue = col0 + col1 + col2 + col3;
 
-	return (row0 + row1 + row2 + row3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0.
-										meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
+	return (col0 + col1 + col2 + col3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
+											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
 
-
-void clear_rows(struct Model *model)
+void clearRows(struct Model *model)
 {
     int gridX = 0;
 	int gridY = GRID_HEIGHT-1;
     int isRowFull = 1;
-	int scoringRows = 0;
-    
     while (gridY >= 0)
     {
 		isRowFull = 1;
@@ -461,21 +429,17 @@ void clear_rows(struct Model *model)
 				model -> grid[gridX][gridY] = 0;
 				gridX++;
 			}
-			drop_row(model, gridY);
-			
-			/*scoring*/
-			scoringRows += 1;
+			dropRow(model, gridY);
+			/* score here */
+			gridY++;
 		}
     gridY--;
     gridX = 0;
 	}
-
-	/*compound score goes here*/
-	incr_score(model, scoringRows);
 }
 
 
-void drop_row(struct Model *model, int dropY)
+void dropRow(struct Model *model, int dropY)
 {
 	int dropX = 0;
 	int curDrop = dropY;
@@ -504,28 +468,27 @@ void drop_row(struct Model *model, int dropY)
 5 = Corner Left
 6 = T-Block
 */
-void make_block (blockType blockNum, struct Model *model, struct Block blocks[])
+void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[])
 {
 	model->shape.currentShape = blocks[blockNum];
 	model->shape.x = 4;
-	model->shape.y = 0;
+	model->shape.y = -1;
 }
 
-void place_shape(struct Model *model)
+void placeShape(struct Model *model)
 {
 	int shapeX = 0;
 	int shapeY = 0;
 	int gridX = model -> shape.x;
 	int gridY = model -> shape.y;
 	int curRotation = model -> shape.currentShape.rotation;
-/*	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  */
-	char (*currentShapeGrid)[4] = (model -> shape.currentShape).all_Block[curRotation];
+	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  
+	
 	while (shapeY < 4)
 	{
 		while (shapeX < 4)
 		{
-/*			if (*(currentShapeGrid + shapeX + (4*shapeY)) == 1)*/
-			if (currentShapeGrid[shapeX][shapeY] == 1)
+			if (*(currentShapeGrid + shapeX + (4*shapeY)) == 1)
 			{
 				model -> grid[gridX][gridY] = 1;                                                                                        
 			}
@@ -539,20 +502,20 @@ void place_shape(struct Model *model)
 	}
 }
 
-void clear_shape(struct Model *model)
+void clearShape(struct Model *model)
 {
 	int shapeX = 0;
 	int shapeY = 0;
 	int gridX = model -> shape.x;
 	int gridY = model -> shape.y;
 	int curRotation = model -> shape.currentShape.rotation;
-	char (*currentShapeGrid)[4] = model -> shape.currentShape.all_Block[curRotation];  
+	char *currentShapeGrid = model -> shape.currentShape.all_Block[curRotation];  
 	
 	while (shapeY < 4)
 	{
 		while (shapeX < 4)
 		{
-			if (currentShapeGrid[shapeX][shapeY] == 1)
+			if (*(currentShapeGrid + shapeX + (4*shapeY)) == 1)
 			{
 				model -> grid[gridX][gridY] = 0;                                                                                        
 			}
@@ -566,6 +529,24 @@ void clear_shape(struct Model *model)
 	}
 }
 
+int gameLost(struct Model *model)
+{
+	int x;
+	int y;
+	int isGameLost = 0;
+	
+	for (y = 0; y < 4; y++)
+	{
+		for (x = 0; x < GRID_WIDTH; x++)
+		{
+			if (model -> grid[x][y] == 1)
+				isGameLost = 1;
+		}
+		x = 0;
+	}
+	return isGameLost;
+}
+
 int inbounds(int x, int y)
 {
 	if ((x >= 0) && (x < GRID_WIDTH) && (y >= 0) && (y <= GRID_HEIGHT))
@@ -573,47 +554,6 @@ int inbounds(int x, int y)
 		return 1;
 	}
 	return 0;
-}
-
-void incr_time(struct Model *model)
-{
-	if (model->time.secs == 59)
-	{
-		model->time.secs = 0;
-		model->time.mins += 1;
-	}
-	else{
-		model->time.secs += 1;
-	}
-
-}
-
-void incr_score(struct Model *model, int numRows) /* need to remove printing*/
-{
-	
-	switch (numRows)
-	{
-	case 1:
-		model->score.value += 40;
-		
-		break;
-	case 2:
-		model->score.value += 100;
-		
-		break;
-	case 3:
-		model->score.value += 300;
-		
-		break;
-	case 4:
-		model->score.value += 1200;
-		
-		break;
-	default:
-		model->score.value += 0;
-		
-		break;
-	}
 }
 
 void init (struct Model *model, struct Block blocks[])
@@ -628,15 +568,18 @@ void init (struct Model *model, struct Block blocks[])
 		for (x = 0; x < GRID_WIDTH; x++)
 		{
 			model -> grid[x][y] = 0; 
-			if (y > GRID_HEIGHT-6)
+/* 			if (y > GRID_HEIGHT-6)
 			{
 				model -> grid[x][y] = (rand() % 2);
 			}
-			if (y == GRID_HEIGHT-3 || y == GRID_HEIGHT-1) 
+			if (y == GRID_HEIGHT-3 || y == GRID_HEIGHT-1 || (x == GRID_WIDTH-1 && y > GRID_HEIGHT-7)) 
 			{
 				model -> grid[x][y] = 1;
 			} 
-			
+			if(x == 8 && y == GRID_HEIGHT-5)
+			{
+				model -> grid[x][y] = 0;
+			} */
 		}
 		x = 0;
 
@@ -676,12 +619,8 @@ void init (struct Model *model, struct Block blocks[])
 	blocks[tBlock].all_Block[2] = (char *)(&TblockR3);
 	blocks[tBlock].all_Block[3] = (char *)(&TblockR4);
 	
+	model -> userMovement = 0;
 	
 	for (index = block; index <= tBlock; index++)
 		blocks[index].rotation = 0;
-
-	model->time.mins = 0;
-	model->time.secs = 0;
-
-	model->score.value = 0;
 }

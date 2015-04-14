@@ -1,7 +1,10 @@
 all: clean tetris
 
-tetris: tetris.o raster.o rast_asm.o font.o model.o render.o
-	cc68x -g tetris.o raster.o rast_asm.o font.o model.o render.o -o tetris
+tetris: tetris.o raster.o rast_asm.o font.o model.o render.o events.o
+	cc68x -g tetris.o raster.o rast_asm.o font.o model.o render.o events.o -o tetris
+
+tetris.o: tetris.c tetris.h
+	cc68x -g -c tetris.c
 
 raster.o: raster.c raster.h
 	cc68x -g -c raster.c
@@ -17,9 +20,9 @@ model.o: model.c model.h
 
 render.o: render.c render.h
 	cc68x -g -c render.c
-
-tetris.o: tetris.c tetris.h
-	cc68x -g -c tetris.c
+	
+events.o: events.c events.h
+	cc68x -g -c events.c
 
 clean: 
 	$(RM) *.o *.i tetris

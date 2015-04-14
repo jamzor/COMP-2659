@@ -1,10 +1,19 @@
-#include "render.h"
+#include "RENDER.H"
+
+
+void render_frame(char *base,struct Model *model)
+{
+	render_interface(base);
+	render_model(base,model);
+	render_score();
+	render_time();
+}
 
 void render_model_elements(char *base, struct Model *model)
 {
 	render_model(base, model);
-	render_score(base,model);
-	render_time(base,model);
+	render_score();
+	render_time();
 }
 
 void render_interface(char *base)
@@ -26,45 +35,18 @@ void render_model(char *base, struct Model *model)
 		}
 	}
 }
-void render_score(char *base, struct Model *model)
+void render_score()
 {
-	int currScore = model -> score.value;
-	int modDenom = 10;
-	int lastResult;
-	int counter = 0;
-	char printables[7];
-
-	while (counter < 7)
-	{
-		lastResult = currScore % modDenom;
-		modDenom * 10;
-		printables[6-counter] = (char)(((int) '0') + lastResult);
-		counter++;
-	}
-
-	plot_char(base,SCORE_X_0,SCORE_LEVEL,printables[6]);
-	plot_char(base, SCORE_X_1, SCORE_LEVEL, printables[5]);
-	plot_char(base, SCORE_X_2, SCORE_LEVEL, printables[4]);
-	plot_char(base, SCORE_X_3, SCORE_LEVEL, printables[3]);
-	plot_char(base, SCORE_X_4, SCORE_LEVEL, printables[2]);
-	plot_char(base, SCORE_X_5, SCORE_LEVEL, printables[1]);
-	plot_char(base, SCORE_X_6, SCORE_LEVEL, printables[0]);
-
-
 	/* to be completed */
 }
-void render_time(char *base, struct Model *model)
+void render_time()
 {
-	int currMins = model->time.mins;
-	int currSecs = model->time.secs;
-
-
 	/* to be completed */
 }
 
-void clear_frame(char *base)
+void clear_frame(char *base, struct Model *model)
 {
-	clr_scrn(base);
+	clear_screen(base);
 }
 
 void clear_model_elements(char *base)
@@ -80,16 +62,8 @@ void clear_model_elements(char *base)
 		}
 	}
 
-}
-
-void clear_score(char *base)
-{
-	/*plot_char();*/
-}
-
-void clear_time(char *base)
-{
-
+	/* don't have any need for clearing char spaces yet -- they just get overwritten*/
+	/* this applies for both time and score */
 }
 
 void disable_cursor()

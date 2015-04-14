@@ -3,9 +3,6 @@
 #define GRID_WIDTH 10
 #define GRID_HEIGHT 18
 
-#include <stdio.h>
-#include <stdlib.h>
-
 typedef enum {block, zigZagLeft, zigZagRight, straight, cornerRight,
 			  cornerLeft, tBlock} blockType;
 
@@ -30,8 +27,7 @@ struct Score
 
 struct Time
 {
-	int mins;
-	int secs;
+	int value;
 };
 
 struct Model
@@ -40,6 +36,7 @@ struct Model
 	int grid[GRID_WIDTH][GRID_HEIGHT];
 	struct Score score;
 	struct Time time;
+	int userMovement;
 };
 
 
@@ -53,25 +50,21 @@ struct Model
 6 = T-Block
 */
 
-int lower_shape(struct Shape s);
-void make_block(blockType blockNum, struct Model *model, struct Block blocks[]);
-
-int can_rotate_shape(); /* to be completed */
-int can_place_shape(); /* to be completed */
-int can_lower_shape(struct Model *model);
-int can_move_shape_right(struct Model *model);
-int can_move_shape_left(struct Model *model);
-
+int lowerShape(struct Shape s);
+void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[]);
+/*
+int canLowerShape();
+int canMoveShapeRight();
+int canMoveShapeLeft();
+int canLowerCell(int y);
+*/
 void init (struct Model *model, struct Block blocks[]);
-void clear_rows(struct Model *model);
-void print_board(struct Model *model);
-void drop_row(struct Model *model, int dropY);
-void place_shape(struct Model *model);
-void clear_shape(struct Model *model);
-void drop_shape(struct Model *model);
-void rotate_shape(struct Model *model);
-
-void incr_time(struct Model *model);
-void incr_score(struct Model *model, int numRows);
-
+void clearRows(struct Model *model);
+void printBoard(struct Model *model);
+void dropRow(struct Model *model, int dropY);
+void placeShape(struct Model *model);
+void clearShape(struct Model *model);
+void dropShape(struct Model *model);
+void rotateShape(struct Model *model);
+int gameLost(struct Model *model);
 #endif
