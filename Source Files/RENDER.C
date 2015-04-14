@@ -43,13 +43,13 @@ void render_score(char *base, struct Model *model)
 	int modDenom = 10;
 	int lastResult;
 	int counter = 0;
-	char printables[7];
+	int printables[7];
 
 	while (counter < 7)
 	{
 		lastResult = tempScore % modDenom;
-		tempScore / 10;
-		printables[6 - counter] = (char)(((int) '0') + lastResult);
+		tempScore = tempScore / 10;
+		printables[6 - counter] = (((int) '0') + lastResult);
 		counter++;
 	}
 

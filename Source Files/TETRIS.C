@@ -1,10 +1,4 @@
-#include <osbind.h>
-#include "model.h"
-#include "render.h"
 #include "tetris.h"
-#include "events.h"
-#include <stdlib.h>
-
 
 /* UINT8 back [32255]; */
 
