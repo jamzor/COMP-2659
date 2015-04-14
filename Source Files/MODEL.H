@@ -27,7 +27,8 @@ struct Score
 
 struct Time
 {
-	int value;
+	int mins;
+	int secs;
 };
 
 struct Model
@@ -52,14 +53,14 @@ struct Model
 
 int lowerShape(struct Shape s);
 void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[]);
-/*
-int canLowerShape();
-int canMoveShapeRight();
-int canMoveShapeLeft();
-int canLowerCell(int y);
-*/
+
+int canRotate(struct Model *model);
+int canLowerShape(struct Model *model);
+int canMoveShapeRight(struct Model *model);
+int canMoveShapeLeft(struct Model *model);
+
 void init (struct Model *model, struct Block blocks[]);
-void clearRows(struct Model *model);
+int clearRows(struct Model *model);
 void printBoard(struct Model *model);
 void dropRow(struct Model *model, int dropY);
 void placeShape(struct Model *model);
@@ -67,4 +68,8 @@ void clearShape(struct Model *model);
 void dropShape(struct Model *model);
 void rotateShape(struct Model *model);
 int gameLost(struct Model *model);
+
+void incr_time(struct Model *model);
+void incr_score(struct Model *model, int numRows);
+
 #endif

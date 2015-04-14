@@ -16,6 +16,7 @@ int main()
 	int canLower;
 	int canRight;
 	int canLeft;
+	int canRot;
 	int blockNum;
 	int result = 0;
     struct Model model;
@@ -25,6 +26,7 @@ int main()
 	long timeThen = 0;
 	int keyPress;
 	int isGameLost;
+	int points;
 	srand(31);
 	blockNum = rand() % 7;
 	init_frame(base);
@@ -37,11 +39,11 @@ int main()
 	{
 		timeNow = getCurTime();
 		timeElapsed = timeNow - timeThen;
-		/* Detect keypress */
+
 		detectKeyPress(&model);
 		keyPress = model.userMovement;
-/* 		printf("%d\n", keyPress); */ 
- 		if (keyPress == 1)
+
+		if (keyPress == 1)
 		{
 			clearShape(&model);
 			canLeft = canMoveShapeLeft(&model);
@@ -49,35 +51,39 @@ int main()
 			model.userMovement = 0;
 			if (canLeft == 4)
 			{
-				
+
 				clear_model_elements(base);
 				moveShapeLeft(&model);
-				render_frame(base,&model);
-				
+				render_frame(base, &model);
+
 			}
-		} 
+		}
 		if (keyPress == 2)
 		{
 			clearShape(&model);
- 			canRight = canMoveShapeRight(&model); 
+			canRight = canMoveShapeRight(&model);
 			model.userMovement = 0;
 			placeShape(&model);
- 			if (canRight == 4)
-			{  
+			if (canRight == 4)
+			{
 				clear_model_elements(base);
 				moveShapeRight(&model);
-				render_frame(base,&model);
- 			}  
-		} 
+				render_frame(base, &model);
+			}
+		}
 		if (keyPress == 3)
 		{
 			clearShape(&model);
-			clear_model_elements(base);
-			rotateShape(&model);
+			canRot = canRotate(&model);
+			if (canRot == 4)
+			{
+				clear_model_elements(base);
+				rotateShape(&model);
+				placeShape(&model);
+				render_frame(base, &model);
+			}
 			model.userMovement = 0;
-			render_frame(base,&model); 
-			placeShape(&model);
-		} 
+		}
 		
 		if (timeElapsed > 0)
 		{
@@ -87,7 +93,8 @@ int main()
 			if (canLower != 4) /* cant be lowered  */
 			{
 				placeShape(&model);
-				clearRows(&model);
+				points = clearRows(&model);
+				incr_score(&model,points);
 				isGameLost = gameLost(&model);
 				blockNum = rand() % 7;
 				makeBlock (blockNum, &model, blocks);
@@ -95,6 +102,7 @@ int main()
 			dropShape(&model);
 			placeShape(&model);
 			render_frame(base,&model); 
+			incr_time(&model);
 			timeThen = timeNow + 70;
 		}
 	}

@@ -5,15 +5,15 @@ void render_frame(char *base,struct Model *model)
 {
 	render_interface(base);
 	render_model(base,model);
-	render_score();
-	render_time();
+	render_score(base,model);
+	render_time(base,model);
 }
 
 void render_model_elements(char *base, struct Model *model)
 {
 	render_model(base, model);
-	render_score();
-	render_time();
+	render_score(base,model);
+	render_time(base,model);
 }
 
 void render_interface(char *base)
@@ -35,13 +35,49 @@ void render_model(char *base, struct Model *model)
 		}
 	}
 }
-void render_score()
+
+void render_score(char *base, struct Model *model)
 {
-	/* to be completed */
+	int currScore = model->score.value;
+	int modDenom = 10;
+	int lastResult = currScore;
+	int counter = 0;
+	char printables[7];
+
+	while (counter < 7)
+	{
+		lastResult = lastResult % modDenom;
+		modDenom * 10;
+		printables[6 - counter] = (char)(((int) '0') + lastResult);
+		counter++;
+	}
+
+	plot_char(base, SCORE_X_0, SCORE_LEVEL, printables[6]);
+	plot_char(base, SCORE_X_1, SCORE_LEVEL, printables[5]);
+	plot_char(base, SCORE_X_2, SCORE_LEVEL, printables[4]);
+	plot_char(base, SCORE_X_3, SCORE_LEVEL, printables[3]);
+	plot_char(base, SCORE_X_4, SCORE_LEVEL, printables[2]);
+	plot_char(base, SCORE_X_5, SCORE_LEVEL, printables[1]);
+	plot_char(base, SCORE_X_6, SCORE_LEVEL, printables[0]);
+
 }
-void render_time()
+void render_time(char *base, struct Model *model)
 {
-	/* to be completed */
+	int currMins = model->time.mins;
+	int currSecs = model->time.secs;
+	int lastResult;
+	int modDenom = 10;
+
+	lastResult = currSecs % modDenom;
+	plot_char(base, TIME_SEC_0, TIME_LEVEL,(((int) '0') + lastResult));
+	lastResult = currSecs / modDenom;
+	plot_char(base, TIME_SEC_1, TIME_LEVEL,lastResult);
+
+	lastResult = currMins % 10;
+
+	plot_char(base, TIME_MIN_0, TIME_LEVEL,(((int) '0') + lastResult));
+	lastResult = currMins % modDenom;
+	plot_char(base, TIME_SEC_1, TIME_LEVEL,(((int) '0') + lastResult));
 }
 
 void clear_frame(char *base, struct Model *model)
@@ -61,9 +97,18 @@ void clear_model_elements(char *base)
 				clear_cell(base, x, y);
 		}
 	}
+	clear_score(base);
+	clear_time(base);
+}
 
-	/* don't have any need for clearing char spaces yet -- they just get overwritten*/
-	/* this applies for both time and score */
+void clear_score(char *base)
+{
+	/*plot_char();*/
+}
+
+void clear_time(char *base)
+{
+
 }
 
 void disable_cursor()

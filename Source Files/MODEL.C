@@ -226,6 +226,50 @@ void rotateShape(struct Model *model)
 	placeShape(model);
 }
 
+int canRotate(struct Model *model)
+{
+	signed int gridX = model->shape.x;
+	signed int gridY = model->shape.y + 3;
+	int shapeX = 0;
+	int shapeY = 3;
+	signed int xLimit = shapeX + 3;
+	signed int yLimit = shapeY - 3;
+	int curRotation = model->shape.currentShape.rotation;
+	int modValue = model->shape.currentShape.total_Patterns;
+	char *currentShapeGrid;
+	int *tetrisGrid;
+	int inbound;
+
+	tetrisGrid = (int *)&(model->grid);
+
+	curRotation += 1;
+	curRotation = curRotation % modValue;
+
+	currentShapeGrid = model->shape.currentShape.all_Block[curRotation];
+	for (; shapeX <= xLimit; shapeX++)
+	{
+		for (; shapeY >= yLimit; shapeY--)
+		{
+			inbound = inbounds(gridX, gridY);
+			if (*(currentShapeGrid + (4 * shapeY) + shapeX) == 1) /* will need bounds checking */
+			{
+				if ((inbound == 0) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
+				{
+					return 0;
+				}
+				shapeY = yLimit; /* moves us to next col */
+			}
+			gridY--;
+		}
+		gridY = model->shape.y + 3;
+		shapeY = 3;
+		gridX++;
+	}
+
+	return 4; 
+}
+
+
 
 int canLowerShape(struct Model *model)  /* need to figure out how to pass the struct */
 {
@@ -404,8 +448,9 @@ int canMoveShapeLeft(struct Model *model)
 }
 
 
-void clearRows(struct Model *model)
+int clearRows(struct Model *model)
 {
+	int returnVal = 0;
     int gridX = 0;
 	int gridY = GRID_HEIGHT-1;
     int isRowFull = 1;
@@ -430,12 +475,13 @@ void clearRows(struct Model *model)
 				gridX++;
 			}
 			dropRow(model, gridY);
-			/* score here */
+			returnVal++;
 			gridY++;
 		}
     gridY--;
     gridX = 0;
 	}
+	return returnVal;
 }
 
 
@@ -556,6 +602,47 @@ int inbounds(int x, int y)
 	return 0;
 }
 
+void incr_time(struct Model *model)
+{
+	if (model->time.secs == 59)
+	{
+		model->time.secs = 0;
+		model->time.mins += 1;
+	}
+	else{
+		model->time.secs += 1;
+	}
+
+}
+
+void incr_score(struct Model *model, int numRows)
+{
+
+	switch (numRows)
+	{
+	case 1:
+		model->score.value += 40;
+
+		break;
+	case 2:
+		model->score.value += 100;
+
+		break;
+	case 3:
+		model->score.value += 300;
+
+		break;
+	case 4:
+		model->score.value += 1200;
+
+		break;
+	default:
+		model->score.value += 0;
+
+		break;
+	}
+}
+
 void init (struct Model *model, struct Block blocks[])
 {
 	int x;
@@ -620,6 +707,9 @@ void init (struct Model *model, struct Block blocks[])
 	blocks[tBlock].all_Block[3] = (char *)(&TblockR4);
 	
 	model -> userMovement = 0;
+
+	model -> time.mins = 0;
+	model->time.secs = 0;
 	
 	for (index = block; index <= tBlock; index++)
 		blocks[index].rotation = 0;

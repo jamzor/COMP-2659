@@ -16,7 +16,7 @@ void plot_cell_grid(char *base);
 /* block plotting method */
 void fill_cell(int *base, int cellX, int cellY);
 void clear_cell(int *base, int cellX, int cellY);
-void plotChar(UINT8 *base, int x, int y, char c);
+void plot_char(UINT8 *base, int x, int y, char c);
 void fill_screen(char *base);
 void clear_screen(char *base); 
 

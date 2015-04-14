@@ -64,47 +64,49 @@ void plot_tetris_display(int *base)
 	plot_vertical_line(base, 362, 8, 20);
 	plot_horizontal_line(base, 268, 362, 20);
 	
-	plotChar(base, 272, 10,'T');
-	plotChar(base, 288, 10, 'E');
-	plotChar(base, 304, 10, 'T');
-	plotChar(base, 320, 10, 'R');
-	plotChar(base, 336, 10, 'I');
-	plotChar(base, 352, 10, 'S');
+	plot_char(base, 272, 10,'T');
+	plot_char(base, 288, 10, 'E');
+	plot_char(base, 304, 10, 'T');
+	plot_char(base, 320, 10, 'R');
+	plot_char(base, 336, 10, 'I');
+	plot_char(base, 352, 10, 'S');
 
-	plotChar(base, 320, 100, 'S');
-	plotChar(base, 336, 100, 'C');
-	plotChar(base, 352, 100, 'O');
-	plotChar(base, 368, 100, 'R');
-	plotChar(base, 384, 100, 'E');
+	plot_char(base, 320, 100, 'S');
+	plot_char(base, 336, 100, 'C');
+	plot_char(base, 352, 100, 'O');
+	plot_char(base, 368, 100, 'R');
+	plot_char(base, 384, 100, 'E');
 
 	plot_horizontal_line(base, 300, 410,112);
 	plot_vertical_line(base, 300, 112, 140);
 	plot_vertical_line(base, 410, 112, 140);
 	plot_horizontal_line(base, 300, 410, 140);
 
-	plotChar(base, 304, 122, '0'); /* keep track of these locations for when */
-	plotChar(base, 320, 122, '0'); /* printing the number's digits*/
-	plotChar(base, 336, 122, '0');
-	plotChar(base, 352, 122, '0');
-	plotChar(base, 368, 122, '0');
-	plotChar(base, 384, 122, '0');
-	plotChar(base, 400, 122, '0');
+	plot_char(base, 304, 122, '0'); /* keep track of these locations for when */
+	plot_char(base, 320, 122, '0'); /* printing the number's digits*/
+	plot_char(base, 336, 122, '0');
+	plot_char(base, 352, 122, '0');
+	plot_char(base, 368, 122, '0');
+	plot_char(base, 384, 122, '0');
+	plot_char(base, 400, 122, '0');
 
-	plotChar(base, 328, 200, 'T');
-	plotChar(base, 344, 200, 'I');
-	plotChar(base, 360, 200, 'M');
-	plotChar(base, 376, 200, 'E');
+	plot_char(base, 328, 200, 'T');
+	plot_char(base, 344, 200, 'I');
+	plot_char(base, 360, 200, 'M');
+	plot_char(base, 376, 200, 'E');
 
 	plot_horizontal_line(base, 300, 410, 212);
 	plot_vertical_line(base, 300, 212, 240);
 	plot_vertical_line(base, 410, 212, 240);
 	plot_horizontal_line(base, 300, 410, 240);
 
-	plotChar(base, 320, 222, '0');
-	plotChar(base, 336, 222, '0');
-	plotChar(base, 352, 222, ':');
-	plotChar(base, 368, 222, '0');
-	plotChar(base, 384, 222, '0');
+
+	plot_char(base, 352, 222, ':');
+	/*plot_char(base, 320, 222, '0');
+	plot_char(base, 336, 222, '0');
+	
+	plot_char(base, 368, 222, '0');
+	plot_char(base, 384, 222, '0');*/
 
 }
 
@@ -163,7 +165,7 @@ void clear_cell(int *base, int cellX, int cellY)
 }
 
 
-void plotChar(UINT8 *base, int x, int y, char c)
+void plot_char(UINT8 *base, int x, int y, char c)
 {
 	int counter;
 	int index;
