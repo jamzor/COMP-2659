@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 
-UINT8 back [32255];
+/* UINT8 back [32255]; */
 
 int main()
 {
@@ -87,15 +87,15 @@ int main()
 		if (keyPress == 4)
 		{
 			clearShape(&model);
-			clear_model_elements(base);
 			canLower = canLowerShape(&model);
 			if (canLower == 4)
 			{
+				clear_model_elements(base);
 				dropShape(&model); 
+				render_model_elements(base, &model);
 			}
 			else	
 				placeShape(&model);
-			render_frame(base,&model);
 			model.userMovement = 0;
 		}
 		

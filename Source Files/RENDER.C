@@ -72,13 +72,12 @@ void render_time(char *base, struct Model *model)
 	lastResult = currSecs % modDenom;
 	plot_char(base, TIME_SEC_0, TIME_LEVEL,(((int) '0') + lastResult));
 	lastResult = currSecs / modDenom;
-	plot_char(base, TIME_SEC_1, TIME_LEVEL,lastResult);
+	plot_char(base, TIME_SEC_1, TIME_LEVEL,(((int) '0') + lastResult));
 
-	lastResult = currMins % 10;
-
+	lastResult = currMins / modDenom;
 	plot_char(base, TIME_MIN_0, TIME_LEVEL,(((int) '0') + lastResult));
 	lastResult = currMins % modDenom;
-	plot_char(base, TIME_SEC_1, TIME_LEVEL,(((int) '0') + lastResult));
+	plot_char(base, TIME_MIN_1, TIME_LEVEL,(((int) '0') + lastResult));
 }
 
 void clear_frame(char *base, struct Model *model)
