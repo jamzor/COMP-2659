@@ -99,9 +99,8 @@ int main()
 				blockNum = rand() % 7;
 				makeBlock (blockNum, &model, blocks);
 			}
-			dropShape(&model);
-			placeShape(&model);
-			render_frame(base,&model); 
+			dropShape(&model); 
+			render_frame(base,&model);
 			incr_time(&model);
 			timeThen = timeNow + 70;
 		}

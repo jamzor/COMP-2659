@@ -39,15 +39,16 @@ void render_model(char *base, struct Model *model)
 void render_score(char *base, struct Model *model)
 {
 	int currScore = model->score.value;
+	int tempScore = currScore;
 	int modDenom = 10;
-	int lastResult = currScore;
+	int lastResult;
 	int counter = 0;
 	char printables[7];
 
 	while (counter < 7)
 	{
-		lastResult = lastResult % modDenom;
-		modDenom * 10;
+		lastResult = tempScore % modDenom;
+		tempScore / 10;
 		printables[6 - counter] = (char)(((int) '0') + lastResult);
 		counter++;
 	}

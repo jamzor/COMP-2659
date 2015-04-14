@@ -1,6 +1,5 @@
 #include "raster.h"
 
-
 #define SCREEN_WIDTH	640
 #define SCREEN_HEIGHT	400
 #define GRID_START_X	48

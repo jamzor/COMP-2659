@@ -174,7 +174,7 @@ const char TblockR4[4][4] =
  
 void dropShape(struct Model *model)
 {
-	clearShape(model);
+	/*clearShape(model);*/
 	model -> shape.y += 1;
 	placeShape(model);
 }
@@ -293,9 +293,9 @@ int canLowerShape(struct Model *model)  /* need to figure out how to pass the st
 	{
 		for (; shapeY >= yLimit; shapeY--)
 		{
-			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) /* will need bounds checking */
+			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) 
 			{
-				if ((gridY == GRID_HEIGHT) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
+				if ((gridY == GRID_HEIGHT) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) 
 				{
 					switch (shapeX)
 					{
@@ -324,7 +324,7 @@ int canLowerShape(struct Model *model)  /* need to figure out how to pass the st
 	
 	returnValue = col0 + col1 + col2 + col3;
 
-	return (col0 + col1 + col2 + col3); /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
+	return returnValue; /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
 											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 /* printf("%d = SX %d, SY %d ||| %d = GX %d, GY %d\n", (*(currentShapeGrid + (4 * shapeY) + shapeX)), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);   */
@@ -481,6 +481,7 @@ int clearRows(struct Model *model)
     gridY--;
     gridX = 0;
 	}
+	
 	return returnVal;
 }
 
@@ -655,18 +656,6 @@ void init (struct Model *model, struct Block blocks[])
 		for (x = 0; x < GRID_WIDTH; x++)
 		{
 			model -> grid[x][y] = 0; 
-/* 			if (y > GRID_HEIGHT-6)
-			{
-				model -> grid[x][y] = (rand() % 2);
-			}
-			if (y == GRID_HEIGHT-3 || y == GRID_HEIGHT-1 || (x == GRID_WIDTH-1 && y > GRID_HEIGHT-7)) 
-			{
-				model -> grid[x][y] = 1;
-			} 
-			if(x == 8 && y == GRID_HEIGHT-5)
-			{
-				model -> grid[x][y] = 0;
-			} */
 		}
 		x = 0;
 
@@ -709,7 +698,9 @@ void init (struct Model *model, struct Block blocks[])
 	model -> userMovement = 0;
 
 	model -> time.mins = 0;
-	model->time.secs = 0;
+	model -> time.secs = 0;
+	
+	model -> score.value = 0;
 	
 	for (index = block; index <= tBlock; index++)
 		blocks[index].rotation = 0;
