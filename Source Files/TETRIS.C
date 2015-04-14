@@ -33,7 +33,7 @@ int main()
 	init(&model, blocks); 
 	makeBlock (blockNum, &model, blocks);
 	isGameLost = gameLost(&model);
-
+	render_frame(base,&model);
 
 	while (isGameLost == 0)
 	{
@@ -54,7 +54,7 @@ int main()
 
 				clear_model_elements(base);
 				moveShapeLeft(&model);
-				render_frame(base, &model);
+				render_model_elements(base, &model);
 
 			}
 		}
@@ -68,7 +68,7 @@ int main()
 			{
 				clear_model_elements(base);
 				moveShapeRight(&model);
-				render_frame(base, &model);
+				render_model_elements(base, &model);
 			}
 		}
 		if (keyPress == 3)
@@ -80,7 +80,7 @@ int main()
 				clear_model_elements(base);
 				rotateShape(&model);
 				placeShape(&model);
-				render_frame(base, &model);
+				render_model_elements(base, &model);
 			}
 			model.userMovement = 0;
 		}
@@ -100,7 +100,7 @@ int main()
 				makeBlock (blockNum, &model, blocks);
 			}
 			dropShape(&model); 
-			render_frame(base,&model);
+			render_model_elements(base,&model);
 			incr_time(&model);
 			timeThen = timeNow + 70;
 		}

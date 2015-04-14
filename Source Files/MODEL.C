@@ -174,7 +174,6 @@ const char TblockR4[4][4] =
  
 void dropShape(struct Model *model)
 {
-	/*clearShape(model);*/
 	model -> shape.y += 1;
 	placeShape(model);
 }
