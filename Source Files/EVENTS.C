@@ -18,5 +18,9 @@ void detectKeyPress(struct Model *model)
 		{
 			model -> userMovement = 3;
 		}
+		if (keyRead == DOWN_ARROW) 
+		{
+			model -> userMovement = 4;
+		}
 	}
 }

@@ -5,8 +5,8 @@
 #include "events.h"
 #include <stdlib.h>
 
-/* 462 address of clock */
 
+UINT8 back [32255];
 
 int main()
 {
@@ -82,6 +82,20 @@ int main()
 				placeShape(&model);
 				render_frame(base, &model);
 			}
+			model.userMovement = 0;
+		}
+		if (keyPress == 4)
+		{
+			clearShape(&model);
+			clear_model_elements(base);
+			canLower = canLowerShape(&model);
+			if (canLower == 4)
+			{
+				dropShape(&model); 
+			}
+			else	
+				placeShape(&model);
+			render_frame(base,&model);
 			model.userMovement = 0;
 		}
 		
