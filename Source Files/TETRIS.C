@@ -1,10 +1,19 @@
 #include "tetris.h"
+<<<<<<< HEAD
+#include "events.h"
+#include "types.h"
+#include <stdlib.h>
 
-/* UINT8 back [32255]; */
+=======
+>>>>>>> 9ae9cfe952350f1631ff09943ada7224256a150d
+
+UINT8 buffer[32255]; 
 
 int main()
 {
 	void *base = Physbase(); /* frame buffer pointer */
+	UINT8 *back = (UINT8*) (((UINT32) (buffer) + 256) & 0xFFFFFF00);
+	int isBase = 1;
 	int x;
 	int y;
 	int canLower;
@@ -23,12 +32,29 @@ int main()
 	int points;
 	srand(31);
 	blockNum = rand() % 7;
-	init_frame(base);
+	init_frame(base); 
+	init_frame(back);
 	init(&model, blocks); 
 	makeBlock (blockNum, &model, blocks);
 	isGameLost = gameLost(&model);
 	render_frame(base,&model);
+	render_frame(back,&model);
+	
 
+/* 	Cnecin();
+	Setscreen(-1, back, -1);
+	Cnecin();
+	Setscreen(-1, base, -1);
+	Cnecin();
+	Setscreen(-1, back, -1);
+	Cnecin();
+	Setscreen(-1, base, -1);
+	Cnecin();
+	Setscreen(-1, back, -1);
+	Cnecin();
+	Setscreen(-1, base, -1);
+	Cnecin(); */
+	
 	while (isGameLost == 0)
 	{
 		timeNow = getCurTime();
@@ -46,9 +72,9 @@ int main()
 			if (canLeft == 4)
 			{
 
-				clear_model_elements(base);
+				/* clear_model_elements(base); */
 				moveShapeLeft(&model);
-				render_model_elements(base, &model);
+				/* render_model_elements(base, &model); */
 
 			}
 		}
@@ -60,9 +86,9 @@ int main()
 			placeShape(&model);
 			if (canRight == 4)
 			{
-				clear_model_elements(base);
+				/* clear_model_elements(base); */
 				moveShapeRight(&model);
-				render_model_elements(base, &model);
+				/* render_model_elements(base, &model); */
 			}
 		}
 		if (keyPress == 3)
@@ -71,10 +97,10 @@ int main()
 			canRot = canRotate(&model);
 			if (canRot == 4)
 			{
-				clear_model_elements(base);
+				/* clear_model_elements(base); */
 				rotateShape(&model);
 				placeShape(&model);
-				render_model_elements(base, &model);
+				/* render_model_elements(base, &model); */
 			}
 			model.userMovement = 0;
 		}
@@ -84,9 +110,9 @@ int main()
 			canLower = canLowerShape(&model);
 			if (canLower == 4)
 			{
-				clear_model_elements(base);
+				/* clear_model_elements(base); */
 				dropShape(&model); 
-				render_model_elements(base, &model);
+				/* render_model_elements(base, &model); */
 			}
 			else	
 				placeShape(&model);
@@ -96,7 +122,7 @@ int main()
 		if (timeElapsed > 0)
 		{
 			clearShape(&model);
-			clear_model_elements(base);
+			/* clear_model_elements(base); */
 			canLower = canLowerShape(&model);
 			if (canLower != 4) /* cant be lowered  */
 			{
@@ -108,10 +134,27 @@ int main()
 				makeBlock (blockNum, &model, blocks);
 			}
 			dropShape(&model); 
-			render_model_elements(base,&model);
+			/* render_model_elements(base,&model); */
 			incr_time(&model);
-			timeThen = timeNow + 70;
+			timeThen = timeNow + 50;
 		}
+		
+		/* isBase = doubleBuffer(&model, base, back, isBase); */
+		if (isBase == 1)
+		{
+			clear_model_elements(base);
+			render_model_elements(base,&model);
+			isBase = 0;
+			Setscreen(-1, base, -1);
+		}
+		else
+		{
+			clear_model_elements(back);
+			render_model_elements(back,&model);
+			isBase = 1;
+			Setscreen(-1, back, -1);
+		} 
+		Vsync(); 
 	}
 	
 	for (y = GRID_HEIGHT-1; y >= 0; y--)
@@ -123,7 +166,7 @@ int main()
 		x = 0;
 		render_frame(base,&model); 
 	}
-	
+	Setscreen(-1, base, -1);
 	return 0;
 }
 
@@ -142,7 +185,26 @@ void init_frame(char *base)
 {
 	disable_cursor();
 	clear_screen(base);
-	render_interface(base);
+/* 	render_interface(base); */
 }
 
+int doubleBuffer(struct Model *model, char *base, char *back, int isBase)
+{
+	if (isBase == 1)
+	{
+		clear_model_elements(back);
+		render_model_elements(back,&model);
+		isBase = 1;
+		Setscreen(-1, back, -1);
+	}
+	else
+	{
+		clear_model_elements(base);
+		render_model_elements(base,&model);
+		isBase = 0;
+		Setscreen(-1, base, -1);
+	}
+
+	return isBase;
+}
 
