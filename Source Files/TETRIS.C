@@ -1,11 +1,7 @@
 #include "tetris.h"
-<<<<<<< HEAD
 #include "events.h"
 #include "types.h"
 #include <stdlib.h>
-
-=======
->>>>>>> 9ae9cfe952350f1631ff09943ada7224256a150d
 
 UINT8 buffer[32255]; 
 
@@ -39,21 +35,6 @@ int main()
 	isGameLost = gameLost(&model);
 	render_frame(base,&model);
 	render_frame(back,&model);
-	
-
-/* 	Cnecin();
-	Setscreen(-1, back, -1);
-	Cnecin();
-	Setscreen(-1, base, -1);
-	Cnecin();
-	Setscreen(-1, back, -1);
-	Cnecin();
-	Setscreen(-1, base, -1);
-	Cnecin();
-	Setscreen(-1, back, -1);
-	Cnecin();
-	Setscreen(-1, base, -1);
-	Cnecin(); */
 	
 	while (isGameLost == 0)
 	{
