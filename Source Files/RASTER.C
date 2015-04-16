@@ -1,5 +1,17 @@
+/*************************************************************************
+FILE:
+AUTHORS:	James MacIsaac & Brad Ritten
+PURPOSE:
+*************************************************************************/
+
 #include "raster.h"
 
+/*************************************************************************
+FUNCTION:	
+PARAMETERS:	
+RETURNS:	
+PURPOSE:	
+*************************************************************************/
 void plot_menu_display(char *base)
 {
 	clear_horizontal_line(base, MENU_L_X, MENU_R_X - 20, MENU_T_Y);
@@ -114,6 +126,12 @@ void plot_menu_display(char *base)
 
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void set_buttons(char *base)
 {
 	int y = 0;
@@ -153,6 +171,12 @@ void set_buttons(char *base)
 	plot_char(base, TWO_PLAYER_B_X + 112, TWO_PLAYER_B_Y + 16, 'R');
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void clear_menu_block(int *base, int cellX, int cellY)
 {
 	int* tempBase = base;
@@ -169,6 +193,12 @@ void clear_menu_block(int *base, int cellX, int cellY)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void plot_pixel(char *base, int x, int y)
 {
 	if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
@@ -177,6 +207,12 @@ void plot_pixel(char *base, int x, int y)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void clear_pixel(char *base, int x, int y)
 {
 	if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
@@ -185,6 +221,12 @@ void clear_pixel(char *base, int x, int y)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void plot_vertical_line(char *base, int x, int yFirst, int ySecond)
 {
 	int xVal = x;
@@ -210,6 +252,12 @@ void plot_vertical_line(char *base, int x, int yFirst, int ySecond)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void clear_vertical_line(char *base, int x, int yFirst, int ySecond)
 {
 	int xVal = x;
@@ -235,6 +283,12 @@ void clear_vertical_line(char *base, int x, int yFirst, int ySecond)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void plot_horizontal_line(char *base, int xFirst, int xSecond, int y)
 {
 	int counter;
@@ -253,6 +307,12 @@ void plot_horizontal_line(char *base, int xFirst, int xSecond, int y)
 															/* Does right side of horizontal line */
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void clear_horizontal_line(char *base, int xFirst, int xSecond, int y)
 {
 	int counter;
@@ -271,6 +331,12 @@ void clear_horizontal_line(char *base, int xFirst, int xSecond, int y)
 															/* Does right side of horizontal line */
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void plot_tetris_display(char *base)
 {
 	plot_horizontal_line(base, 268, 362, 8);
@@ -324,6 +390,12 @@ void plot_tetris_display(char *base)
 
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void plot_cell_grid(char *base) /* 10w x 18h */
 {
 	int startX = GRID_START_X;
@@ -344,6 +416,12 @@ void plot_cell_grid(char *base) /* 10w x 18h */
 	plot_vertical_line(base, endX+1, startY-3, endY+1);
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void fill_cell(int *base, int cellX, int cellY)
 {
 	int* tempBase = base;
@@ -361,6 +439,12 @@ void fill_cell(int *base, int cellX, int cellY)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void clear_cell(int *base, int cellX, int cellY)
 {
 	int* tempBase = base;
@@ -379,6 +463,12 @@ void clear_cell(int *base, int cellX, int cellY)
 }
 
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void plot_char(UINT8 *base, int x, int y, char c)
 {
 	int counter;
@@ -398,6 +488,12 @@ void plot_char(UINT8 *base, int x, int y, char c)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 char charInBounds(int x, int y)
 {
 	if ((x >= 0) && (x <= 632) && (y >= 0) && ( y <= 400))
@@ -406,4 +502,3 @@ char charInBounds(int x, int y)
 	}
 	return 0;
 }
-/* stubbed method bodies go here */

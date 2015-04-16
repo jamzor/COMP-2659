@@ -1,6 +1,17 @@
+/*************************************************************************
+FILE:
+AUTHORS:	James MacIsaac & Brad Ritten
+PURPOSE:
+*************************************************************************/
+
 #include "RENDER.H"
 
-
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void render_frame(char *base,struct Model *model)
 {
 	render_interface(base);
@@ -9,6 +20,12 @@ void render_frame(char *base,struct Model *model)
 	render_time(base,model);
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void render_model_elements(char *base, struct Model *model)
 {
 	render_model(base, model);
@@ -16,11 +33,24 @@ void render_model_elements(char *base, struct Model *model)
 	render_time(base,model);
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void render_interface(char *base)
 {
 	plot_cell_grid(base);		/*plots the grid outline*/
 	plot_tetris_display(base);	/*plots display pedantics*/
 }
+
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void render_model(char *base, struct Model *model)
 {
 	int x = 0;
@@ -36,6 +66,12 @@ void render_model(char *base, struct Model *model)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void render_score(char *base, struct Model *model)
 {
 	int currScore = model->score.value;
@@ -62,6 +98,13 @@ void render_score(char *base, struct Model *model)
 	plot_char(base, SCORE_X_6, SCORE_LEVEL, printables[0]);
 
 }
+
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void render_time(char *base, struct Model *model)
 {
 	int currMins = model->time.mins;
@@ -80,11 +123,23 @@ void render_time(char *base, struct Model *model)
 	plot_char(base, TIME_MIN_1, TIME_LEVEL,(((int) '0') + lastResult));
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void clear_frame(char *base, struct Model *model)
 {
 	clear_screen(base);
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void clear_model_elements(char *base)
 {
 	int x = 0;
@@ -97,20 +152,14 @@ void clear_model_elements(char *base)
 				clear_cell(base, x, y);
 		}
 	}
-	clear_score(base);
-	clear_time(base);
 }
 
-void clear_score(char *base)
-{
-	/*plot_char();*/
-}
-
-void clear_time(char *base)
-{
-
-}
-
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void disable_cursor()
 {
 	printf("\033f\n");

@@ -1,25 +1,14 @@
+/*************************************************************************
+FILE:
+AUTHORS:	James MacIsaac & Brad Ritten
+PURPOSE:
+*************************************************************************/
+
 #include "model.h"
-#include <stdio.h>
-#include <stdlib.h>
-/*
-0 = block
-1 = Zig Zag Right
-2 = Zig Zag Left
-3 = Straight
-4 = Corner Left
-5 = Corner Right
-6 = T-Block
-*/
-/*struct Block block;
-struct Block zigZagLeft;
-struct Block zigZagRight;
-struct Block straight;
-struct Block cornerRight;
-struct Block cornerLeft;
-struct Block tBlock;
-struct Model model; */
 
-
+/*************************************************************************
+CONSTANT DECLARATIONS
+*************************************************************************/
 const char BlockR1[4][4] =
 {
 	1, 1, 0, 0,
@@ -171,13 +160,25 @@ const char TblockR4[4][4] =
 	0, 1, 0, 0,
 	0, 0, 0, 0
 }; 
- 
+
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void dropShape(struct Model *model)
 {
 	model -> shape.y += 1;
 	placeShape(model);
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void moveShapeRight(struct Model *model)
 {
 	clearShape(model);
@@ -185,6 +186,12 @@ void moveShapeRight(struct Model *model)
 	placeShape(model);
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void moveShapeLeft(struct Model *model)
 {
 	clearShape(model);
@@ -192,6 +199,12 @@ void moveShapeLeft(struct Model *model)
 	placeShape(model);
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void printBoard(struct Model *model)
 {
 	int x = 0;
@@ -210,6 +223,12 @@ void printBoard(struct Model *model)
 	}
 } 
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void rotateShape(struct Model *model)
 {
 	int tempRotation = model -> shape.currentShape.rotation;
@@ -225,6 +244,12 @@ void rotateShape(struct Model *model)
 	placeShape(model);
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int canRotate(struct Model *model)
 {
 	signed int gridX = model->shape.x;
@@ -268,9 +293,13 @@ int canRotate(struct Model *model)
 	return 4; 
 }
 
-
-
-int canLowerShape(struct Model *model)  /* need to figure out how to pass the struct */
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
+int canLowerShape(struct Model *model)  
 {
 	signed int gridX = model -> shape.x;
  	signed int gridY = model -> shape.y + 4;
@@ -326,7 +355,13 @@ int canLowerShape(struct Model *model)  /* need to figure out how to pass the st
 	return returnValue; /* 	all cols are initialized to 1 (meaning true). if any fail col fail, they will be set to 0. 
 											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
-/* printf("%d = SX %d, SY %d ||| %d = GX %d, GY %d\n", (*(currentShapeGrid + (4 * shapeY) + shapeX)), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);   */
+
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int canMoveShapeRight(struct Model *model)
 {
 	signed int gridX = model -> shape.x + 4;
@@ -351,10 +386,9 @@ int canMoveShapeRight(struct Model *model)
 	{
 		for (; shapeX >= xLimit; shapeX--)
 		{
-			/* printf("%d = SX %d, SY %d ||| %d = GX %d, GY %d\n", (*(currentShapeGrid + (4 * shapeY) + shapeX)), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);  */
-			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) /* will need bounds checking */
+			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) 
 			{
-				if ((gridX >= GRID_WIDTH) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
+				if ((gridX >= GRID_WIDTH) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) 
 				{
 					switch (shapeX)
 					{
@@ -387,7 +421,12 @@ int canMoveShapeRight(struct Model *model)
 											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
-
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int canMoveShapeLeft(struct Model *model)  
 {
 	signed int gridX = model -> shape.x - 1;
@@ -410,10 +449,9 @@ int canMoveShapeLeft(struct Model *model)
 	{
 		for (; shapeX <= xLimit; shapeX++)
 		{
-			/* printf("%d = SX %d, SY %d ||| %d = GX %d, GY %d\n", (*(currentShapeGrid + (4 * shapeY) + shapeX)), shapeX, shapeY, *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY), gridX, gridY);   */
-			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) /* will need bounds checking */
+			if (*(currentShapeGrid + (4*shapeY) + shapeX) == 1) 
 			{
-				if ((gridX < 0) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) /* will need bounds checking */
+				if ((gridX < 0) || *(tetrisGrid + (GRID_HEIGHT * gridX) + gridY) == 1) 
 				{
 					switch (shapeX)
 					{
@@ -446,7 +484,12 @@ int canMoveShapeLeft(struct Model *model)
 											meaning that if this function returns 4, the shape can be lowered, otherwise it cant. */
 }
 
-
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int clearRows(struct Model *model)
 {
 	int returnVal = 0;
@@ -484,7 +527,12 @@ int clearRows(struct Model *model)
 	return returnVal;
 }
 
-
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void dropRow(struct Model *model, int dropY)
 {
 	int dropX = 0;
@@ -505,15 +553,12 @@ void dropRow(struct Model *model, int dropY)
 	}
 }
  
-/*
-0 = block
-1 = Zig Zag Left
-2 = Zig Zag Right
-3 = Straight
-4 = Corner Right
-5 = Corner Left
-6 = T-Block
-*/
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[])
 {
 	model->shape.currentShape = blocks[blockNum];
@@ -521,6 +566,12 @@ void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[])
 	model->shape.y = -1;
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void placeShape(struct Model *model)
 {
 	int shapeX = 0;
@@ -548,6 +599,12 @@ void placeShape(struct Model *model)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void clearShape(struct Model *model)
 {
 	int shapeX = 0;
@@ -575,6 +632,12 @@ void clearShape(struct Model *model)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int gameLost(struct Model *model)
 {
 	int x;
@@ -593,6 +656,12 @@ int gameLost(struct Model *model)
 	return isGameLost;
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int inbounds(int x, int y)
 {
 	if ((x >= 0) && (x < GRID_WIDTH) && (y >= 0) && (y <= GRID_HEIGHT))
@@ -602,6 +671,12 @@ int inbounds(int x, int y)
 	return 0;
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void incr_time(struct Model *model)
 {
 	if (model->time.secs == 59)
@@ -615,6 +690,12 @@ void incr_time(struct Model *model)
 
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void incr_score(struct Model *model, int numRows)
 {
 
@@ -643,6 +724,12 @@ void incr_score(struct Model *model, int numRows)
 	}
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void init (struct Model *model, struct Block blocks[])
 {
 	int x;
