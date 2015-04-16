@@ -35,6 +35,9 @@
 #define TWO_PLAYER_B_X 240
 #define TWO_PLAYER_B_Y 280
 
+#define QUIT_B_X 280
+#define QUIT_B_Y 330
+
 /*************************************************************************
 	FUNCTION HEADERS
 		more details on individual functions in RASTER.C

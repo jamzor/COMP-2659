@@ -10,8 +10,8 @@ PURPOSE:	Makefile for the project	\
 
 all: clean tetris
 
-tetris: tetris.o raster.o rast_asm.o font.o model.o render.o events.o psg.o music.o effects.o
-	cc68x -g tetris.o raster.o rast_asm.o font.o model.o render.o events.o psg.o music.o effects.o -o tetris
+tetris: rast_asm.o syscall.o tetris.o raster.o font.o model.o render.o events.o psg.o music.o effects.o
+	cc68x -g rast_asm.o syscall.o tetris.o raster.o font.o model.o render.o events.o psg.o music.o effects.o -o tetris
 
 tetris.o: tetris.c tetris.h
 	cc68x -g -c tetris.c
@@ -42,6 +42,9 @@ music.o: music.c music.h
 
 effects.o: effects.c effects.h
 	cc68x -g -c effects.c
+
+syscall.o: syscall.s syscall.h
+	gen -D -L2 syscall.s
 
 clean: 
 	$(RM) *.o *.i tetris a.out

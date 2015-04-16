@@ -17,13 +17,15 @@ FILE & LIBRARY REFERENCES
 #include "EVENTS.H"
 #include "TYPES.H"
 #include "PSG.H"
+#include "SYSCALL.H"
 
 /*************************************************************************
 FUNCTION HEADERS
 more details on individual functions in
 *************************************************************************/
 long getCurTime();
-int mainGameLoop(struct Model *model, struct Block blocks[], char *base);
 void init_frame(char *base);
 int doubleBuffer(struct Model *model, char *base, char *back, int isBase);
+int main_game_loop(char *base);
+
 #endif

@@ -147,6 +147,14 @@ void set_buttons(char *base)
 		y++;
 	}
 
+	y = 0;
+
+	while (y < 40)
+	{
+		clear_horizontal_line(base, QUIT_B_X, QUIT_B_X + 90, QUIT_B_Y + y);
+		y++;
+	}
+
 	plot_char(base, ONE_PLAYER_B_X + 40, ONE_PLAYER_B_Y+16, 'O');
 	plot_char(base, ONE_PLAYER_B_X + 48, ONE_PLAYER_B_Y + 16, 'N');
 	plot_char(base, ONE_PLAYER_B_X + 56, ONE_PLAYER_B_Y + 16, 'E');
@@ -169,6 +177,11 @@ void set_buttons(char *base)
 	plot_char(base, TWO_PLAYER_B_X + 96, TWO_PLAYER_B_Y + 16, 'Y');
 	plot_char(base, TWO_PLAYER_B_X + 104, TWO_PLAYER_B_Y + 16, 'E');
 	plot_char(base, TWO_PLAYER_B_X + 112, TWO_PLAYER_B_Y + 16, 'R');
+
+	plot_char(base, QUIT_B_X + 40, QUIT_B_Y + 16, 'Q');
+	plot_char(base, QUIT_B_X + 48, QUIT_B_Y + 16, 'U');
+	plot_char(base, QUIT_B_X + 56, QUIT_B_Y + 16, 'I');
+	plot_char(base, QUIT_B_X + 64, QUIT_B_Y + 16, 'T');
 }
 
 /*************************************************************************
