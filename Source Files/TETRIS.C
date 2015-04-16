@@ -16,7 +16,8 @@ PURPOSE:
 int main()
 {
 	void *base = get_vb(); /* frame buffer pointer */
-
+	/*kbd_read();*/
+	/*run_menu(base);*/
 	main_game_loop(base);
 	return 0;
 }
@@ -80,6 +81,85 @@ int doubleBuffer(struct Model *model, void *base, UINT8 *back, int isBase)
 	return isBase;
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
+void run_menu(char *base)
+{
+	int keyPress;				
+	int currentIndex = 1;		/*menu button index*/
+	init_frame(base);
+	fill_screen(base);
+	plot_menu_display(base);
+
+
+	while (1 < 2)
+	{
+		
+		plot_menu_selection(base,currentIndex);
+
+		while (!Cconis())
+			;
+		keyPress = menuSelect();
+
+		if (keyPress == 1) /* up arrow */
+		{
+			if (currentIndex == 1)
+			{
+				playDropEffect();
+			}
+			if (currentIndex == 2)
+			{
+				currentIndex = 1;
+			}
+			if (currentIndex == 3)
+			{
+				currentIndex = 2;
+			}
+		}
+		else if (keyPress == 2) /* down arrow */
+		{
+			if (currentIndex == 1)
+			{
+				currentIndex = 2;
+			}
+			if (currentIndex == 2)
+			{
+				currentIndex = 3;
+			}
+			if (currentIndex == 3)
+			{
+				playDropEffect();
+			}
+		}
+		else if (keyPress == 3)
+		{
+			if (currentIndex = 1)
+			{
+				main_game_loop(base);
+			}
+			if (currentIndex == 2)
+			{
+				/* two player game */
+			}
+			if (currentIndex == 3)
+			{
+				/* quit */
+			}
+		}
+		clear_menu_selection(base,currentIndex);
+	}
+}
+
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int main_game_loop(char *base)
 {
 	UINT8 *back = (UINT8*)(((UINT32)(buffer)+256) & 0xFFFFFF00);
@@ -102,6 +182,7 @@ int main_game_loop(char *base)
 	int points;
 
 	blockNum = getCurTime() % 7;
+	clear_screen(base);
 	clear_screen(back);
 	init_frame(base);
 	init_frame(back);

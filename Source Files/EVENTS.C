@@ -36,3 +36,23 @@ void detectKeyPress(struct Model *model)
 		}
 	}
 }
+
+int menuSelect()
+{
+	int returnVal;
+	long keyRead;
+
+	keyRead = (long)Cnecin();
+		if (keyRead == UP_ARROW)
+		{
+			returnVal = 1;
+		}
+		if (keyRead == DOWN_ARROW)
+		{
+			returnVal = 2;
+		}
+		if (keyRead == RETURN)
+		{
+			returnVal = 3;
+		}
+}

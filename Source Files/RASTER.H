@@ -51,6 +51,8 @@ void clear_vertical_line(char *base, int x, int yFirst, int ySecond);
 void plot_horizontal_line(char *base, int xFirst, int xSecond, int y);
 void clear_horizontal_line(char *base, int xFirst, int xSecond, int y);
 
+void clear_menu_selection(char *base, int selection);
+void plot_menu_selection(char *base, int selection);
 void plot_menu_display(char *base);
 void set_buttons(char *base);
 

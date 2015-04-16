@@ -25,7 +25,8 @@ more details on individual functions in
 *************************************************************************/
 long getCurTime();
 void init_frame(char *base);
-int doubleBuffer(struct Model *model, char *base, char *back, int isBase);
+int doubleBuffer(struct Model *model, void *base, UINT8 *back, int isBase);
 int main_game_loop(char *base);
+void run_menu(char *base);
 
 #endif

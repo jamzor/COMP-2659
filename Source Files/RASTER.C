@@ -7,6 +7,158 @@ PURPOSE:
 #include "raster.h"
 
 /*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
+void plot_menu_selection(char *base, int selection)
+{
+	if (selection == 1)
+	{
+		plot_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 5);
+		plot_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 6);
+		plot_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 7);
+		plot_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 8);
+
+		plot_vertical_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		plot_vertical_line(base, ONE_PLAYER_B_X + 11, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		plot_vertical_line(base, ONE_PLAYER_B_X + 12, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		plot_vertical_line(base, ONE_PLAYER_B_X + 13, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+
+		plot_vertical_line(base, ONE_PLAYER_B_X + 155, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		plot_vertical_line(base, ONE_PLAYER_B_X + 156, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		plot_vertical_line(base, ONE_PLAYER_B_X + 157, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		plot_vertical_line(base, ONE_PLAYER_B_X + 158, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+
+		plot_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 31);
+		plot_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 32);
+		plot_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 33);
+		plot_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 34);
+	}
+	if (selection == 2)
+	{
+		plot_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 5);
+		plot_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 6);
+		plot_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 7);
+		plot_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 8);
+
+		plot_vertical_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		plot_vertical_line(base, TWO_PLAYER_B_X + 11, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		plot_vertical_line(base, TWO_PLAYER_B_X + 12, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		plot_vertical_line(base, TWO_PLAYER_B_X + 13, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+
+		plot_vertical_line(base, TWO_PLAYER_B_X + 155, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		plot_vertical_line(base, TWO_PLAYER_B_X + 156, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		plot_vertical_line(base, TWO_PLAYER_B_X + 157, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		plot_vertical_line(base, TWO_PLAYER_B_X + 158, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+
+		plot_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 31);
+		plot_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 32);
+		plot_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 33);
+		plot_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 34);
+	}
+	if (selection == 3)
+	{
+		plot_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 5);
+		plot_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 6);
+		plot_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 7);
+		plot_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 8);
+
+		plot_vertical_line(base, QUIT_B_X + 10, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		plot_vertical_line(base, QUIT_B_X + 11, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		plot_vertical_line(base, QUIT_B_X + 12, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		plot_vertical_line(base, QUIT_B_X + 13, QUIT_B_Y + 5, QUIT_B_Y + 34);
+
+		plot_vertical_line(base, QUIT_B_X + 95, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		plot_vertical_line(base, QUIT_B_X + 96, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		plot_vertical_line(base, QUIT_B_X + 97, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		plot_vertical_line(base, QUIT_B_X + 98, QUIT_B_Y + 5, QUIT_B_Y + 34);
+
+		plot_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 31);
+		plot_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 32);
+		plot_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 33);
+		plot_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 34);
+	}
+}
+
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
+void clear_menu_selection(char *base, int selection)
+{
+	if (selection == 1)
+	{
+		clear_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 5);
+		clear_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 6);
+		clear_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 7);
+		clear_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 8);
+
+		clear_vertical_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		clear_vertical_line(base, ONE_PLAYER_B_X + 11, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		clear_vertical_line(base, ONE_PLAYER_B_X + 12, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		clear_vertical_line(base, ONE_PLAYER_B_X + 13, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+
+		clear_vertical_line(base, ONE_PLAYER_B_X + 155, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		clear_vertical_line(base, ONE_PLAYER_B_X + 156, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		clear_vertical_line(base, ONE_PLAYER_B_X + 157, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+		clear_vertical_line(base, ONE_PLAYER_B_X + 158, ONE_PLAYER_B_Y + 5, ONE_PLAYER_B_Y + 34);
+
+		clear_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 31);
+		clear_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 32);
+		clear_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 33);
+		clear_horizontal_line(base, ONE_PLAYER_B_X + 10, ONE_PLAYER_B_X + 150, ONE_PLAYER_B_Y + 34);
+	}
+	if (selection == 2)
+	{
+		clear_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 5);
+		clear_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 6);
+		clear_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 7);
+		clear_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 8);
+
+		clear_vertical_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		clear_vertical_line(base, TWO_PLAYER_B_X + 11, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		clear_vertical_line(base, TWO_PLAYER_B_X + 12, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		clear_vertical_line(base, TWO_PLAYER_B_X + 13, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+
+		clear_vertical_line(base, TWO_PLAYER_B_X + 155, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		clear_vertical_line(base, TWO_PLAYER_B_X + 156, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		clear_vertical_line(base, TWO_PLAYER_B_X + 157, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+		clear_vertical_line(base, TWO_PLAYER_B_X + 158, TWO_PLAYER_B_Y + 5, TWO_PLAYER_B_Y + 34);
+
+		clear_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 31);
+		clear_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 32);
+		clear_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 33);
+		clear_horizontal_line(base, TWO_PLAYER_B_X + 10, TWO_PLAYER_B_X + 150, TWO_PLAYER_B_Y + 34);
+	}
+	if (selection == 3)
+	{
+		clear_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 5);
+		clear_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 6);
+		clear_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 7);
+		clear_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 8);
+
+		clear_vertical_line(base, QUIT_B_X + 10, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		clear_vertical_line(base, QUIT_B_X + 11, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		clear_vertical_line(base, QUIT_B_X + 12, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		clear_vertical_line(base, QUIT_B_X + 13, QUIT_B_Y + 5, QUIT_B_Y + 34);
+
+		clear_vertical_line(base, QUIT_B_X + 95, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		clear_vertical_line(base, QUIT_B_X + 96, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		clear_vertical_line(base, QUIT_B_X + 97, QUIT_B_Y + 5, QUIT_B_Y + 34);
+		clear_vertical_line(base, QUIT_B_X + 98, QUIT_B_Y + 5, QUIT_B_Y + 34);
+
+		clear_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 31);
+		clear_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 32);
+		clear_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 33);
+		clear_horizontal_line(base, QUIT_B_X + 10, QUIT_B_X + 90, QUIT_B_Y + 34);
+	}
+}
+
+/*************************************************************************
 FUNCTION:	
 PARAMETERS:	
 RETURNS:	

@@ -8,6 +8,7 @@
 		XDEF _exit_super
 		XDEF _get_vb
 		XDEF _set_vb
+		XDEF _kbd_read
 		
 SCREEN:		equ	 8
 PHYSBASE:   equ  16
@@ -73,5 +74,31 @@ _set_vb:
 			movem.l (sp)+,d1/a0
 			unlk a6
 			rts
-		
+
+_kbd_read:
+			link a6,#0
+			movem.l d1/a0,-(sp)
+			move.l #0,-(sp)
+
+			move.b #8,-(sp)
+			trap #1
+			addq.l #2,sp
+
+			movem.l (sp)+,d1/a0
+			unlk a6
+			rts
+
+_kbd_status:
+			link a6,#0
+			movem.l d1/a0,-(sp)
+			move.l #0,-(sp)
+
+			move.b #8,-(sp)
+			trap #1
+			addq.l #2,sp
+
+			movem.l (sp)+,d1/a0
+			unlk a6
+			rts
+
 stack_old:  ds.l 0
