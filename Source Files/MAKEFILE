@@ -35,4 +35,4 @@ events.o: events.c events.h
 	cc68x -g -c events.c
 
 clean: 
-	$(RM) *.o *.i tetris
+	$(RM) *.o *.i tetris a.out
