@@ -16,6 +16,7 @@ FILE & LIBRARY REFERENCES
 #include "RENDER.H"
 #include "EVENTS.H"
 #include "TYPES.H"
+#include "PSG.H"
 
 /*************************************************************************
 FUNCTION HEADERS

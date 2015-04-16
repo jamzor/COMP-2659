@@ -1,19 +1,10 @@
 #include "PSG.H"
 
-int main()
+/* int main()
 {
 	UINT32 i = 0;
 	long x;
-/* 	start_music(i);
-	
-	while(i < 512)
-	{
-		for (x = 0; x < 6000; x++){}
-		
-		i++;
-		update_music(i);
-	}
-	 */
+
 	 playDropEffect();
 	 Cnecin();
 	 	 playDropEffect();
@@ -27,7 +18,7 @@ int main()
 	stop_sound();
 	return 0;
 }
-
+ */
 void write_psg(int reg, UINT8 val)
 {
 	volatile char *PSG_reg_select = REG_SELECT; 

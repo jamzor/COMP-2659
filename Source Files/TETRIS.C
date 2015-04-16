@@ -43,8 +43,8 @@ int main()
 	isGameLost = gameLost(&model);
 	render_frame(base,&model);
 	render_frame(back,&model);
-	
-
+	timeNow = getCurTime();
+	start_music(timeNow);
 	while (isGameLost == 0)
 	{
 		timeNow = getCurTime();
@@ -112,6 +112,7 @@ int main()
 			clearShape(&model);
 			/* clear_model_elements(base); */
 			canLower = canLowerShape(&model);
+			/* playDropEffect(); */
 			if (canLower != 4) /* cant be lowered  */
 			{
 				placeShape(&model);
@@ -142,9 +143,11 @@ int main()
 			isBase = 1;
 			Setscreen(-1, back, -1);
 		} 
+		update_music(timeNow);
 		Vsync(); 
 	}
 	
+	stop_sound();
 	for (y = GRID_HEIGHT-1; y >= 0; y--) /* game lost */ 
 	{
 		for (x = 0; x < GRID_WIDTH; x++)

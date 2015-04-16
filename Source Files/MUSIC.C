@@ -39,15 +39,15 @@ const int musicSongLeft[] =
 
 const int durationRight[] = 
 {
-	8,4,4,8,4,4,
-	8,4,4,8,4,4,
-	12,4,8,8,
-	8,8,8,8,
+	32,16,16,32,16,16,
+	32,16,16,32,16,16,
+	48,16,32,32,
+	32,32,32,32,
 	
-	4,8,4,8,4,4,
-	12,4,8,4,4,
-	8,4,4,8,8,
-	8,8,8,8
+	16,32,16,32,16,16,
+	48,16,32,16,16,
+	32,16,16,32,32,
+	32,32,32,32
 };
 
 const int durationLeft[] = 
@@ -76,7 +76,7 @@ void start_music(UINT32 time_now)
 
 void update_music(UINT32 time_now)
 {
-	printf("T%d - P%d\n",time_now, prev_time);
+	/* printf("T%d - P%d\n",time_now, prev_time); */
 	if (time_now - prev_time >= durationRight[note_playing])
 	{
 		note_playing++;

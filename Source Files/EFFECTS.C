@@ -2,7 +2,7 @@
 
 playDropEffect()
 {
-	write_psg(0x00, 0xAA);	/* set channel A volume = 11 */
+	write_psg(0x00, 0x01);	/* set channel A volume = 11 */
 	write_psg(0x06, 0x10);	/* set channel A volume = 11 */
 	write_psg(0x07, 0xFF);
 
