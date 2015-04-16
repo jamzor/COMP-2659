@@ -44,4 +44,4 @@ effects.o: effects.c effects.h
 	cc68x -g -c effects.c
 
 clean: 
-	$(RM) *.o *.i tetris
+	$(RM) *.o *.i tetris a.out
