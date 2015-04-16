@@ -1,11 +1,7 @@
 #include "tetris.h"
-<<<<<<< HEAD
 #include "events.h"
 #include "types.h"
 #include <stdlib.h>
-
-=======
->>>>>>> 9ae9cfe952350f1631ff09943ada7224256a150d
 
 UINT8 buffer[32255]; 
 
@@ -40,20 +36,17 @@ int main()
 	render_frame(base,&model);
 	render_frame(back,&model);
 	
-
-/* 	Cnecin();
-	Setscreen(-1, back, -1);
+	
+	
+	
 	Cnecin();
-	Setscreen(-1, base, -1);
+	
+	
+	
+	
+	
 	Cnecin();
-	Setscreen(-1, back, -1);
-	Cnecin();
-	Setscreen(-1, base, -1);
-	Cnecin();
-	Setscreen(-1, back, -1);
-	Cnecin();
-	Setscreen(-1, base, -1);
-	Cnecin(); */
+	
 	
 	while (isGameLost == 0)
 	{
@@ -71,7 +64,6 @@ int main()
 			model.userMovement = 0;
 			if (canLeft == 4)
 			{
-
 				/* clear_model_elements(base); */
 				moveShapeLeft(&model);
 				/* render_model_elements(base, &model); */
@@ -99,9 +91,9 @@ int main()
 			{
 				/* clear_model_elements(base); */
 				rotateShape(&model);
-				placeShape(&model);
 				/* render_model_elements(base, &model); */
 			}
+			placeShape(&model);
 			model.userMovement = 0;
 		}
 		if (keyPress == 4)
@@ -114,8 +106,7 @@ int main()
 				dropShape(&model); 
 				/* render_model_elements(base, &model); */
 			}
-			else	
-				placeShape(&model);
+			placeShape(&model);
 			model.userMovement = 0;
 		}
 		
@@ -136,7 +127,7 @@ int main()
 			dropShape(&model); 
 			/* render_model_elements(base,&model); */
 			incr_time(&model);
-			timeThen = timeNow + 50;
+			timeThen = timeNow + 70;
 		}
 		
 		/* isBase = doubleBuffer(&model, base, back, isBase); */
@@ -157,7 +148,7 @@ int main()
 		Vsync(); 
 	}
 	
-	for (y = GRID_HEIGHT-1; y >= 0; y--)
+	for (y = GRID_HEIGHT-1; y >= 0; y--) /* game lost */ 
 	{
 		for (x = 0; x < GRID_WIDTH; x++)
 		{
@@ -186,25 +177,5 @@ void init_frame(char *base)
 	disable_cursor();
 	clear_screen(base);
 /* 	render_interface(base); */
-}
-
-int doubleBuffer(struct Model *model, char *base, char *back, int isBase)
-{
-	if (isBase == 1)
-	{
-		clear_model_elements(back);
-		render_model_elements(back,&model);
-		isBase = 1;
-		Setscreen(-1, back, -1);
-	}
-	else
-	{
-		clear_model_elements(base);
-		render_model_elements(base,&model);
-		isBase = 0;
-		Setscreen(-1, base, -1);
-	}
-
-	return isBase;
 }
 

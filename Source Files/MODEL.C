@@ -581,7 +581,7 @@ int gameLost(struct Model *model)
 	int y;
 	int isGameLost = 0;
 	
-	for (y = 0; y < 4; y++)
+	for (y = 0; y < 3; y++)
 	{
 		for (x = 0; x < GRID_WIDTH; x++)
 		{
