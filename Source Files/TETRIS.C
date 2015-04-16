@@ -36,6 +36,7 @@ int main()
 	render_frame(base,&model);
 	render_frame(back,&model);
 	
+<<<<<<< HEAD
 	
 	
 	
@@ -48,6 +49,8 @@ int main()
 	Cnecin();
 	
 	
+=======
+>>>>>>> a7634f3772d66ec4e7420b60c3977d40c0b53747
 	while (isGameLost == 0)
 	{
 		timeNow = getCurTime();
