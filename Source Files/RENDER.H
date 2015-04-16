@@ -1,12 +1,24 @@
+/*************************************************************************
+FILE:
+AUTHORS:	James MacIsaac & Brad Ritten
+PURPOSE:
+*************************************************************************/
+
 #ifndef RASTER_H
 #define RASTER_H
 
+/*************************************************************************
+FILE & LIBRARY REFERENCES
+*************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "RASTER.H"
 #include "MODEL.H"
 
+/*************************************************************************
+CONSTANT DECLARATIONS
+*************************************************************************/
 /* these are for writing to the positions on the screen*/
 #define SCORE_X_0 400	/*least sig dig*/
 #define SCORE_X_1 384
@@ -35,6 +47,10 @@ extern void clear_screen(char *base);
 extern void plot_tetris_display(char *base);
 extern void plot_char(char *base, int x, int y, char c);
 
+/*************************************************************************
+FUNCTION HEADERS
+more details on individual functions in
+*************************************************************************/
 void render_frame(char *base, struct Model *model);
 void render_model_elements(char *base, struct Model *model);
 
@@ -45,9 +61,6 @@ void render_time(char *base, struct Model *model);
 
 void clear_frame(char *base, struct Model *model);
 void clear_model_elements(char *base);
-
-void clear_score(char *base);
-void clear_time(char *base);
 
 void disable_cursor();
 

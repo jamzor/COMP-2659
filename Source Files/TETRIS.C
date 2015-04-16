@@ -1,10 +1,18 @@
+/*************************************************************************
+FILE:
+AUTHORS:	James MacIsaac & Brad Ritten
+PURPOSE:
+*************************************************************************/
 #include "tetris.h"
-#include "events.h"
-#include "types.h"
-#include <stdlib.h>
 
 UINT8 buffer[32255]; 
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int main()
 {
 	void *base = Physbase(); /* frame buffer pointer */
@@ -151,6 +159,12 @@ int main()
 	return 0;
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 long getCurTime()
 {
 	long *timer = (long *)0x462; /* address of longword auto-inc’ed 70 x per s */
@@ -162,6 +176,12 @@ long getCurTime()
 	return timeNow;
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 void init_frame(char *base)
 {
 	disable_cursor();
@@ -169,6 +189,12 @@ void init_frame(char *base)
 /* 	render_interface(base); */
 }
 
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
 int doubleBuffer(struct Model *model, char *base, char *back, int isBase)
 {
 	if (isBase == 1)

@@ -1,3 +1,13 @@
+# ************************************************************************ \
+FILE:		MAKEFILE	\
+AUTHORS:	James MacIsaac & Brad Ritten	\
+PURPOSE:	Makefile for the project	\
+				Removes erratic files	\
+				Builds the objects	\
+				Buidls the executable from  created objects	\
+**************************************************************************	\
+
+
 all: clean tetris
 
 tetris: tetris.o raster.o rast_asm.o font.o model.o render.o events.o

@@ -1,8 +1,27 @@
+/*************************************************************************
+FILE:
+AUTHORS:	James MacIsaac & Brad Ritten
+PURPOSE:
+*************************************************************************/
+
 #ifndef MODEL_H
 #define MODEL_H
+
+/*************************************************************************
+FILE & LIBRARY REFERENCES
+*************************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+
+/*************************************************************************
+CONSTANT DECLARATIONS
+*************************************************************************/
 #define GRID_WIDTH 10
 #define GRID_HEIGHT 18
 
+/*************************************************************************
+STRUCTURE DECLARATIONS
+*************************************************************************/
 typedef enum {block, zigZagLeft, zigZagRight, straight, cornerRight,
 			  cornerLeft, tBlock} blockType;
 
@@ -51,6 +70,9 @@ struct Model
 6 = T-Block
 */
 
+/*************************************************************************
+FUNCTION DECLARATIONS
+*************************************************************************/
 int lowerShape(struct Shape s);
 void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[]);
 

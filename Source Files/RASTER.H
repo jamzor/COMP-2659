@@ -1,9 +1,21 @@
+/*************************************************************************
+	FILE:		
+	AUTHORS:	James MacIsaac & Brad Ritten
+	PURPOSE:	This file is the header file for RASTER.C
+*************************************************************************/
+
 #ifndef RASTER_H
 #define RASTER_H
 
+/*************************************************************************
+	FILE REFERENCES	
+*************************************************************************/
 #include "types.h"
 #include "font.h"
 
+/*************************************************************************
+	CONSTANT DECLARATIONS
+*************************************************************************/
 #define SCREEN_WIDTH	640
 #define SCREEN_HEIGHT	400
 #define GRID_START_X	48
@@ -23,7 +35,10 @@
 #define TWO_PLAYER_B_X 240
 #define TWO_PLAYER_B_Y 280
 
-
+/*************************************************************************
+	FUNCTION HEADERS
+		more details on individual functions in RASTER.C
+*************************************************************************/
 void plot_pixel(char *base, int x, int y);
 void clear_pixel(char *base, int x, int y);
 
