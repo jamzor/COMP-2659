@@ -41,12 +41,11 @@ _get_vb:
 			jsr _enter_super
 			
 			move.l	#VIDEO_MEM,a0
-			movep.l 1(a0),d1
+			movep.w 1(a0),d1
 			
 			jsr _exit_super
 			
-			lsr.l #8,d1
-			clr.b d1
+			lsl.l #8,d1
 			
 			move.l d1,d0
 			
@@ -62,12 +61,12 @@ _set_vb:
 			clr.l 	d1
 			
 			move.l  a0,d1
-			lsl.l	#8,d1
+			lsr.l	#8,d1
 			move.l  #VIDEO_MEM,a0	
 							
 			jsr _enter_super			
 					
-			movep.l d1,1(a0)
+			movep.w d1,1(a0)
 			
 			jsr _exit_super
 			

@@ -200,8 +200,6 @@ int main_game_loop(char *base)
 
 	while (isGameLost == 0)
 	{
-		timeNow = getCurTime();
-		timeElapsed = timeNow - timeThen;
 
 		detectKeyPress(&model);
 		keyPress = model.userMovement;
@@ -252,6 +250,9 @@ int main_game_loop(char *base)
 			model.userMovement = 0;
 		}
 
+		timeNow = getCurTime();
+		timeElapsed = timeNow - timeThen;
+
 		if (timeElapsed > 0)
 		{
 			clearShape(&model);
@@ -287,9 +288,9 @@ int main_game_loop(char *base)
 
 			set_vb(back);
 		}
-
-		update_music(timeNow);
 		Vsync();
+		update_music(timeNow);
+
 	}
 
 	set_vb(base);

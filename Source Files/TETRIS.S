@@ -277,252 +277,252 @@ _main_game_loop:
 	;line	201
 	bra	L27
 L26:
-	;line	203
-	jsr	_getCurTime
-	move.l	d0,d6
 	;line	204
-	move.l	d6,d0
-	sub.l	-566(a6),d0
-	move.l	d0,-562(a6)
-	;line	206
 	move.l	d3,-(a7)
 	jsr	_detectKeyPress
 	addq.l	#4,a7
-	;line	207
+	;line	205
 	move.w	(a5),-568(a6)
-	;line	209
+	;line	207
 	cmp.w	#1,-568(a6)
 	bne	L29
-	;line	211
+	;line	209
 	move.l	d3,-(a7)
 	jsr	(a4)
 	addq.l	#4,a7
-	;line	212
+	;line	210
 	move.l	d3,-(a7)
 	jsr	_canMoveShapeLeft
 	addq.l	#4,a7
 	move.w	d0,-16(a6)
-	;line	213
+	;line	211
 	move.l	d3,-(a7)
 	jsr	(a3)
 	addq.l	#4,a7
-	;line	214
+	;line	212
 	clr.w	(a5)
-	;line	215
+	;line	213
 	cmp.w	#4,-16(a6)
 	bne	L30
-	;line	217
+	;line	215
 	move.l	d3,-(a7)
 	jsr	_moveShapeLeft
 	addq.l	#4,a7
 L30:
 L29:
-	;line	221
+	;line	219
 	cmp.w	#2,-568(a6)
 	bne	L31
-	;line	223
+	;line	221
 	move.l	d3,-(a7)
 	jsr	(a4)
 	addq.l	#4,a7
-	;line	224
+	;line	222
 	move.l	d3,-(a7)
 	jsr	_canMoveShapeRight
 	addq.l	#4,a7
 	move.w	d0,-14(a6)
-	;line	225
+	;line	223
 	clr.w	(a5)
-	;line	226
+	;line	224
 	move.l	d3,-(a7)
 	jsr	(a3)
 	addq.l	#4,a7
-	;line	227
+	;line	225
 	cmp.w	#4,-14(a6)
 	bne	L32
-	;line	229
+	;line	227
 	move.l	d3,-(a7)
 	jsr	_moveShapeRight
 	addq.l	#4,a7
 L32:
 L31:
-	;line	232
+	;line	230
 	cmp.w	#3,-568(a6)
 	bne	L33
-	;line	234
+	;line	232
 	move.l	d3,-(a7)
 	jsr	(a4)
 	addq.l	#4,a7
-	;line	235
+	;line	233
 	move.l	d3,-(a7)
 	jsr	_canRotate
 	addq.l	#4,a7
 	move.w	d0,-18(a6)
-	;line	236
+	;line	234
 	cmp.w	#4,-18(a6)
 	bne	L34
-	;line	238
+	;line	236
 	move.l	d3,-(a7)
 	jsr	_rotateShape
 	addq.l	#4,a7
 L34:
-	;line	240
+	;line	238
 	move.l	d3,-(a7)
 	jsr	(a3)
 	addq.l	#4,a7
-	;line	241
+	;line	239
 	clr.w	(a5)
 L33:
-	;line	243
+	;line	241
 	cmp.w	#4,-568(a6)
 	bne	L35
-	;line	245
+	;line	243
 	move.l	d3,-(a7)
 	jsr	(a4)
 	addq.l	#4,a7
-	;line	246
+	;line	244
 	move.l	d3,-(a7)
 	jsr	_canLowerShape
 	addq.l	#4,a7
 	move.w	d0,-12(a6)
-	;line	247
+	;line	245
 	cmp.w	#4,-12(a6)
 	bne	L36
-	;line	249
+	;line	247
 	move.l	d3,-(a7)
 	jsr	_dropShape
 	addq.l	#4,a7
 L36:
-	;line	251
+	;line	249
 	move.l	d3,-(a7)
 	jsr	(a3)
 	addq.l	#4,a7
-	;line	252
+	;line	250
 	clr.w	(a5)
 L35:
-	;line	255
+	;line	253
+	jsr	_getCurTime
+	move.l	d0,d6
+	;line	254
+	move.l	d6,d0
+	sub.l	-566(a6),d0
+	move.l	d0,-562(a6)
+	;line	256
 	tst.l	-562(a6)
 	ble	L37
-	;line	257
+	;line	258
 	move.l	d3,-(a7)
 	jsr	(a4)
 	addq.l	#4,a7
-	;line	258
+	;line	259
 	move.l	d3,-(a7)
 	jsr	_canLowerShape
 	addq.l	#4,a7
 	move.w	d0,-12(a6)
-	;line	259
+	;line	260
 	cmp.w	#4,-12(a6)
 	beq	L38
-	;line	261
-	jsr	_playDropEffect
 	;line	262
+	jsr	_playDropEffect
+	;line	263
 	move.l	d3,-(a7)
 	jsr	(a3)
 	addq.l	#4,a7
-	;line	263
+	;line	264
 	move.l	d3,-(a7)
 	jsr	_clearRows
 	addq.l	#4,a7
 	move.w	d0,-572(a6)
-	;line	264
+	;line	265
 	move.w	-572(a6),-(a7)
 	move.l	d3,-(a7)
 	jsr	_incr_score
 	addq.l	#6,a7
-	;line	265
+	;line	266
 	move.l	d3,-(a7)
 	jsr	_gameLost
 	addq.l	#4,a7
 	move.w	d0,-570(a6)
-	;line	266
+	;line	267
 	jsr	_rand
 	ext.l	d0
 	divs	#7,d0
 	swap	d0
 	move.w	d0,-20(a6)
-	;line	267
+	;line	268
 	pea	-554(a6)
 	move.l	d3,-(a7)
 	move.w	-20(a6),-(a7)
 	jsr	_makeBlock
 	lea	10(a7),a7
 L38:
-	;line	269
+	;line	270
 	move.l	d3,-(a7)
 	jsr	_dropShape
 	addq.l	#4,a7
-	;line	270
+	;line	271
 	move.l	d3,-(a7)
 	jsr	_incr_time
 	addq.l	#4,a7
-	;line	271
+	;line	272
 	moveq	#70,d0
 	add.l	d6,d0
 	move.l	d0,-566(a6)
 L37:
-	;line	274
+	;line	275
 	cmp.w	#1,-6(a6)
 	bne	L39
-	;line	276
+	;line	277
 	move.l	d4,-(a7)
 	jsr	_clear_model_elements
 	addq.l	#4,a7
-	;line	277
+	;line	278
 	move.l	d3,-(a7)
 	move.l	d4,-(a7)
 	jsr	_render_model_elements
 	addq.l	#8,a7
-	;line	278
+	;line	279
 	clr.w	-6(a6)
-	;line	280
+	;line	281
 	move.l	d4,-(a7)
 	jsr	_set_vb
 	addq.l	#4,a7
 	bra	L40
 L39:
-	;line	284
+	;line	285
 	move.l	d5,-(a7)
 	jsr	_clear_model_elements
 	addq.l	#4,a7
-	;line	285
+	;line	286
 	move.l	d3,-(a7)
 	move.l	d5,-(a7)
 	jsr	_render_model_elements
 	addq.l	#8,a7
-	;line	286
+	;line	287
 	move.w	#1,-6(a6)
-	;line	288
+	;line	289
 	move.l	d5,-(a7)
 	jsr	_set_vb
 	addq.l	#4,a7
 L40:
 	;line	291
-	move.l	d6,-(a7)
-	jsr	_update_music
-	addq.l	#4,a7
-	;line	292
 	move.w	#37,-(a7)
 	jsr	__trap_14_w
 	addq.l	#2,a7
+	;line	292
+	move.l	d6,-(a7)
+	jsr	_update_music
+	addq.l	#4,a7
 L27:
 	tst.w	-570(a6)
 	beq	L26
 L28:
-	;line	295
+	;line	296
 	move.l	d4,-(a7)
 	jsr	_set_vb
 	addq.l	#4,a7
-	;line	296
-	jsr	_stop_sound
 	;line	297
+	jsr	_stop_sound
+	;line	298
 	move.w	#17,-10(a6)
 	bra	L42
 L41:
-	;line	299
+	;line	300
 	moveq	#0,d7
 	bra	L46
 L45:
-	;line	301
+	;line	302
 	move.w	-10(a6),a0
 	add.l	a0,a0
 	move.w	d7,d0
@@ -536,9 +536,9 @@ L46:
 	cmp.w	#10,d7
 	blt	L45
 L47:
-	;line	303
-	moveq	#0,d7
 	;line	304
+	moveq	#0,d7
+	;line	305
 	move.l	d3,-(a7)
 	move.l	d4,-(a7)
 	jsr	_render_frame
