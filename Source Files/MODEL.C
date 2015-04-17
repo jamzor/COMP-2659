@@ -1,7 +1,7 @@
 /*************************************************************************
-FILE:
+FILE:		MODEL.H
 AUTHORS:	James MacIsaac & Brad Ritten
-PURPOSE:
+PURPOSE:	Contains the information of the game.
 *************************************************************************/
 
 #include "model.h"
@@ -162,10 +162,10 @@ const char TblockR4[4][4] =
 }; 
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		dropShape
+PARAMETERS:		struct Model *model
+RETURNS:		Updated model with the shapes Y coordinate incremented
+PURPOSE:		Takes the shape in the model, and drops it 1 block.
 *************************************************************************/
 void dropShape(struct Model *model)
 {
@@ -174,10 +174,10 @@ void dropShape(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		moveShapeRight
+PARAMETERS: 	struct Model *model
+RETURNS:		Updated model with the shapes X coordinate incremented
+PURPOSE:		Takes the shape in the model, and moves it right 1 block.
 *************************************************************************/
 void moveShapeRight(struct Model *model)
 {
@@ -187,10 +187,10 @@ void moveShapeRight(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		moveShapeLeft
+PARAMETERS:		struct Model *model
+RETURNS:		Updated model with the shapes X coordinate incremented
+PURPOSE:		Takes the shape in the model, and moves it left 1 block.
 *************************************************************************/
 void moveShapeLeft(struct Model *model)
 {
@@ -200,10 +200,10 @@ void moveShapeLeft(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		printBoard
+PARAMETERS:		struct Model *model
+RETURNS:		Nothing.
+PURPOSE:		FOR DEBUGGING: prints the board with ascii characters.
 *************************************************************************/
 void printBoard(struct Model *model)
 {
@@ -224,10 +224,11 @@ void printBoard(struct Model *model)
 } 
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		rotateShape
+PARAMETERS:		struct Model *model
+RETURNS:		Model with updated shape.
+PURPOSE:		Model with the shapes rotation incremented to the next 
+					rotation in the array.
 *************************************************************************/
 void rotateShape(struct Model *model)
 {
@@ -245,10 +246,12 @@ void rotateShape(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		canRotate
+PARAMETERS:		struct Model *model
+RETURNS:		Boolean int (4 = True, anything else = false), Model with
+					updated shape.
+PURPOSE:		Boolean function which checks if a shape can rotate at a 
+					given coordinate.
 *************************************************************************/
 int canRotate(struct Model *model)
 {
@@ -294,10 +297,14 @@ int canRotate(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		canLowerShape
+PARAMETERS:		struct Model *model
+RETURNS:		Boolean int (4 = True, anything else = false), Model with
+					updated shape.
+PURPOSE:		Boolean function which checks if the shape can drop 1 block
+					for each column that can drop it will make that column
+					equal to one. A shape can only drop if all 4 columns
+					are true.
 *************************************************************************/
 int canLowerShape(struct Model *model)  
 {
@@ -357,10 +364,14 @@ int canLowerShape(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		canMoveShapeRight
+PARAMETERS:		struct Model *model
+RETURNS:		Boolean int (4 = True, anything else = false), Model with
+					updated shape.
+PURPOSE:		Boolean function which checks if the shape can move right
+					1 block	for each column that can drop it will make 
+					that column	equal to one. A shape can only move right
+					if all 4 columns are true.
 *************************************************************************/
 int canMoveShapeRight(struct Model *model)
 {
@@ -422,10 +433,14 @@ int canMoveShapeRight(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		canMoveShapeLeft
+PARAMETERS:		struct Model *model
+RETURNS:		Boolean int (4 = True, anything else = false), Model with
+					updated shape.
+PURPOSE:		Boolean function which checks if the shape can move left
+					1 block	for each column that can drop it will make 
+					that column	equal to one. A shape can only move left
+					if all 4 columns are true.
 *************************************************************************/
 int canMoveShapeLeft(struct Model *model)  
 {
@@ -485,10 +500,11 @@ int canMoveShapeLeft(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		clearRows
+PARAMETERS:		struct Model *model
+RETURNS:		int value for how many rows were cleared. (Max of 4 in tetris)
+PURPOSE:		checks for any full rows, then calls the helper function (below)
+					to do the rest.
 *************************************************************************/
 int clearRows(struct Model *model)
 {
@@ -528,10 +544,11 @@ int clearRows(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		dropRow
+PARAMETERS:		struct Model *model, int dropY
+RETURNS:		nothing
+PURPOSE:		helper function for clearRows (above), clears a row, then
+					pulls rows above down to overwrite.
 *************************************************************************/
 void dropRow(struct Model *model, int dropY)
 {
@@ -554,10 +571,11 @@ void dropRow(struct Model *model, int dropY)
 }
  
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		makeBlock
+PARAMETERS:		blockType blockNum, struct Model *model, struct Block blocks[]
+RETURNS:		updated model with shape changed to a new block
+PURPOSE:		makeBlock will generate a copy of a shape array and 
+					set it to the new block and reset its X, Y coord.
 *************************************************************************/
 void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[])
 {
@@ -567,10 +585,11 @@ void makeBlock (blockType blockNum, struct Model *model, struct Block blocks[])
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		placeShape
+PARAMETERS:		struct Model *model
+RETURNS:		model with its grid updated with the shape drawn on it.
+PURPOSE:		this updates the back end grid. That way when render is
+					called it renders the shape.
 *************************************************************************/
 void placeShape(struct Model *model)
 {
@@ -600,10 +619,12 @@ void placeShape(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		clearShape
+PARAMETERS:		struct Model *model
+RETURNS:		model with its grid updated with the shape removed from it.
+PURPOSE:		this updates the back end grid. Mainly used when checking
+					if the shape can drop, so that we arn't hitting our own
+					shape.
 *************************************************************************/
 void clearShape(struct Model *model)
 {
@@ -633,10 +654,11 @@ void clearShape(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		gameLost
+PARAMETERS:		struct Model *model
+RETURNS:		boolean value where 1 = game lost and 0 = game is still going
+PURPOSE:		checks the model at the given time to see if the game is lost
+					or is still going.
 *************************************************************************/
 int gameLost(struct Model *model)
 {
@@ -657,10 +679,10 @@ int gameLost(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		inbounds
+PARAMETERS:		int x, int y
+RETURNS:		boolean value where 1 = true and 0 = false is still going
+PURPOSE:		checks if the given x and y are in bounds of the grid.
 *************************************************************************/
 int inbounds(int x, int y)
 {
@@ -672,10 +694,10 @@ int inbounds(int x, int y)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		incr_time
+PARAMETERS:		struct Model *model
+RETURNS:		model with the time updated.
+PURPOSE:		updates the time to the next tick.
 *************************************************************************/
 void incr_time(struct Model *model)
 {
@@ -691,10 +713,11 @@ void incr_time(struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		incr_score
+PARAMETERS:		struct Model *model
+RETURNS:		model with the score incremented.
+PURPOSE:		takes the number of rows cleared and increments the score
+					depending on the amount removed at once.
 *************************************************************************/
 void incr_score(struct Model *model, int numRows)
 {
@@ -725,10 +748,11 @@ void incr_score(struct Model *model, int numRows)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		init
+PARAMETERS:		struct Model *model, struct Block blocks[]
+RETURNS:		A model with all its varibles declared.
+PURPOSE:		takes an empty model and initializes all the varibles to 
+					the appropriate values.
 *************************************************************************/
 void init (struct Model *model, struct Block blocks[])
 {

@@ -1,16 +1,16 @@
 /*************************************************************************
-FILE:
+FILE:		RASTER.C
 AUTHORS:	James MacIsaac & Brad Ritten
-PURPOSE:
+PURPOSE:	Does raster graphics to the screen
 *************************************************************************/
 
 #include "raster.h"
 
 /*************************************************************************
-FUNCTION:	
-PARAMETERS:	
-RETURNS:	
-PURPOSE:	
+FUNCTION:		plot_menu_display
+PARAMETERS:		char *base
+RETURNS:		nil
+PURPOSE:		plots the splash screen / menu to the screen.
 *************************************************************************/
 void plot_menu_display(char *base)
 {
@@ -127,10 +127,10 @@ void plot_menu_display(char *base)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		set_buttons
+PARAMETERS:		char *base
+RETURNS:		nil
+PURPOSE:		prints the buttons for the user to see.
 *************************************************************************/
 void set_buttons(char *base)
 {
@@ -172,10 +172,10 @@ void set_buttons(char *base)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		clear_menu_block
+PARAMETERS:		int *base, int cellX, int cellY
+RETURNS:		nil
+PURPOSE:		clears a cell in the grid at the given x  y coordinate
 *************************************************************************/
 void clear_menu_block(int *base, int cellX, int cellY)
 {
@@ -194,10 +194,10 @@ void clear_menu_block(int *base, int cellX, int cellY)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		plot_pixel
+PARAMETERS:		char *base, int x, int y
+RETURNS:		nil
+PURPOSE:		plots a single pixel to the screen at the given x, y coord
 *************************************************************************/
 void plot_pixel(char *base, int x, int y)
 {
@@ -208,10 +208,10 @@ void plot_pixel(char *base, int x, int y)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		clear_pixel
+PARAMETERS:		char *base, int x, int y
+RETURNS:		nil
+PURPOSE:		removes a single pixel at the given x y coord.
 *************************************************************************/
 void clear_pixel(char *base, int x, int y)
 {
@@ -222,10 +222,11 @@ void clear_pixel(char *base, int x, int y)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		plot_vertical_line
+PARAMETERS:		char *base, int x, int yFirst, int ySecond
+RETURNS:		nil
+PURPOSE:		plots a verticle line with the given x y coordinate,
+					all the way to the 2nd y coordinate.
 *************************************************************************/
 void plot_vertical_line(char *base, int x, int yFirst, int ySecond)
 {
@@ -253,10 +254,11 @@ void plot_vertical_line(char *base, int x, int yFirst, int ySecond)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		clear_vertical_line
+PARAMETERS:		char *base, int x, int yFirst, int ySecond
+RETURNS:		nil
+PURPOSE:		clears a verticle line with the given x y coordinate,
+					all the way to the 2nd y coordinate.
 *************************************************************************/
 void clear_vertical_line(char *base, int x, int yFirst, int ySecond)
 {
@@ -284,10 +286,11 @@ void clear_vertical_line(char *base, int x, int yFirst, int ySecond)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		plot_horizontal_line
+PARAMETERS:		char *base, int xFirst, int xSecond, int y
+RETURNS:		nil
+PURPOSE:		plots a horizontal line at x, y coordinate all the way to
+					the second x coordinate.
 *************************************************************************/
 void plot_horizontal_line(char *base, int xFirst, int xSecond, int y)
 {
@@ -308,10 +311,11 @@ void plot_horizontal_line(char *base, int xFirst, int xSecond, int y)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		clear_horizontal_line
+PARAMETERS:		char *base, int xFirst, int xSecond, int y
+RETURNS:		nil
+PURPOSE:		clears a horizontal line at x, y coordinate all the way to
+					the second x coordinate.
 *************************************************************************/
 void clear_horizontal_line(char *base, int xFirst, int xSecond, int y)
 {
@@ -332,10 +336,10 @@ void clear_horizontal_line(char *base, int xFirst, int xSecond, int y)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		plot_tetris_display
+PARAMETERS:		char *base
+RETURNS:		nil
+PURPOSE:		plots the outline of the tetris board, the score, and the timer.
 *************************************************************************/
 void plot_tetris_display(char *base)
 {
@@ -391,10 +395,10 @@ void plot_tetris_display(char *base)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		plot_cell_grid
+PARAMETERS:		char *base
+RETURNS:		nil
+PURPOSE:		plots the grid of the tetris board.
 *************************************************************************/
 void plot_cell_grid(char *base) /* 10w x 18h */
 {
@@ -417,10 +421,10 @@ void plot_cell_grid(char *base) /* 10w x 18h */
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		fill_cell
+PARAMETERS:		char *base, int cellX, int cellY
+RETURNS:		nil
+PURPOSE:		plots 1 cell into the tetris grid.
 *************************************************************************/
 void fill_cell(int *base, int cellX, int cellY)
 {
@@ -440,10 +444,10 @@ void fill_cell(int *base, int cellX, int cellY)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		clear_cell
+PARAMETERS:		char *base, int cellX, int cellY
+RETURNS:		nil
+PURPOSE:		removes 1 cell in the tetris grid.
 *************************************************************************/
 void clear_cell(int *base, int cellX, int cellY)
 {
@@ -464,10 +468,10 @@ void clear_cell(int *base, int cellX, int cellY)
 
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		plot_char
+PARAMETERS:		UINT8 *base, int x, int y, char c
+RETURNS:		nil
+PURPOSE:		plots a character from the font.h file. 
 *************************************************************************/
 void plot_char(UINT8 *base, int x, int y, char c)
 {
@@ -489,10 +493,10 @@ void plot_char(UINT8 *base, int x, int y, char c)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION:		charInBounds
+PARAMETERS:		int x, int y
+RETURNS:		returns a boolean value where 1 = true, 0 = false
+PURPOSE:		checks if the char is in bounds. 
 *************************************************************************/
 char charInBounds(int x, int y)
 {

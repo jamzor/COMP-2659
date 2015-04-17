@@ -1,7 +1,7 @@
 /*************************************************************************
-	FILE:		
+	FILE:		RASTER.C
 	AUTHORS:	James MacIsaac & Brad Ritten
-	PURPOSE:	This file is the header file for RASTER.C
+	PURPOSE:	Does raster graphics to the screen
 *************************************************************************/
 
 #ifndef RASTER_H

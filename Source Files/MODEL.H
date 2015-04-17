@@ -1,7 +1,7 @@
 /*************************************************************************
-FILE:
+FILE:		MODEL.H
 AUTHORS:	James MacIsaac & Brad Ritten
-PURPOSE:
+PURPOSE:	Contains the information of the game.
 *************************************************************************/
 
 #ifndef MODEL_H

@@ -1,7 +1,7 @@
 /*************************************************************************
-FILE:
-AUTHORS:	?
-PURPOSE:
+FILE:		FONT.C
+AUTHORS:	! (James MacIsaac & Brad Ritten)
+PURPOSE:	bitmaps for fonts
 *************************************************************************/
 
 #include "font.h"

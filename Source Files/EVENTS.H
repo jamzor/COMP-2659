@@ -1,7 +1,7 @@
 /*************************************************************************
-FILE:
+FILE:		EVENTS.H
 AUTHORS:	James MacIsaac & Brad Ritten
-PURPOSE:
+PURPOSE:	Contains the events for key presses
 *************************************************************************/
 
 #ifndef EVENTS_H

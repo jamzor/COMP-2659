@@ -1,16 +1,17 @@
 /*************************************************************************
-FILE:
+FILE: 		EVENTS.C
 AUTHORS:	James MacIsaac & Brad Ritten
-PURPOSE:
+PURPOSE:	Contains the events for key presses
 *************************************************************************/
 
 #include "events.h"
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: 	detectKeyPress
+PARAMETERS:	struct Model *model
+RETURNS:	updated model with they key read set.
+PURPOSE:	checks if theres something in the keyboard buffer, if so,
+				it grabs the key pressed and changes the model.
 *************************************************************************/
 void detectKeyPress(struct Model *model)
 {
