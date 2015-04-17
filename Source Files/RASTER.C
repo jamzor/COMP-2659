@@ -7,13 +7,7 @@ PURPOSE:	Does raster graphics to the screen
 #include "raster.h"
 
 /*************************************************************************
-<<<<<<< HEAD
-FUNCTION:		plot_menu_display
-PARAMETERS:		char *base
-RETURNS:		nil
-PURPOSE:		plots the splash screen / menu to the screen.
-=======
-FUNCTION:
+FUNCTION:	
 PARAMETERS:
 RETURNS:
 PURPOSE:
@@ -169,7 +163,6 @@ FUNCTION:
 PARAMETERS:	
 RETURNS:	
 PURPOSE:	
->>>>>>> f8c623a857b507316d18349a982dc78ed089eba8
 *************************************************************************/
 void plot_menu_display(char *base)
 {

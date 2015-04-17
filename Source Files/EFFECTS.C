@@ -2,17 +2,20 @@
 
 playDropEffect()
 {
-	write_psg(0x00, 0x01);	/* set channel A volume = 11 */
-	write_psg(0x06, 0x10);	/* set channel A volume = 11 */
-	write_psg(0x07, 0xFF);
+	write_psg(0x02, 0x01);	/* set channel A volume = 1 */
+	write_psg(0x06, 0x10);	
 
-	write_psg(0x0A, 0x10);
+	write_psg(0x09, 0x10);
 	write_psg(0x0C, 0x05);
 	write_psg(0x0D, 0x00);
 }
 
-playClearEffect()
+playClearEffect()/* explosion for clearing the maximum of 4 rows. */
 {
-	
+	write_psg(0x02, 0x01);	
+	write_psg(0x06, 0x10);	
 
+	write_psg(0x09, 0x16);
+	write_psg(0x0C, 0x25);
+	write_psg(0x0D, 0x02);
 }

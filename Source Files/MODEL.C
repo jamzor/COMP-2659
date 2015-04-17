@@ -738,7 +738,7 @@ void incr_score(struct Model *model, int numRows)
 		break;
 	case 4:
 		model->score.value += 1200;
-
+		playClearEffect();
 		break;
 	default:
 		model->score.value += 0;

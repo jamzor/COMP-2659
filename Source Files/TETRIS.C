@@ -107,7 +107,7 @@ void run_menu(char *base)
 			
 			if (currentIndex == 1)
 			{
-				playDropEffect();
+				playClearEffect();
 			}
 			else if (currentIndex == 2)
 			{
