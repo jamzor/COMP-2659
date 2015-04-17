@@ -42,7 +42,7 @@ int menuSelect()
 	int returnVal;
 	long keyRead;
 
-	keyRead = (long)Cnecin();
+		keyRead = (long)Cnecin();
 		if (keyRead == UP_ARROW)
 		{
 			returnVal = 1;
@@ -55,4 +55,6 @@ int menuSelect()
 		{
 			returnVal = 3;
 		}
+
+		return returnVal;
 }

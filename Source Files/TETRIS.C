@@ -17,8 +17,7 @@ int main()
 {
 	void *base = get_vb(); /* frame buffer pointer */
 	/*kbd_read();*/
-	/*run_menu(base);*/
-	main_game_loop(base);
+	run_menu(base);
 	return 0;
 }
 
@@ -91,66 +90,78 @@ void run_menu(char *base)
 {
 	int keyPress;				
 	int currentIndex = 1;		/*menu button index*/
+	int selection = 0;
+
 	init_frame(base);
 	fill_screen(base);
 	plot_menu_display(base);
+	plot_menu_selection(base, currentIndex);
+	
 
-
-	while (1 < 2)
+	while (selection == 0)
 	{
-		
-		plot_menu_selection(base,currentIndex);
-
-		while (!Cconis())
-			;
 		keyPress = menuSelect();
 
 		if (keyPress == 1) /* up arrow */
 		{
+			
 			if (currentIndex == 1)
 			{
 				playDropEffect();
 			}
-			if (currentIndex == 2)
+			else if (currentIndex == 2)
 			{
+				clear_menu_selection(base, currentIndex);
 				currentIndex = 1;
+				plot_menu_selection(base, currentIndex);
 			}
-			if (currentIndex == 3)
+			else if (currentIndex == 3)
 			{
+				clear_menu_selection(base, currentIndex);
 				currentIndex = 2;
+				plot_menu_selection(base, currentIndex);
 			}
 		}
 		else if (keyPress == 2) /* down arrow */
 		{
+			
 			if (currentIndex == 1)
 			{
+				clear_menu_selection(base, currentIndex);
 				currentIndex = 2;
+				plot_menu_selection(base, currentIndex);
 			}
-			if (currentIndex == 2)
+			else if (currentIndex == 2)
 			{
+				clear_menu_selection(base, currentIndex);
 				currentIndex = 3;
+				plot_menu_selection(base, currentIndex);
 			}
-			if (currentIndex == 3)
+			else if (currentIndex == 3)
 			{
 				playDropEffect();
 			}
+			
 		}
 		else if (keyPress == 3)
 		{
 			if (currentIndex = 1)
 			{
+				selection = 1;
 				main_game_loop(base);
 			}
-			if (currentIndex == 2)
+			else if (currentIndex == 2)
 			{
+				selection = 1;
 				/* two player game */
 			}
-			if (currentIndex == 3)
+			else if (currentIndex == 3)
 			{
+				selection = 1;
 				/* quit */
 			}
 		}
-		clear_menu_selection(base,currentIndex);
+		
 	}
 }
 
