@@ -7,10 +7,10 @@ PURPOSE:
 #include "RENDER.H"
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: render_frame
+PARAMETERS: char *base,struct Model *model
+RETURNS: nil
+PURPOSE: renders an entire frame of the gameplay screen
 *************************************************************************/
 void render_frame(char *base,struct Model *model)
 {
@@ -21,10 +21,10 @@ void render_frame(char *base,struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: render_model_elements
+PARAMETERS: char *base, struct Model *model
+RETURNS: nil
+PURPOSE: renders only the dynamic elements of the gameplay screen
 *************************************************************************/
 void render_model_elements(char *base, struct Model *model)
 {
@@ -34,10 +34,10 @@ void render_model_elements(char *base, struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: render_interface
+PARAMETERS: char *base
+RETURNS: nil
+PURPOSE: renders the static user interface portion of the gameplays screen
 *************************************************************************/
 void render_interface(char *base)
 {
@@ -46,10 +46,10 @@ void render_interface(char *base)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: render_model
+PARAMETERS:char *base, struct Model *model
+RETURNS: nil
+PURPOSE: render model grid contents to the rendered frame's cell area
 *************************************************************************/
 void render_model(char *base, struct Model *model)
 {
@@ -67,10 +67,10 @@ void render_model(char *base, struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: render_score
+PARAMETERS: char *base, struct Model *model
+RETURNS: nil
+PURPOSE: render the score element to the given frame
 *************************************************************************/
 void render_score(char *base, struct Model *model)
 {
@@ -100,10 +100,10 @@ void render_score(char *base, struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: render_time
+PARAMETERS: char *base, struct Model *model
+RETURNS: void
+PURPOSE: render the time element of the given frame
 *************************************************************************/
 void render_time(char *base, struct Model *model)
 {
@@ -124,10 +124,10 @@ void render_time(char *base, struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: clear_frame
+PARAMETERS: char *base, struct Model *model
+RETURNS: nil
+PURPOSE: clear the given screen
 *************************************************************************/
 void clear_frame(char *base, struct Model *model)
 {
@@ -135,10 +135,10 @@ void clear_frame(char *base, struct Model *model)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: clear_model_elements
+PARAMETERS: char *base
+RETURNS: nil
+PURPOSE: clear the current dynamic model elements from the given frame
 *************************************************************************/
 void clear_model_elements(char *base)
 {
@@ -155,10 +155,10 @@ void clear_model_elements(char *base)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: disable_cursor
+PARAMETERS: nil
+RETURNS: nil
+PURPOSE: disable the flickering cursor from the screen
 *************************************************************************/
 void disable_cursor()
 {

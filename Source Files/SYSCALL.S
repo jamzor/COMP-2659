@@ -1,20 +1,25 @@
 ;*************************************************************************
-;	FILE:		
+;	FILE: SYSCALL.S	
 ;	AUTHORS:	James MacIsaac & Brad Ritten
-;	PURPOSE:	
+;	PURPOSE: This file contains system calls that are commonly used 
+;				throughout the project.
 ;*************************************************************************/
 
 		XDEF _enter_super
 		XDEF _exit_super
 		XDEF _get_vb
 		XDEF _set_vb
-		XDEF _kbd_read
 		
 SCREEN:		equ	 8
 PHYSBASE:   equ  16
 VIDEO_MEM:		equ	 $FF8200
 
-_enter_super:                     		;enter supervisor mode
+
+;FUNCTION: enter_super
+;PARAMETERS: nil
+;RETURNS: nil
+;PURPOSE: puts us in supervisor mode
+_enter_super:                     		
 			movem.l d0-d1/a0,-(sp)
 			clr.l -(a7)
    			move.w #32,-(a7)  
@@ -23,7 +28,11 @@ _enter_super:                     		;enter supervisor mode
   			move.l d0,stack_old
    			movem.l  (sp)+,d0-d1/a0
 			rts		
-			
+	
+;FUNCTION: exit_super
+;PARAMETERS: nil
+;RETURNS: nil
+;PURPOSE: leave supervisor mode		
 _exit_super:								;exit supervisor mode
 			movem.l d0-d1/a0,-(sp)
 			move.l stack_old,-(a7)
@@ -33,6 +42,10 @@ _exit_super:								;exit supervisor mode
 			movem.l  (sp)+,d0-d1/a0
    			rts
 
+;FUNCTION: get_vb
+;PARAMETERS: nil
+;RETURNS: char*
+;PURPOSE: returns a video base pointer to use to draw to the frame.
 _get_vb:
 			link a6,#0
 			movem.l d1/a0,-(sp)			
@@ -52,7 +65,12 @@ _get_vb:
 			movem.l (sp)+,d1/a0
 			unlk a6
 			rts
-				
+
+;FUNCTION: set_vb
+;PARAMETERS: char* screen
+;RETURNS: nil
+;PURPOSE: sets the current frame to be viewed by the system. 
+;			allows for double buffering the screen			
 _set_vb:	
 			link a6,#0
 			movem.l d1/a0,-(sp)
@@ -70,32 +88,6 @@ _set_vb:
 			
 			jsr _exit_super
 			
-			movem.l (sp)+,d1/a0
-			unlk a6
-			rts
-
-_kbd_read:
-			link a6,#0
-			movem.l d1/a0,-(sp)
-			move.l #0,-(sp)
-
-			move.b #8,-(sp)
-			trap #1
-			addq.l #2,sp
-
-			movem.l (sp)+,d1/a0
-			unlk a6
-			rts
-
-_kbd_status:
-			link a6,#0
-			movem.l d1/a0,-(sp)
-			move.l #0,-(sp)
-
-			move.b #8,-(sp)
-			trap #1
-			addq.l #2,sp
-
 			movem.l (sp)+,d1/a0
 			unlk a6
 			rts

@@ -7,11 +7,12 @@
 #ifndef SYSCALL_H
 #define SYSCALL_H
 
+/*************************************************************************
+	FUNCTION HEADERS
+**************************************************************************/
 void enter_super();
 void exit_super();
 char* get_vb();
 void set_vb(char* screen);
-long kbd_read();
-long kbd_status();
 
 #endif

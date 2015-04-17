@@ -7,10 +7,17 @@ PURPOSE:	Does raster graphics to the screen
 #include "raster.h"
 
 /*************************************************************************
+<<<<<<< HEAD
 FUNCTION:	
 PARAMETERS:
 RETURNS:
 PURPOSE:
+=======
+FUNCTION:		plot_menu_selection
+PARAMETERS:		char *base, int selection
+RETURNS:		nil
+PURPOSE:		plots the selected menu button indicator
+>>>>>>> ac59280b49c34efb424e4c0295613a8671b42b38
 *************************************************************************/
 void plot_menu_selection(char *base, int selection)
 {
@@ -83,10 +90,10 @@ void plot_menu_selection(char *base, int selection)
 }
 
 /*************************************************************************
-FUNCTION:
-PARAMETERS:
-RETURNS:
-PURPOSE:
+FUNCTION: clear_menu_selection
+PARAMETERS: char *base, int selection
+RETURNS: nil
+PURPOSE: Clear the menu selection from the button
 *************************************************************************/
 void clear_menu_selection(char *base, int selection)
 {
@@ -159,10 +166,17 @@ void clear_menu_selection(char *base, int selection)
 }
 
 /*************************************************************************
+<<<<<<< HEAD
 FUNCTION:	
 PARAMETERS:	
 RETURNS:	
 PURPOSE:	
+=======
+FUNCTION:  plot_menu_display
+PARAMETERS:	char *base
+RETURNS: nil	
+PURPOSE: plot the menu splash art to the screen (screen should be filled beforehand)
+>>>>>>> ac59280b49c34efb424e4c0295613a8671b42b38
 *************************************************************************/
 void plot_menu_display(char *base)
 {
@@ -282,7 +296,7 @@ void plot_menu_display(char *base)
 FUNCTION:		set_buttons
 PARAMETERS:		char *base
 RETURNS:		nil
-PURPOSE:		prints the buttons for the user to see.
+PURPOSE:		prints the buttons for the user to see. (called by plot_menu_display)
 *************************************************************************/
 void set_buttons(char *base)
 {
@@ -340,7 +354,7 @@ void set_buttons(char *base)
 FUNCTION:		clear_menu_block
 PARAMETERS:		int *base, int cellX, int cellY
 RETURNS:		nil
-PURPOSE:		clears a cell in the grid at the given x  y coordinate
+PURPOSE:		clears a cell in the splash grid at the given x  y coordinate
 *************************************************************************/
 void clear_menu_block(int *base, int cellX, int cellY)
 {
