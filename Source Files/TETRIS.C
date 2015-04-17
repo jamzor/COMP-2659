@@ -15,149 +15,9 @@ PURPOSE:
 *************************************************************************/
 int main()
 {
-	void *base = Physbase(); /* frame buffer pointer */
-	UINT8 *back = (UINT8*) (((UINT32) (buffer) + 256) & 0xFFFFFF00);
-	int isBase = 1;
-	int x;
-	int y;
-	int canLower;
-	int canRight;
-	int canLeft;
-	int canRot;
-	int blockNum;
-	int result = 0;
-    struct Model model;
-	struct Block blocks[7];
-	long timeNow;
-	long timeElapsed;
-	long timeThen = 0;
-	int keyPress;
-	int isGameLost;
-	int points;
-	srand(31);
-	blockNum = rand() % 7;
-	init_frame(base); 
-	init_frame(back);
-	init(&model, blocks); 
-	makeBlock (blockNum, &model, blocks);
-	isGameLost = gameLost(&model);
-	render_frame(base,&model);
-	render_frame(back,&model);
-	timeNow = getCurTime();
-	start_music(timeNow);
-	while (isGameLost == 0)
-	{
-		timeNow = getCurTime();
-		timeElapsed = timeNow - timeThen;
-
-		detectKeyPress(&model);
-		keyPress = model.userMovement;
-
-		if (keyPress == 1)
-		{
-			clearShape(&model);
-			canLeft = canMoveShapeLeft(&model);
-			placeShape(&model);
-			model.userMovement = 0;
-			if (canLeft == 4)
-			{
-				/* clear_model_elements(base); */
-				moveShapeLeft(&model);
-				/* render_model_elements(base, &model); */
-
-			}
-		}
-		if (keyPress == 2)
-		{
-			clearShape(&model);
-			canRight = canMoveShapeRight(&model);
-			model.userMovement = 0;
-			placeShape(&model);
-			if (canRight == 4)
-			{
-				/* clear_model_elements(base); */
-				moveShapeRight(&model);
-				/* render_model_elements(base, &model); */
-			}
-		}
-		if (keyPress == 3)
-		{
-			clearShape(&model);
-			canRot = canRotate(&model);
-			if (canRot == 4)
-			{
-				/* clear_model_elements(base); */
-				rotateShape(&model);
-				/* render_model_elements(base, &model); */
-			}
-			placeShape(&model);
-			model.userMovement = 0;
-		}
-		if (keyPress == 4)
-		{
-			clearShape(&model);
-			canLower = canLowerShape(&model);
-			if (canLower == 4)
-			{
-				/* clear_model_elements(base); */
-				dropShape(&model); 
-				/* render_model_elements(base, &model); */
-			}
-			placeShape(&model);
-			model.userMovement = 0;
-		}
-		
-		if (timeElapsed > 0)
-		{
-			clearShape(&model);
-			/* clear_model_elements(base); */
-			canLower = canLowerShape(&model);
-			/* playDropEffect(); */
-			if (canLower != 4) /* cant be lowered  */
-			{
-				placeShape(&model);
-				points = clearRows(&model);
-				incr_score(&model,points);
-				isGameLost = gameLost(&model);
-				blockNum = rand() % 7;
-				makeBlock (blockNum, &model, blocks);
-			}
-			dropShape(&model); 
-			/* render_model_elements(base,&model); */
-			incr_time(&model);
-			timeThen = timeNow + 70;
-		}
-		
-		/* isBase = doubleBuffer(&model, base, back, isBase); */
-		if (isBase == 1)
-		{
-			clear_model_elements(base);
-			render_model_elements(base,&model);
-			isBase = 0;
-			Setscreen(-1, base, -1);
-		}
-		else
-		{
-			clear_model_elements(back);
-			render_model_elements(back,&model);
-			isBase = 1;
-			Setscreen(-1, back, -1);
-		} 
-		update_music(timeNow);
-		Vsync(); 
-	}
-	
-	stop_sound();
-	for (y = GRID_HEIGHT-1; y >= 0; y--) /* game lost */ 
-	{
-		for (x = 0; x < GRID_WIDTH; x++)
-		{
-			model.grid[x][y] = 1; 
-		}
-		x = 0;
-		render_frame(base,&model); 
-	}
-	Setscreen(-1, base, -1);
+	void *base = get_vb(); /* frame buffer pointer */
+	/*kbd_read();*/
+	run_menu(base);
 	return 0;
 }
 
@@ -172,9 +32,9 @@ long getCurTime()
 	long *timer = (long *)0x462; /* address of longword auto-inc’ed 70 x per s */
 	long timeNow;
 	long old_ssp;
-	old_ssp = Super(0); /* enter privileged mode */
+	enter_super(); /* enter privileged mode */
 	timeNow = *timer;
-	Super(old_ssp); /* exit privileged mode as soon as possible */
+	exit_super(); /* exit privileged mode as soon as possible */
 	return timeNow;
 }
 
@@ -197,24 +57,265 @@ PARAMETERS:
 RETURNS:
 PURPOSE:
 *************************************************************************/
-int doubleBuffer(struct Model *model, char *base, char *back, int isBase)
+int doubleBuffer(struct Model *model, void *base, UINT8 *back, int isBase)
 {
+
 	if (isBase == 1)
 	{
-		clear_model_elements(back);
-		render_model_elements(back,&model);
-		isBase = 1;
-		Setscreen(-1, back, -1);
+		clear_model_elements(base);
+		render_model_elements(base, &model);
+		isBase = 0;
+
+		set_vb(base);
 	}
 	else
 	{
-		clear_model_elements(base);
-		render_model_elements(base,&model);
-		isBase = 0;
-		Setscreen(-1, base, -1);
+		clear_model_elements(back);
+		render_model_elements(back, &model);
+		isBase = 1;
+
+		set_vb(back);
 	}
 
 	return isBase;
+}
+
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
+void run_menu(char *base)
+{
+	int keyPress;				
+	int currentIndex = 1;		/*menu button index*/
+	int selection = 0;
+
+	init_frame(base);
+	fill_screen(base);
+	plot_menu_display(base);
+	plot_menu_selection(base, currentIndex);
+	
+
+	while (selection == 0)
+	{
+		keyPress = menuSelect();
+
+		if (keyPress == 1) /* up arrow */
+		{
+			
+			if (currentIndex == 1)
+			{
+				playDropEffect();
+			}
+			else if (currentIndex == 2)
+			{
+				clear_menu_selection(base, currentIndex);
+				currentIndex = 1;
+				plot_menu_selection(base, currentIndex);
+			}
+			else if (currentIndex == 3)
+			{
+				clear_menu_selection(base, currentIndex);
+				currentIndex = 2;
+				plot_menu_selection(base, currentIndex);
+			}
+		}
+		else if (keyPress == 2) /* down arrow */
+		{
+			
+			if (currentIndex == 1)
+			{
+				clear_menu_selection(base, currentIndex);
+				currentIndex = 2;
+				plot_menu_selection(base, currentIndex);
+			}
+			else if (currentIndex == 2)
+			{
+				clear_menu_selection(base, currentIndex);
+				currentIndex = 3;
+				plot_menu_selection(base, currentIndex);
+			}
+			else if (currentIndex == 3)
+			{
+				playDropEffect();
+			}
+			
+		}
+		else if (keyPress == 3)
+		{
+			if (currentIndex = 1)
+			{
+				selection = 1;
+				main_game_loop(base);
+			}
+			else if (currentIndex == 2)
+			{
+				selection = 1;
+				/* two player game */
+			}
+			else if (currentIndex == 3)
+			{
+				selection = 1;
+				/* quit */
+			}
+		}
+		
+	}
+}
+
+/*************************************************************************
+FUNCTION:
+PARAMETERS:
+RETURNS:
+PURPOSE:
+*************************************************************************/
+int main_game_loop(char *base)
+{
+	UINT8 *back = (UINT8*)(((UINT32)(buffer)+256) & 0xFFFFFF00);
+	int isBase = 1;
+	int x;
+	int y;
+	int canLower;
+	int canRight;
+	int canLeft;
+	int canRot;
+	int blockNum;
+	int result = 0;
+	struct Model model;
+	struct Block blocks[7];
+	long timeNow;
+	long timeElapsed;
+	long timeThen = 0;
+	int keyPress;
+	int isGameLost;
+	int points;
+
+	blockNum = getCurTime() % 7;
+	clear_screen(base);
+	clear_screen(back);
+	init_frame(base);
+	init_frame(back);
+	init(&model, blocks);
+	makeBlock(blockNum, &model, blocks);
+	
+	isGameLost = gameLost(&model);
+	
+	render_frame(base, &model);
+	render_frame(back, &model);
+	
+	timeNow = getCurTime();
+
+	start_music(timeNow);
+
+	while (isGameLost == 0)
+	{
+
+		detectKeyPress(&model);
+		keyPress = model.userMovement;
+
+		if (keyPress == 1)
+		{
+			clearShape(&model);
+			canLeft = canMoveShapeLeft(&model);
+			placeShape(&model);
+			model.userMovement = 0;
+			if (canLeft == 4)
+			{
+				moveShapeLeft(&model);
+
+			}
+		}
+		if (keyPress == 2)
+		{
+			clearShape(&model);
+			canRight = canMoveShapeRight(&model);
+			model.userMovement = 0;
+			placeShape(&model);
+			if (canRight == 4)
+			{
+				moveShapeRight(&model);
+			}
+		}
+		if (keyPress == 3)
+		{
+			clearShape(&model);
+			canRot = canRotate(&model);
+			if (canRot == 4)
+			{
+				rotateShape(&model);
+			}
+			placeShape(&model);
+			model.userMovement = 0;
+		}
+		if (keyPress == 4)
+		{
+			clearShape(&model);
+			canLower = canLowerShape(&model);
+			if (canLower == 4)
+			{
+				dropShape(&model);
+			}
+			placeShape(&model);
+			model.userMovement = 0;
+		}
+
+		timeNow = getCurTime();
+		timeElapsed = timeNow - timeThen;
+
+		if (timeElapsed > 0)
+		{
+			clearShape(&model);
+			canLower = canLowerShape(&model);
+			if (canLower != 4) 
+			{
+				playDropEffect();
+				placeShape(&model);
+				points = clearRows(&model);
+				incr_score(&model, points);
+				isGameLost = gameLost(&model);
+				blockNum = rand() % 7;
+				makeBlock(blockNum, &model, blocks);
+			}
+			dropShape(&model);
+			incr_time(&model);
+			timeThen = timeNow + 70;
+		}
+
+		if (isBase == 1)
+		{
+			clear_model_elements(base);
+			render_model_elements(base, &model);
+			isBase = 0;
+
+			set_vb(base);
+		}
+		else
+		{
+			clear_model_elements(back);
+			render_model_elements(back, &model);
+			isBase = 1;
+
+			set_vb(back);
+		}
+		Vsync();
+		update_music(timeNow);
+
+	}
+
+	set_vb(base);
+	stop_sound();
+	for (y = GRID_HEIGHT - 1; y >= 0; y--) /* game lost */
+	{
+		for (x = 0; x < GRID_WIDTH; x++)
+		{
+			model.grid[x][y] = 1;
+		}
+		x = 0;
+		render_frame(base, &model);
+	}
+	
 }
 
 

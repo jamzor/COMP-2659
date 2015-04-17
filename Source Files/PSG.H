@@ -1,7 +1,10 @@
 #ifndef PSG_H
 #define PSG_H
-#include "types.h"
+
 #include <osbind.h>
+#include <stdio.h>
+#include "TYPES.H"
+#include "SYSCALL.H"
 
 #define REG_SELECT 0xFF8800
 #define REG_WRITE 0xFF8802

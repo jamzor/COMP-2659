@@ -1,35 +1,14 @@
 #include "PSG.H"
 
-/* int main()
-{
-	UINT32 i = 0;
-	long x;
-
-	 playDropEffect();
-	 Cnecin();
-	 	 playDropEffect();
-	 Cnecin();
-	 	 playDropEffect();
-	 Cnecin();
-	 
-	 
-	 
-	 
-	stop_sound();
-	return 0;
-}
- */
 void write_psg(int reg, UINT8 val)
 {
 	volatile char *PSG_reg_select = REG_SELECT; 
 	volatile char *PSG_reg_write = REG_WRITE;	/* create pointers */
 	
-	long old_ssp = Super(0);					/* Enter Supervisor mode */
-	
+	enter_super();					/* Enter Supervisor mode */
 	*PSG_reg_select = reg;
 	*PSG_reg_write = val;
-	
-	Super(old_ssp);								/* Back to User mode */
+	exit_super();								/* Back to User mode */
 }
 
 UINT8 read_psg(int reg)
@@ -39,12 +18,10 @@ UINT8 read_psg(int reg)
 	
 	UINT8 returnValue;
 	
-	long old_ssp = Super(0);					/* Enter Supervisor mode */
-	
+	enter_super();					/* Enter Supervisor mode */
 	*PSG_reg_select = reg;
 	returnValue = *PSG_reg_write;
-	
-	Super(old_ssp);								/* Back to User mode */
+	exit_super();							/* Back to User mode */
 
 	return returnValue;
 }

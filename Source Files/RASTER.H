@@ -35,6 +35,9 @@
 #define TWO_PLAYER_B_X 240
 #define TWO_PLAYER_B_Y 280
 
+#define QUIT_B_X 280
+#define QUIT_B_Y 330
+
 /*************************************************************************
 	FUNCTION HEADERS
 		more details on individual functions in RASTER.C
@@ -48,6 +51,8 @@ void clear_vertical_line(char *base, int x, int yFirst, int ySecond);
 void plot_horizontal_line(char *base, int xFirst, int xSecond, int y);
 void clear_horizontal_line(char *base, int xFirst, int xSecond, int y);
 
+void clear_menu_selection(char *base, int selection);
+void plot_menu_selection(char *base, int selection);
 void plot_menu_display(char *base);
 void set_buttons(char *base);
 
