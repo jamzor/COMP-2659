@@ -1,12 +1,6 @@
 
 	XDEF	_set_ipl
-	XDEF	_vbl_isr
 
-_vbl_isr:	
-	movem.l		d0-d2/a0-a2,-(sp)
-	jsr		_do_vbl_isr
-	movem.l		(sp)+,d0-d2/a0-a2
-	rte
 
 ;sets IPL = mask, returns old IPL (interrupt priority level) 
 ;must be called from supervisor mode

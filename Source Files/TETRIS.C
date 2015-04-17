@@ -299,7 +299,6 @@ int main_game_loop(char *base)
 
 			set_vb(back);
 		}
-		Vsync();
 		update_music(timeNow);
 
 	}

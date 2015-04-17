@@ -7,17 +7,10 @@ PURPOSE:	Does raster graphics to the screen
 #include "raster.h"
 
 /*************************************************************************
-<<<<<<< HEAD
-FUNCTION:	
-PARAMETERS:
-RETURNS:
-PURPOSE:
-=======
 FUNCTION:		plot_menu_selection
 PARAMETERS:		char *base, int selection
 RETURNS:		nil
 PURPOSE:		plots the selected menu button indicator
->>>>>>> ac59280b49c34efb424e4c0295613a8671b42b38
 *************************************************************************/
 void plot_menu_selection(char *base, int selection)
 {
@@ -166,17 +159,10 @@ void clear_menu_selection(char *base, int selection)
 }
 
 /*************************************************************************
-<<<<<<< HEAD
-FUNCTION:	
-PARAMETERS:	
-RETURNS:	
-PURPOSE:	
-=======
 FUNCTION:  plot_menu_display
 PARAMETERS:	char *base
 RETURNS: nil	
 PURPOSE: plot the menu splash art to the screen (screen should be filled beforehand)
->>>>>>> ac59280b49c34efb424e4c0295613a8671b42b38
 *************************************************************************/
 void plot_menu_display(char *base)
 {
